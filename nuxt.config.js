@@ -31,7 +31,9 @@ export default {
 
   buildModules: [
     '@nuxt/typescript-build',
-    '@nuxtjs/vuetify'
+    '@nuxtjs/vuetify',
+    '@nuxtjs/composition-api/module',
+    '@nuxt/postcss8'
   ],
 
   modules: [
@@ -50,5 +52,11 @@ export default {
   },
 
   build: {
+    postcss: {
+      plugins: {
+        tailwindcss: {},
+        autoprefixer: {}
+      }
+    }
   }
 }
