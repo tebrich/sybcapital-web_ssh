@@ -10,6 +10,9 @@ module.exports = {
   prefix: 'sb-',
   theme: {
     container: { center: true },
+    fontFamily: {
+      sans: ['Poppins', 'sans-serif']
+    },
     extend: {
       colors: {
         primary: '#3E4095',

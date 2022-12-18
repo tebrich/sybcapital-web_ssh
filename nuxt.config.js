@@ -5,10 +5,10 @@ export default {
   },
 
   head: {
-    titleTemplate: '%s - sybcapital-web',
-    title: 'sybcapital-web',
+    titleTemplate: '%s - SyB Capital Noticias de Mercado, Cotizaciones, Gráficos e Información Financiera',
+    title: 'SyB Capital',
     htmlAttrs: {
-      lang: 'en'
+      lang: 'es'
     },
     meta: [
       { charset: 'utf-8' },
@@ -22,6 +22,7 @@ export default {
   },
 
   css: [
+    '~/assets/css/main.css'
   ],
 
   plugins: [
@@ -47,7 +48,12 @@ export default {
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
-      dark: false
+      dark: false,
+      light: {
+        // vuetify shortcut colors
+        primary: '#3E4095',
+        secondary: '#ED3237'
+      }
     }
   },
 
