@@ -1,7 +1,7 @@
 <template>
   <footer class="sb-bg-primary sb-py-5">
     <v-container>
-      <v-row justify="between">
+      <v-row>
         <v-col cols="9">
           <h2 class="sb-text-white sb-font-bold sb-text-lg">
             SyB Capital (SyBCapital.com) | Noticias de Mercado, Cotizaciones, Gráficos e Información Financiera

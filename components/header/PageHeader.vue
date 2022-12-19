@@ -1,5 +1,5 @@
 <template>
-  <div class="sb-border-b-2 sb-border-gray-500 sb-border-opacity-10">
+  <div class="sb-border-b-2 sb-border-gray-500 sb-border-opacity-10 sb-shadow-md sb-bg-white sb-fixed sb-top-0 sb-left-0 sb-w-full sb-z-10">
     <v-container>
       <header class="sb-flex sb-justify-between sb-items-center sb-gap-3">
         <div>

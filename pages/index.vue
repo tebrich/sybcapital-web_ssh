@@ -14,7 +14,7 @@
           <preview-news-container />
         </v-col>
         <v-col cols="6">
-          <preview-news-container v-for="(item, index) in 3" :key="index" mobile />
+          <preview-news-container v-for="(item, index) in 3" :key="index" small />
         </v-col>
       </v-row>
     </section>
@@ -28,6 +28,13 @@
       <p>
         Praesent arcu mi, ultrices ac volutpat eu, porta quis mauris. Sed convallis tellus eget interdum iaculis. Nulla tristique eu lectus eu porttitor. Ut ac sem a velit ornare sodales. Aliquam quis pretium dui. Morbi dapibus faucibus velit, in luctus elit finibus sed. Nunc ac odio ac odio molestie aliquam. Donec ac sodales nunc. Fusce commodo suscipit purus, eget iaculis massa. Etiam a eleifend ex. Sed malesuada arcu sed nunc ultricies congue vel in tellus.
       </p>
+    </section>
+    <section>
+      <v-row>
+        <v-col cols="9">
+          <preview-news-container v-for="(item, index) in 3" :key="index" small />
+        </v-col>
+      </v-row>
     </section>
   </div>
 </template>

@@ -1,6 +1,7 @@
 <template>
   <v-app>
     <page-header />
+    <div class="sb-h-32"></div>
     <v-main>
       <v-container>
         <div class="sb-py-5">
