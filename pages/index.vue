@@ -31,8 +31,34 @@
     </section>
     <section>
       <v-row>
-        <v-col cols="9">
-          <preview-news-container v-for="(item, index) in 3" :key="index" small />
+        <v-col cols="8">
+          <preview-news-container v-for="(item, index) in 12" :key="index" small />
+        </v-col>
+        <v-col cols="4">
+          <div class="sb-py-3 sb-w-full">
+            <subscribe-news-letter />
+            <v-divider class="sb-py-5" />
+            <div>
+              <h3 class="sb-text-xl sb-font-bold sb-mb-2">
+                NASDAQ Market Movers
+              </h3>
+              <price-actives-tabs />
+            </div>
+            <v-divider class="sb-py-5" />
+            <div>
+              <h3 class="sb-text-xl sb-font-bold sb-mb-2">
+                NYSE Market Movers
+              </h3>
+              <price-actives-tabs />
+            </div>
+            <v-divider class="sb-py-5" />
+            <div>
+              <h3 class="sb-text-xl sb-font-bold sb-mb-2">
+                OTC Market Movers
+              </h3>
+              <price-actives-tabs />
+            </div>
+          </div>
         </v-col>
       </v-row>
     </section>
@@ -41,15 +67,19 @@
 
 <script>
 import { defineComponent } from '@nuxtjs/composition-api'
+import SubscribeNewsLetter from '~/components/newsletter/SubscribeNewsLetter.vue'
 import FeatureStockPrice from '~/components/stock/container/FeatureStockPrice.vue'
 import PreviewNewsContainer from '~/components/stock/news/PreviewNewsContainer.vue'
+import PriceActivesTabs from '~/components/stock/container/PriceActivesTabs.vue'
 
 export default defineComponent({
   name: 'Index',
 
   components: {
     FeatureStockPrice,
-    PreviewNewsContainer
+    PreviewNewsContainer,
+    SubscribeNewsLetter,
+    PriceActivesTabs
   },
 
   setup () {

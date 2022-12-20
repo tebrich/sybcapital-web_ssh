@@ -2,7 +2,7 @@
   <footer class="sb-bg-primary sb-py-5">
     <v-container>
       <v-row>
-        <v-col cols="9">
+        <v-col cols="8">
           <h2 class="sb-text-white sb-font-bold sb-text-lg">
             SyB Capital (SyBCapital.com) | Noticias de Mercado, Cotizaciones, Gráficos e Información Financiera
           </h2>
@@ -25,23 +25,8 @@
             SyBCapital.com may be compensated by the advertisers that appear on the website, based on your interaction with the advertisements or advertisers. Please read our full disclaimer by clicking here.
           </p>
         </v-col>
-        <v-col cols="3">
-          <div>
-            <h2 class="sb-font-bold sb-text-3xl sb-text-white">
-              Join Our Free Stock Market Newsletter:
-            </h2>
-            <p class="!sb-my-2 sb-text-white sb-font-light sb-text-sm">
-              SyBCapital.com is the #1 resource for all things Stocks. Sign up today for Free!
-            </p>
-          </div>
-          <div class="!sb-my-5">
-            <v-text-field label="Nombre *" solo hide-details class="!sb-mb-4" />
-            <v-text-field label="Email *" solo hide-details class="!sb-mb-4" />
-            <v-btn block class="!sb-bg-secondary !sb-text-white" large>
-              <v-icon>mdi-email-outline</v-icon>  Suscribirse
-            </v-btn>
-            <span class="sb-text-white sb-opacity-70 sb-font-light sb-text-sm"> We hate spam. Unsubscribe anytime.</span>
-          </div>
+        <v-col cols="4">
+          <subscribe-form />
         </v-col>
       </v-row>
     </v-container>
@@ -49,11 +34,13 @@
 </template>
 
 <script>
+import SubscribeForm from '../newsletter/SubscribeForm.vue'
+
 export default {
   name: 'PageFooter',
-
+  components: { SubscribeForm },
   computed: {
-    year () {
+    year() {
       return new Date().getFullYear()
     }
   }
