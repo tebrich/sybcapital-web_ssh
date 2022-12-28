@@ -14,6 +14,15 @@ export interface Posts extends Entity {
   categories: Categories[]
   tags: Tags[]
   files: Files[]
+  shared: {
+    facebook: number
+    twitter: number
+    linkedin: number
+    whatsapp: number
+    telegram: number
+    email: number
+    pinterest: number
+  }
   status: PostStatus
 }
 

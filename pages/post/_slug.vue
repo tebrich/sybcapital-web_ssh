@@ -34,16 +34,20 @@
           </div>
           <div class="sb-flex sb-items-center sb-gap-3">
             <div>
-              <strong>4</strong>
+              <strong>{{ totalShared }}</strong>
               <span class="sb-font-light">Compartidos</span>
             </div>
             <div class="sb-flex sb-items-center sb-gap-1">
               <v-icon size="16"> mdi-facebook </v-icon>
-              <span class="sb-font-light">2</span>
+              <span class="sb-font-light">{{ post.shared.facebook }}</span>
             </div>
             <div class="sb-flex sb-items-center sb-gap-1">
               <v-icon size="16"> mdi-twitter </v-icon>
-              <span class="sb-font-light">2</span>
+              <span class="sb-font-light">{{ post.shared.twitter }}</span>
+            </div>
+            <div class="sb-flex sb-items-center sb-gap-1">
+              <v-icon size="16"> mdi-email-outline </v-icon>
+              <span class="sb-font-light">{{ post.shared.email }}</span>
             </div>
           </div>
         </div>
@@ -82,20 +86,27 @@
               <div class="sb-flex sb-items-center sb-gap-2 sb-my-2">
                 <v-icon size="16"> mdi-facebook </v-icon>
                 <p class="sb-text-sm sb-font-bold !sb-m-0">Facebook</p>
-                <p class="sb-text-sm sb-font-light !sb-m-0">2</p>
+                <p class="sb-text-sm sb-font-light !sb-m-0">
+                  {{ post.shared.facebook }}
+                </p>
               </div>
               <div class="sb-flex sb-items-center sb-gap-2 sb-my-2">
                 <v-icon size="16"> mdi-twitter </v-icon>
                 <p class="sb-text-sm sb-font-bold !sb-m-0">Twitter</p>
-                <p class="sb-text-sm sb-font-light !sb-m-0">2</p>
+                <p class="sb-text-sm sb-font-light !sb-m-0">
+                  {{ post.shared.twitter }}
+                </p>
               </div>
               <div class="sb-flex sb-items-center sb-gap-2 sb-my-2">
                 <v-icon size="16"> mdi-email-outline </v-icon>
                 <p class="sb-text-sm sb-font-bold !sb-m-0">Mail</p>
+                <p class="sb-text-sm sb-font-light !sb-m-0">
+                  {{ post.shared.email }}
+                </p>
               </div>
               <p class="sb-font-light sb-text-sm">
                 Este post fue compartido <br />
-                6 veces
+                {{ totalShared }} veces
               </p>
             </div>
           </v-col>
@@ -176,6 +187,14 @@ export default defineComponent({
       return Math.ceil(words / wpm)
     }
 
+    const totalShared = computed(() => {
+      if (post.value) {
+        const { facebook, twitter, email } = post.value.shared
+        return facebook + twitter + email
+      }
+      return 0
+    })
+
     useMeta({
       title: slug.value
         .replaceAll('-', ' ')
@@ -192,6 +211,7 @@ export default defineComponent({
       post,
       getFormateDate,
       readingTime,
+      totalShared,
     }
   },
 
