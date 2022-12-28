@@ -27,6 +27,7 @@ module.exports = {
     'no-irregular-whitespace': 2,
     'no-mixed-operators': 2,
     'no-trailing-spaces': 2,
+    'no-trailing-coma': 2,
     'no-unreachable': 2,
     'no-var': 2,
     'padded-blocks': ['error', 'never'],
@@ -35,14 +36,6 @@ module.exports = {
     'prefer-object-spread': 2,
     'vue/attribute-hyphenation': 2,
     'space-before-function-paren': 'off',
-    /*
-    'vue/attributes-order': [
-      'error',
-      {
-        alphabetical: true
-      }
-    ],
-    */
     'vue/camelcase': 2,
     'vue/component-name-in-template-casing': ['warn', 'kebab-case'],
     'vue/component-tags-order': [
