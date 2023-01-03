@@ -7,3 +7,11 @@ export interface Categories extends Entity {
   description: string
   posts: Posts[]
 }
+
+export interface CategoriesFilter {
+  limit: number
+  page: number
+  includePosts?: boolean
+  includeDeleted?: boolean
+  name?: string
+}

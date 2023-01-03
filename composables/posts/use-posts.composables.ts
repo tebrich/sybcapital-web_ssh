@@ -3,13 +3,20 @@ import { Posts, PostsFilter } from '@/models'
 export const usePosts = () => {
   const posts = ref<Posts[]>([])
   const post = ref<Posts>()
+  const draft = ref<Partial<Posts>>({})
+  const totalPosts = ref<number>(0)
   const { $axios } = useContext()
 
+  const resetDraft = () => {
+    draft.value = {}
+  }
+
   const getAll = async (filter: PostsFilter) => {
-    const [data] = await $axios.$get<[Posts[], number]>('/posts', {
+    const [data, total] = await $axios.$get<[Posts[], number]>('/posts', {
       params: filter,
     })
     posts.value = data
+    totalPosts.value = total
   }
 
   const getOne = async (id: number) => {
@@ -35,11 +42,14 @@ export const usePosts = () => {
   return {
     posts,
     post,
+    totalPosts,
     getAll,
     getOne,
     getOneBySlug,
     create,
     update,
     deletePost,
+    draft,
+    resetDraft,
   }
 }

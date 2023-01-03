@@ -33,7 +33,11 @@ export default {
     '@nuxt/postcss8',
   ],
 
-  plugins: ['@/plugins/axios'],
+  plugins: [
+    '@/plugins/axios',
+    '@/plugins/validate',
+    { src: '@/plugins/tiptapVuetify', mode: 'client' },
+  ],
 
   modules: ['@nuxtjs/axios'],
 
@@ -61,6 +65,6 @@ export default {
   },
 
   env: {
-    apiBaseUrl: 'http://localhost:3000',
+    apiBaseUrl: process.env.API_BASE_URL || '',
   },
 }
