@@ -1,18 +1,25 @@
 <template>
   <div v-if="otherPosts.length > 0">
-    <section>
+    <section
+      v-if="
+        stockMarkets.GSPC &&
+        stockMarkets.IXIC &&
+        stockMarkets.DJI &&
+        stockMarkets.VIX
+      "
+    >
       <v-row>
-        <v-col
-          v-for="(stockPrice, index) in featureStockPrices"
-          :key="index"
-          cols="3"
-          class="sb-flex sb-items-center sb-justify-between"
-        >
-          <feature-stock-price :values="stockPrice" />
-          <div
-            v-if="index !== featureStockPrices.length - 1"
-            class="sb-h-[90px] sb-bg-black sb-border-r-[2px] sb-border-r-gray-500 sb-opacity-10"
-          />
+        <v-col class="sb-flex sb-items-center sb-justify-between">
+          <feature-stock-price :values="stockMarkets.GSPC" />
+        </v-col>
+        <v-col class="sb-flex sb-items-center sb-justify-between">
+          <feature-stock-price :values="stockMarkets.IXIC" />
+        </v-col>
+        <v-col class="sb-flex sb-items-center sb-justify-between">
+          <feature-stock-price :values="stockMarkets.DJI" />
+        </v-col>
+        <v-col class="sb-flex sb-items-center sb-justify-between">
+          <feature-stock-price :values="stockMarkets.VIX" />
         </v-col>
       </v-row>
     </section>
@@ -64,6 +71,15 @@
             :post="item"
             small
           />
+          <v-btn
+            v-if="showLoadMore"
+            ref="infiniteTarget"
+            outlined
+            loading
+            large
+            color="primary"
+            class="!sb-block sb-mx-auto sb-my-5"
+          ></v-btn>
         </v-col>
         <v-col cols="4">
           <div class="sb-py-3 sb-w-full">
@@ -100,13 +116,15 @@ import {
   defineComponent,
   onMounted,
   computed,
+  watch,
 } from '@nuxtjs/composition-api'
+import { useElementVisibility } from '@vueuse/core'
 import SubscribeNewsLetter from '~/components/newsletter/SubscribeNewsLetter.vue'
 import FeatureStockPrice from '~/components/stock/container/FeatureStockPrice.vue'
 import PreviewNewsContainer from '~/components/stock/news/PreviewNewsContainer.vue'
 import PriceActivesTabs from '~/components/stock/container/PriceActivesTabs.vue'
 
-import { usePosts } from '@/composables'
+import { usePosts, useStockPrices } from '@/composables'
 export default defineComponent({
   name: 'Index',
 
@@ -118,52 +136,32 @@ export default defineComponent({
   },
 
   setup() {
-    const posts = computed(() => postComposable.posts.value)
-
-    const featureStockPrices = [
-      {
-        name: 'S&P 500',
-        price: '3,435.53',
-        value: '-24.33',
-        percetange: '-0.61',
-        date: 'December 14, 2022',
-        currency: 'USD',
-        market: 'CBOE GLOBAL MARKETS',
-      },
-      {
-        name: 'DOW 30',
-        price: '32,808.31',
-        value: '-393.91',
-        percetange: '-1.19',
-        date: 'December 16, 2022 2:55 PM EST',
-        currency: 'USD',
-        market: 'DOW JONES INDICES',
-      },
-      {
-        name: 'NASDAQ',
-        price: '10,672.10',
-        value: '138.42',
-        percetange: '1.28',
-        date: 'December 16, 2022 2:55 PM EST',
-        currency: 'USD',
-        market: 'NASDAQ GIDS INDICES',
-      },
-      {
-        name: 'VIX',
-        price: '21.14',
-        value: '-1.41',
-        percetange: '-6.25',
-        date: 'December 14, 2022',
-        currency: 'USD',
-        market: 'CBOE GLOBAL MARKETS',
-      },
-    ]
+    const page = ref(1)
 
     const postComposable = usePosts()
+    const stockPriceComposable = useStockPrices()
 
     const getPosts = async () => {
       try {
-        await postComposable.getAll({ limit: 20, page: 1 })
+        await postComposable.getAll({ limit: 20, page: page.value })
+      } catch (e) {
+        console.log(e)
+      }
+    }
+
+    const getMarkets = async () => {
+      try {
+        await stockPriceComposable.getMartkets()
+      } catch (e) {
+        console.log(e)
+      }
+    }
+
+    const getStockTable = async () => {
+      try {
+        await stockPriceComposable.getNASDAQ()
+        await stockPriceComposable.getNYSE()
+        await stockPriceComposable.getOTC()
       } catch (e) {
         console.log(e)
       }
@@ -173,15 +171,40 @@ export default defineComponent({
     const threePosts = computed(() => postComposable.posts.value.slice(1, 4))
     const otherPosts = computed(() => postComposable.posts.value.slice(4))
 
+    const stockMarkets = computed(() => stockPriceComposable.stockMarkets.value)
+    const NASDAQ = computed(() => stockPriceComposable.NASDAQ.value)
+    const NYSE = computed(() => stockPriceComposable.NYSE.value)
+    const OTC = computed(() => stockPriceComposable.OTC.value)
+
     onMounted(() => {
       getPosts()
+      getMarkets()
+      getStockTable()
     })
+
+    const infiniteTarget = ref(null)
+    const infiniteVisible = useElementVisibility(infiniteTarget)
+
+    watch(
+      () => infiniteVisible.value,
+      async () => {
+        if (infiniteVisible.value) {
+          page.value++
+          await postComposable.getAll({ limit: 20, page: page.value })
+        }
+      }
+    )
 
     return {
       featuredPost,
       threePosts,
       otherPosts,
-      featureStockPrices,
+      infiniteTarget,
+      showLoadMore: computed(() => postComposable.loadMorePosts.value),
+      stockMarkets,
+      NASDAQ,
+      OTC,
+      NYSE,
     }
   },
 

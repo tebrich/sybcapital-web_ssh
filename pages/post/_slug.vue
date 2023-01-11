@@ -111,6 +111,18 @@
             </div>
           </v-col>
           <v-col cols="9">
+            <v-img
+              v-if="post.files.length > 0"
+              :src="post.files[0].url"
+              class="sb-w-full sb-h-80 sb-mb-5"
+              cover
+            />
+            <v-img
+              v-else
+              src="https://sybcapital-website.s3.sa-east-1.amazonaws.com/logo-color"
+              class="sb-w-full sb-h-80 sb-mb-5"
+              contain
+            />
             <div class="post-content" v-html="post.content"></div>
           </v-col>
         </v-row>

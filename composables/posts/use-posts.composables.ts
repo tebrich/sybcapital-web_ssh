@@ -5,6 +5,7 @@ export const usePosts = () => {
   const post = ref<Posts>()
   const draft = ref<Partial<Posts>>({})
   const totalPosts = ref<number>(0)
+  const loadMorePosts = ref<boolean>(true)
   const { $axios } = useContext()
 
   const resetDraft = () => {
@@ -15,7 +16,11 @@ export const usePosts = () => {
     const [data, total] = await $axios.$get<[Posts[], number]>('/posts', {
       params: filter,
     })
-    posts.value = data
+    if (data.length === 0) {
+      loadMorePosts.value = false
+    }
+
+    posts.value = [...posts.value, ...data]
     totalPosts.value = total
   }
 
@@ -51,5 +56,6 @@ export const usePosts = () => {
     deletePost,
     draft,
     resetDraft,
+    loadMorePosts,
   }
 }
