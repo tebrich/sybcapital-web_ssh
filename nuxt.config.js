@@ -1,6 +1,6 @@
 export default {
   server: {
-    port: 8082,
+    port: process.env.NUXT_ENV_PORT || 8082,
     host: process.env.HOST || '0.0.0.0',
   },
 
@@ -67,6 +67,7 @@ export default {
   },
 
   env: {
-    apiBaseUrl: 'https://sybcapital-api.worksheep.net',
+    apiBaseUrl:
+      process.env.API_BASE_URL || 'https://sybcapital-api.worksheep.net',
   },
 }

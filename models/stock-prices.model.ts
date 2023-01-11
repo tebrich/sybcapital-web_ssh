@@ -1,20 +1,3 @@
-export interface StockMarketsMoversModel {
-  symbol: string
-  companyName: string
-  marketCap: number
-  sector: string
-  industry: string
-  beta: number
-  price: number
-  lastAnnualDividend: number
-  volume: number
-  exchange: string
-  exchangeShortName: string
-  country: string
-  isEtf: boolean
-  isActivelyTrading: boolean
-}
-
 export interface StockPricesModel {
   symbol: string
   name: string
@@ -38,6 +21,23 @@ export interface StockPricesModel {
   earningsAnnouncement: string
   sharesOutstanding: number
   timestamp: number
+}
+export interface StockMarketsMoversModel {
+  symbol: string
+  companyName: string
+  marketCap: number
+  sector: string
+  industry: string
+  beta: number
+  price: number
+  lastAnnualDividend: number
+  volume: number
+  exchange: string
+  exchangeShortName: string
+  country: string
+  isEtf: boolean
+  isActivelyTrading: boolean
+  stockPrice: StockPricesModel
 }
 
 export interface StockMarketsModel {

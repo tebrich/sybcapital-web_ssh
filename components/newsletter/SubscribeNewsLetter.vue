@@ -6,8 +6,8 @@
       ></div>
       <div class="sb-z-10 sb-relative sb-py-8 sb-px-3">
         <h3 class="sb-font-extrabold sb-text-white sb-text-2xl">
-          Suscribte a nuestro
-          <span class="sb-text-secondary">Newsletter GRATIS</span> y obten:
+          Suscríbase a nuestro
+          <span class="sb-text-secondary">Newsletter GRATIS</span> y obtenga:
         </h3>
         <div class="sb-text-white sb-mt-3">
           <div class="sb-flex sb-items-center sb-gap-1">
@@ -21,6 +21,10 @@
           <div class="sb-flex sb-items-center sb-gap-1">
             <v-icon class="!sb-text-secondary"> mdi-check-bold </v-icon>
             <p class="!sb-m-0">Consejos de trading</p>
+          </div>
+          <div class="sb-flex sb-items-center sb-gap-1">
+            <v-icon class="!sb-text-secondary"> mdi-check-bold </v-icon>
+            <p class="!sb-m-0">Señales</p>
           </div>
         </div>
       </div>

@@ -2,10 +2,10 @@
   <div v-if="otherPosts.length > 0">
     <section
       v-if="
-        stockMarkets.GSPC &&
-        stockMarkets.IXIC &&
-        stockMarkets.DJI &&
-        stockMarkets.VIX
+        stockMarkets.GSPC.symbol &&
+        stockMarkets.IXIC.symbol &&
+        stockMarkets.DJI.symbol &&
+        stockMarkets.VIX.symbol
       "
     >
       <v-row>
@@ -89,19 +89,19 @@
               <h3 class="sb-text-xl sb-font-bold sb-mb-2">
                 NASDAQ Market Movers
               </h3>
-              <price-actives-tabs />
+              <price-actives-tabs :markets="NASDAQ" />
             </div>
             <v-divider class="sb-py-5" />
             <div>
               <h3 class="sb-text-xl sb-font-bold sb-mb-2">
                 NYSE Market Movers
               </h3>
-              <price-actives-tabs />
+              <price-actives-tabs :markets="NYSE" />
             </div>
             <v-divider class="sb-py-5" />
             <div>
               <h3 class="sb-text-xl sb-font-bold sb-mb-2">OTC Market Movers</h3>
-              <price-actives-tabs />
+              <price-actives-tabs :markets="OTC" />
             </div>
           </div>
         </v-col>
@@ -122,7 +122,7 @@ import { useElementVisibility } from '@vueuse/core'
 import SubscribeNewsLetter from '~/components/newsletter/SubscribeNewsLetter.vue'
 import FeatureStockPrice from '~/components/stock/container/FeatureStockPrice.vue'
 import PreviewNewsContainer from '~/components/stock/news/PreviewNewsContainer.vue'
-import PriceActivesTabs from '~/components/stock/container/PriceActivesTabs.vue'
+import PriceActivesTabs from '@/components/stock/container/PriceActivesTabs.vue'
 
 import { usePosts, useStockPrices } from '@/composables'
 export default defineComponent({
