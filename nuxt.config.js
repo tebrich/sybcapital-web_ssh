@@ -1,6 +1,6 @@
 export default {
   server: {
-    port: process.env.PORT || 8080,
+    port: 8082,
     host: process.env.HOST || '0.0.0.0',
   },
 
@@ -67,6 +67,6 @@ export default {
   },
 
   env: {
-    apiBaseUrl: process.env.API_BASE_URL || '',
+    apiBaseUrl: 'https://sybcapital-api.worksheep.net',
   },
 }
