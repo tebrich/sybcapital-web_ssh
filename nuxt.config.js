@@ -6,6 +6,8 @@ export default {
 
   ssr: false,
 
+  target: 'static',
+
   head: {
     titleTemplate:
       '%s - SyB Capital Noticias de Mercado, Cotizaciones, Gráficos e Información Financiera',
