@@ -44,7 +44,7 @@ export default {
   modules: ['@nuxtjs/axios', '@nuxtjs/auth-next'],
 
   axios: {
-    baseURL: process.env.API_BASE_URL,
+    baseURL: process.env.API_BASE_URL || 'https://sybcapital-api.worksheep.net',
   },
 
   auth: {
