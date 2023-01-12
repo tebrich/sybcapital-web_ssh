@@ -19,6 +19,8 @@ export const useCategories = () => {
     )
     categories.value = data
     totalCategories.value = total
+
+    return data
   }
 
   const getOne = async (id: number) => {

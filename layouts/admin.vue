@@ -64,18 +64,10 @@
 
       <v-spacer />
 
-      <v-list nav dense>
-        <v-list-item
-          link
-          class="g-mx-2 !g-rounded-lg g-mt-4"
-          active-class="g-font-bold !g-text-white g-bg-primary"
-        >
-          <v-list-item-icon>
-            <v-icon>mdi-logout</v-icon>
-          </v-list-item-icon>
-          <v-list-item-title>Cerrar Sesion</v-list-item-title>
-        </v-list-item>
-      </v-list>
+      <v-btn class="sb-mx-2 !sb-rounded-lg sb-mt-60" outlined @click="logout">
+        <v-icon>mdi-logout</v-icon>
+        <span>Cerrar Sesion</span>
+      </v-btn>
     </v-navigation-drawer>
     <v-main>
       <v-container fluid>
@@ -84,6 +76,7 @@
     </v-main>
   </v-app>
 </template>
+
 <script>
 import { defineComponent } from '@nuxtjs/composition-api'
 export default defineComponent({
@@ -101,6 +94,14 @@ export default defineComponent({
       meta: [{ hid: 'robots', name: 'robots', content: 'noindex' }],
     }
   },
+
+  methods: {
+    logout() {
+      this.$auth.logout()
+      window.location.reload()
+    },
+  },
 })
 </script>
+
 <style></style>
