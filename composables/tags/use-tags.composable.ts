@@ -19,6 +19,8 @@ export const useTags = () => {
     })
     tags.value = data
     totalTags.value = total
+
+    return data
   }
 
   const getOne = async (id: number) => {
