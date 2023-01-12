@@ -107,7 +107,7 @@ export default {
       OrderedList,
 
       // Others
-      Image,
+      // Image,
       Table,
       TableCell,
       TableHeader,

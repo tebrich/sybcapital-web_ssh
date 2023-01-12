@@ -41,9 +41,43 @@ export default {
     { src: '@/plugins/tiptapVuetify', mode: 'client' },
   ],
 
-  modules: ['@nuxtjs/axios'],
+  modules: ['@nuxtjs/axios', '@nuxtjs/auth-next'],
 
-  axios: {},
+  axios: {
+    baseURL: process.env.API_BASE_URL,
+  },
+
+  auth: {
+    strategies: {
+      local: {
+        token: {
+          property: 'accessToken',
+          global: true,
+          type: 'Bearer',
+        },
+        user: {
+          property: 'data',
+          // autoFetch: true
+        },
+        endpoints: {
+          login: { url: '/auth/login', method: 'post' },
+          logout: false,
+          user: { url: '/users/me', method: 'get' },
+        },
+        redirect: {
+          login: '/admin-panel',
+          home: '/',
+        },
+        watchLoggedIn: true,
+        rewriteRedirects: false,
+        resetOnError: true,
+      },
+    },
+  },
+
+  router: {
+    middleware: ['auth'],
+  },
 
   vuetify: {
     customVariables: ['~/assets/variables.scss'],

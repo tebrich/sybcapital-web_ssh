@@ -1,18 +1,15 @@
 <template>
   <div>
-    <v-card
-      v-if="post"
-      class="!sb-flex !sb-justify-between !sb-items-center !sb-my-5"
-    >
+    <v-card class="!sb-flex !sb-justify-between !sb-items-center !sb-my-5">
       <v-card-title class="!sb-font-extrabold !sb-text-xl">
-        Editar - {{ post.title }}
+        Agregar nueva publicacion
       </v-card-title>
     </v-card>
     <v-card class="!sb-px-5 !sb-py-5">
       <validation-observer
         v-slot="{ invalid }"
         tag="form"
-        @submit.prevent="updatePosts"
+        @submit.prevent="createPosts"
       >
         <validation-provider v-slot="{ errors }" name="title" rules="required">
           <v-text-field
@@ -29,6 +26,7 @@
             outlined
             label="Estado"
             :items="['PUBLICADO', 'BORRADOR', 'ELIMINADO']"
+            :error-messages="errors"
           />
         </validation-provider>
 
@@ -40,6 +38,7 @@
             :items="users"
             item-text="fullName"
             item-value="id"
+            :error-messages="errors"
           />
         </validation-provider>
 
@@ -101,28 +100,7 @@
           />
         </validation-provider>
 
-        <div
-          v-if="!showImageFileInput && draft.files && draft.files.length > 0"
-          class="sb-relative sb-mb-5"
-        >
-          <p>Imagen destacada</p>
-          <v-img :src="draft.files[0].url" />
-          <v-icon
-            class="!sb-absolute sb-top-14 sb-right-5"
-            size="40"
-            color="red"
-            @click="showImageFileInput = true"
-          >
-            mdi-close-circle
-          </v-icon>
-        </div>
-
-        <validation-provider
-          v-else
-          v-slot="{ errors }"
-          name="image"
-          rules="required"
-        >
+        <validation-provider v-slot="{ errors }" name="image" rules="required">
           <v-file-input
             v-model="draft.files"
             label="Imagen destacada"
@@ -140,7 +118,7 @@
           class="sb-flex sb-justify-center sb-mx-auto"
           :loading="submiting"
         >
-          Editar
+          Crear
         </v-btn>
       </validation-observer>
     </v-card>
@@ -153,7 +131,6 @@ import {
   defineComponent,
   onMounted,
   ref,
-  useRoute,
   useRouter,
 } from '@nuxtjs/composition-api'
 import {
@@ -166,7 +143,7 @@ import {
 import SyBTiptapFild from '~/components/commons/SyBTiptapFild.vue'
 export default defineComponent({
   // eslint-disable-next-line
-  name: 'Edit',
+  name: 'New',
   components: { SyBTiptapFild },
   layout: 'admin',
   setup() {
@@ -175,22 +152,18 @@ export default defineComponent({
     const tagComposable = useTags()
     const userComposable = useUsers()
     const filesComposable = useFiles()
-    const route = useRoute()
     const router = useRouter()
 
-    const post = computed(() => postComposable.post.value)
     const categories = computed(() => categoryComposable.categories.value)
     const tags = computed(() => tagComposable.tags.value)
     const users = computed(() => userComposable.users.value)
     const draft = ref({})
-    const { slug } = route.value.params
+
     const loading = ref(true)
-    const showImageFileInput = ref(true)
     const submiting = ref(false)
 
-    const getPost = async () => {
+    const getPostData = async () => {
       loading.value = true
-      await postComposable.getOneBySlug(slug)
       await categoryComposable.getAll({ limit: 100, page: 1 })
       await tagComposable.getAll({ limit: 100, page: 1 })
       await userComposable.getAll()
@@ -198,31 +171,20 @@ export default defineComponent({
     }
 
     onMounted(() => {
-      getPost().finally(() => {
-        draft.value = post.value
-        if (post.value.files.length > 0) {
-          showImageFileInput.value = false
-        }
-      })
+      getPostData()
     })
 
-    const updatePosts = async () => {
+    const createPosts = async () => {
       submiting.value = true
 
-      const categories = draft.value.categories[0].hasOwnProperty('name')
-        ? draft.value.categories.map((category) => category.name)
-        : draft.value.categories
-      const tags = draft.value.tags[0].hasOwnProperty('name')
-        ? draft.value.tags.map((tag) => tag.name)
-        : draft.value.tags
+      const categories = draft.value.categories
+      const tags = draft.value.tags
 
       try {
-        let image = post.value.files
-        if (showImageFileInput.value) {
-          image = await filesComposable.uploadFile(draft.value.files)
-        }
-        await postComposable.update(post.value.id, {
-          author: draft.value.author.id,
+        const image = await filesComposable.uploadFile(draft.value.files)
+
+        await postComposable.create({
+          authorId: draft.value.author,
           categories,
           tags,
           content: draft.value.content,
@@ -240,14 +202,12 @@ export default defineComponent({
     }
 
     return {
-      post,
       loading,
       draft,
       categories,
       tags,
       users,
-      updatePosts,
-      showImageFileInput,
+      createPosts,
       submiting,
     }
   },

@@ -22,6 +22,8 @@ export const usePosts = () => {
 
     posts.value = [...posts.value, ...data]
     totalPosts.value = total
+
+    return data
   }
 
   const getOne = async (id: number) => {

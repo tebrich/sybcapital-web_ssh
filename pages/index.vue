@@ -1,13 +1,6 @@
 <template>
   <div v-if="otherPosts.length > 0">
-    <section
-      v-if="
-        stockMarkets.GSPC.symbol &&
-        stockMarkets.IXIC.symbol &&
-        stockMarkets.DJI.symbol &&
-        stockMarkets.VIX.symbol
-      "
-    >
+    <section v-if="stockMarkets">
       <v-row>
         <v-col class="sb-flex sb-items-center sb-justify-between">
           <feature-stock-price :values="stockMarkets.GSPC" />
@@ -127,6 +120,8 @@ import PriceActivesTabs from '@/components/stock/container/PriceActivesTabs.vue'
 import { usePosts, useStockPrices } from '@/composables'
 export default defineComponent({
   name: 'Index',
+
+  auth: false,
 
   components: {
     FeatureStockPrice,

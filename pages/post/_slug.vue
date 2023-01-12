@@ -3,9 +3,11 @@
     <h2 class="sb-text-5xl sb-font-bold">
       {{ post.title }}
     </h2>
-    <p v-if="post.excerpt" class="sb-my-5 sb-text-2xl sb-font-light">
-      {{ post.excerpt }}
-    </p>
+    <p
+      v-if="post.excerpt"
+      class="sb-my-5 sb-text-2xl sb-font-light"
+      v-html="post.excerpt"
+    />
     <v-row>
       <v-col cols="8">
         <div
@@ -173,6 +175,8 @@ export default defineComponent({
   // eslint-disable-next-line vue/match-component-file-name
   name: 'PostSlug',
 
+  auth: false,
+
   components: {
     SubscribeNewsLetter,
     PriceActivesTabs,
@@ -232,7 +236,8 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.post-content >>> ul {
-  list-style: disc !important;
+.post-content >>> ul,
+.post-content >>> ol {
+  list-style: auto !important;
 }
 </style>
