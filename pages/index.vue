@@ -89,26 +89,6 @@
             <div>
               <h3 class="sb-text-xl sb-font-bold sb-mb-2">
                 NYSE Market Movers
-                <div>
-                  <h3 class="sb-text-xl sb-font-bold sb-mb-2">
-                    NASDAQ Market Movers
-                  </h3>
-                  <price-actives-tabs :markets="NASDAQ" />
-                </div>
-                <v-divider class="sb-py-5" />
-                <div>
-                  <h3 class="sb-text-xl sb-font-bold sb-mb-2">
-                    NYSE Market Movers
-                  </h3>
-                  <price-actives-tabs :markets="NYSE" />
-                </div>
-                <v-divider class="sb-py-5" />
-                <div>
-                  <h3 class="sb-text-xl sb-font-bold sb-mb-2">
-                    OTC Market Movers
-                  </h3>
-                  <price-actives-tabs :markets="OTC" />
-                </div>
               </h3>
               <price-actives-tabs :markets="NYSE" />
             </div>
