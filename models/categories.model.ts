@@ -6,6 +6,8 @@ export interface Categories extends Entity {
   slug: string
   description: string
   posts: Posts[]
+  featured: true
+  children: Categories[]
 }
 
 export interface CategoriesFilter {

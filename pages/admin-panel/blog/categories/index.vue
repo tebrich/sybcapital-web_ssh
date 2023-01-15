@@ -158,6 +158,7 @@ export default defineComponent({
       headers: [
         { text: 'ID', value: 'id' },
         { text: 'Nombre', value: 'name', width: 500 },
+        { text: '¿Es menú?', value: 'featured' },
         { text: 'Creado', value: 'createdAt' },
         { text: 'Actualizado', value: 'updatedAt' },
         { text: 'Acciones', value: 'actions', sortable: false },

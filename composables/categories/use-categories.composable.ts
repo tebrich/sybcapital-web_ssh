@@ -4,6 +4,7 @@ import { Categories, CategoriesFilter } from '@/models'
 export const useCategories = () => {
   const categories = ref<Categories[]>([])
   const category = ref<Categories>()
+  const categoriesMenu = ref<Categories[]>([])
   const totalCategories = ref<number>(0)
   const draft = ref<Partial<Categories>>({})
 
@@ -39,6 +40,12 @@ export const useCategories = () => {
     return await $axios.$delete(`/categories/${id}`)
   }
 
+  const getCategoriesMenu = async () => {
+    categoriesMenu.value = await $axios.$get<Categories[]>(
+      '/categories/list/menu'
+    )
+  }
+
   return {
     categories,
     category,
@@ -50,5 +57,7 @@ export const useCategories = () => {
     create,
     update,
     remove,
+    getCategoriesMenu,
+    categoriesMenu,
   }
 }

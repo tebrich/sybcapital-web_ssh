@@ -23,14 +23,30 @@
           />
         </validation-provider>
 
-        <validation-provider v-slot="{ errors }" name="description">
-          <v-text-field
-            v-model="draft.description"
-            label="Descripcion"
-            outlined
-            :error-messages="errors"
-          />
-        </validation-provider>
+        <v-text-field
+          v-model="draft.description"
+          label="Descripcion"
+          outlined
+          hide-details
+        />
+
+        <v-checkbox
+          v-model="draft.featured"
+          label="¿Es menú?"
+          :disabled="draft.parentId"
+          @change="draft.parentId = null"
+        />
+
+        <v-select
+          v-if="!draft.featured"
+          v-model="draft.parentId"
+          :items="categories"
+          item-value="id"
+          item-text="name"
+          outlined
+          label="Categoria padre"
+          clearable
+        />
 
         <v-btn
           large
@@ -68,6 +84,7 @@ export default defineComponent({
     const router = useRouter()
 
     const category = computed(() => categoryComposable.category.value)
+    const categories = computed(() => categoryComposable.categories.value)
     const draft = ref({})
     const { id } = route.value.params
     const loading = ref(true)
@@ -76,6 +93,7 @@ export default defineComponent({
     const getCategory = async () => {
       loading.value = true
       await categoryComposable.getOne(id)
+      await categoryComposable.getAll({ limit: 1000, page: 1 })
       loading.value = false
     }
 
@@ -92,6 +110,8 @@ export default defineComponent({
         await categoryComposable.update(category.value.id, {
           name: draft.value.name,
           description: draft.value.description || '',
+          featured: draft.value.featured,
+          parentId: draft.value.parentId || null,
         })
 
         router.replace('/admin-panel/blog/categories/')
@@ -108,6 +128,7 @@ export default defineComponent({
       categories,
       updateCategory,
       submiting,
+      categories,
     }
   },
 })
