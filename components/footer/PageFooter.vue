@@ -4,25 +4,55 @@
       <v-row>
         <v-col cols="8">
           <h2 class="sb-text-white sb-font-bold sb-text-lg">
-            SyB Capital (SyBCapital.com) | Noticias de Mercado, Cotizaciones, Gráficos e Información Financiera
+            SyB Capital (SyBCapital.com) | Noticias de Mercado, Cotizaciones,
+            Gráficos e Información Financiera
           </h2>
           <p class="!sb-my-2 sb-text-white sb-opacity-70 sb-text-sm">
             © Copyright {{ year }} - SyBCapital.com
           </p>
           <p class="sb-text-white sb-opacity-60 sb-text-sm !sb-mb-2">
-            <strong>Risk Disclaimer:</strong> Trading in financial instruments and including but not limited to cryptocurrencies involves high risks. This includes the risk of losing some, or all, of your investment money, and thus may not be suitable for all investors. Prices of penny stocks, cryptocurrencies and other financial instruments are extremely volatile and may be affected by external factors such as financial, promotion, regulatory and political events. If you trade on margin this will increase the financial risks.
+            <strong>Descargo de responsabilidad de Riesgos:</strong> El trade de
+            instrumentos financieros e incluir, entre otros, las criptomonedas
+            implican altos riesgos. Esto incluye el riesgo de perder parte o la
+            totalidad de su dinero de inversión y, por lo tanto, puede no ser
+            adecuado para todos los inversores. Los precios de las acciones
+            (penny), criptomonedas y otros instrumentos financieros son
+            extremadamente volátiles y pueden verse afectados por factores
+            externos como eventos financieros, de promoción, regulatorios y
+            políticos. Si opera con margen, esto aumentará los riesgos
+            financieros.
           </p>
           <p class="sb-text-white sb-opacity-60 sb-text-sm !sb-mb-2">
-            Before deciding to buy or sell any financial instrument or cryptocurrencies please make sure that you are properly informed of the risks & costs as well please consider your investment goals, experience level, and risk threshold and please always seek professional advice where needed.
+            Antes de decidir comprar o vender cualquier instrumento financiero o
+            criptomonedas, asegúrese de estar debidamente informado de los
+            riesgos y costos, así como considere sus objetivos de inversión,
+            nivel de experiencia y umbral de riesgo, y siempre busque
+            asesoramiento profesional cuando sea necesario.
           </p>
           <p class="sb-text-white sb-opacity-60 sb-text-sm !sb-mb-2">
-            SyBCapital.com and any data provider in this website will not accept liability for any loss or damage as a result of your trading, or your reliance on the information contained within this website.
+            Sybcapital.com y cualquier dato proporcionado en este sitio web no
+            aceptará responsabilidad por ninguna pérdida o daño como resultado
+            de su negociación, o su confianza en la información contenida en
+            este sitio web.
           </p>
           <p class="sb-text-white sb-opacity-60 sb-text-sm !sb-mb-2">
-            It is prohibited to use, store, reproduce, display, modify, transmit or distribute the data contained in this website without the explicit prior written permission of SyBCapital.com and/or the data provider. All intellectual property rights are reserved by the providers and/or the exchange providing the data contained in this website.
+            Está prohibido usar, almacenar, reproducir, mostrar, modificar,
+            transmitir o distribuir los datos contenidos en este sitio web sin
+            el permiso explícito previo por escrito de sybcapital.com y / o el
+            proveedor de datos. Todos los derechos de propiedad intelectual
+            están reservados por los proveedores y/o el exchange que proporciona
+            los datos contenidos en este sitio web.
           </p>
           <p class="sb-text-white sb-opacity-60 sb-text-sm !sb-mb-2">
-            SyBCapital.com may be compensated by the advertisers that appear on the website, based on your interaction with the advertisements or advertisers. Please read our full disclaimer by clicking here.
+            Sybcapital.com puede ser compensado por los anunciantes que aparecen
+            en el sitio web, en función de su interacción con los anuncios o
+            anunciantes.
+            <a
+              href="/descargo-de-responsabilidad-general"
+              class="!sb-text-secondary"
+              >Por favor, lea nuestro descargo de responsabilidad completo
+              haciendo clic aquí</a
+            >
           </p>
         </v-col>
         <v-col cols="4">
@@ -42,7 +72,7 @@ export default {
   computed: {
     year() {
       return new Date().getFullYear()
-    }
-  }
+    },
+  },
 }
 </script>

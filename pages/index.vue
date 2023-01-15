@@ -38,21 +38,22 @@
         Gráficos e Información Financiera
       </h1>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris viverra
-        facilisis leo non volutpat. Donec ac justo placerat tortor tristique
-        feugiat sed sed turpis. Aliquam et erat at mauris aliquam faucibus id
-        eget quam. Duis diam diam, rutrum quis gravida sed, mattis id felis.
-        Maecenas sed hendrerit diam. Mauris imperdiet lectus sollicitudin tortor
-        commodo tincidunt.
+        <a href="/" class="sb-text-primary">Sybcapital.com</a>, es una
+        plataforma global de mercados financieros que se esfuerza por educar,
+        informar, involucrar y capacitar a las personas para que tomen el
+        control de sus vidas financieras actuales y futuras, ¡para que puedan
+        beneficiarse dentro de los diferentes mercados mundiales!
       </p>
       <p>
-        Praesent arcu mi, ultrices ac volutpat eu, porta quis mauris. Sed
-        convallis tellus eget interdum iaculis. Nulla tristique eu lectus eu
-        porttitor. Ut ac sem a velit ornare sodales. Aliquam quis pretium dui.
-        Morbi dapibus faucibus velit, in luctus elit finibus sed. Nunc ac odio
-        ac odio molestie aliquam. Donec ac sodales nunc. Fusce commodo suscipit
-        purus, eget iaculis massa. Etiam a eleifend ex. Sed malesuada arcu sed
-        nunc ultricies congue vel in tellus.
+        Ofrecemos acceso a cotizaciones de acciones gratuitas, gráficos de
+        acciones, noticias bursátiles de última hora, historias principales del
+        mercado, calificaciones gratuitas de acciones, presentaciones ante la
+        SEC, IPO, historial de precios de acciones, futuros, ETFs, Commodities,
+        eventos corporativos, finanzas de empresas públicas y mucho más.
+        Strategy & Business Capital Market (<a href="/" class="sb-text-primary">
+          sybcapital.com </a
+        >), es un verdadero disruptor, mejorando enormemente la forma en que las
+        personas consumen los datos del mercado financiero.
       </p>
     </section>
     <section>

@@ -137,17 +137,17 @@
             <h3 class="sb-text-xl sb-font-bold sb-mb-2">
               NASDAQ Market Movers
             </h3>
-            <price-actives-tabs />
+            <price-actives-tabs :markets="NASDAQ" />
           </div>
           <v-divider class="sb-py-5" />
           <div>
             <h3 class="sb-text-xl sb-font-bold sb-mb-2">NYSE Market Movers</h3>
-            <price-actives-tabs />
+            <price-actives-tabs :markets="NYSE" />
           </div>
           <v-divider class="sb-py-5" />
           <div>
             <h3 class="sb-text-xl sb-font-bold sb-mb-2">OTC Market Movers</h3>
-            <price-actives-tabs />
+            <price-actives-tabs :markets="OTC" />
           </div>
         </div>
       </v-col>
@@ -167,7 +167,7 @@ import {
 import dayjs from 'dayjs'
 import SubscribeNewsLetter from '~/components/newsletter/SubscribeNewsLetter.vue'
 import PriceActivesTabs from '~/components/stock/container/PriceActivesTabs.vue'
-import { usePosts } from '~/composables'
+import { usePosts, useStockPrices } from '~/composables'
 import { Posts } from '~/models'
 import 'dayjs/locale/es'
 
@@ -185,6 +185,7 @@ export default defineComponent({
   setup() {
     const route = useRoute()
     const postComposable = usePosts()
+    const stockPriceComposable = useStockPrices()
 
     const slug = computed(() => route.value.params.slug)
     const post = computed<Posts | undefined>(() => postComposable.post.value)
@@ -211,6 +212,20 @@ export default defineComponent({
       return 0
     })
 
+    const getStockTable = async () => {
+      try {
+        await stockPriceComposable.getNASDAQ()
+        await stockPriceComposable.getNYSE()
+        await stockPriceComposable.getOTC()
+      } catch (e) {
+        console.log(e)
+      }
+    }
+
+    const NASDAQ = computed(() => stockPriceComposable.NASDAQ.value)
+    const NYSE = computed(() => stockPriceComposable.NYSE.value)
+    const OTC = computed(() => stockPriceComposable.OTC.value)
+
     useMeta({
       title: slug.value
         .replaceAll('-', ' ')
@@ -221,6 +236,7 @@ export default defineComponent({
 
     onMounted(() => {
       getPost()
+      getStockTable()
     })
 
     return {
@@ -228,6 +244,9 @@ export default defineComponent({
       getFormateDate,
       readingTime,
       totalShared,
+      NASDAQ,
+      NYSE,
+      OTC,
     }
   },
 
