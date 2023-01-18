@@ -101,7 +101,6 @@ export default {
   },
 
   env: {
-    apiBaseUrl:
-      process.env.API_BASE_URL || 'https://sybcapital-api.worksheep.net',
+    apiBaseUrl: process.env.API_BASE_URL || 'https://api.sybcapital.com',
   },
 }
