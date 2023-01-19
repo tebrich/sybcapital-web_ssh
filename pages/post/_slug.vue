@@ -85,27 +85,41 @@
             <v-divider />
             <div class="sb-mt-3">
               <strong class="sb-text-sm">Compartir:</strong>
-              <div class="sb-flex sb-items-center sb-gap-2 sb-my-2">
+              <a
+                :href="`https://www.facebook.com/sharer.php?u=${currentUrl}`"
+                target="_blank"
+                class="sb-flex sb-items-center sb-gap-2 sb-my-2 sb-cursor-pointer hover:sb-opacity-30 !sb-text-black"
+                @click="updateShared('facebook')"
+              >
                 <v-icon size="16"> mdi-facebook </v-icon>
                 <p class="sb-text-sm sb-font-bold !sb-m-0">Facebook</p>
                 <p class="sb-text-sm sb-font-light !sb-m-0">
                   {{ post.shared.facebook }}
                 </p>
-              </div>
-              <div class="sb-flex sb-items-center sb-gap-2 sb-my-2">
+              </a>
+              <a
+                :href="`http://twitter.com/share?url=${currentUrl}`"
+                target="_blank"
+                class="sb-flex sb-items-center sb-gap-2 sb-my-2 sb-cursor-pointer hover:sb-opacity-30 !sb-text-black"
+                @click="updateShared('twitter')"
+              >
                 <v-icon size="16"> mdi-twitter </v-icon>
                 <p class="sb-text-sm sb-font-bold !sb-m-0">Twitter</p>
                 <p class="sb-text-sm sb-font-light !sb-m-0">
                   {{ post.shared.twitter }}
                 </p>
-              </div>
-              <div class="sb-flex sb-items-center sb-gap-2 sb-my-2">
+              </a>
+              <a
+                :href="`mailto:no-one@snai1mai1.com?body=${currentUrl}`"
+                class="sb-flex sb-items-center sb-gap-2 sb-my-2 sb-cursor-pointer hover:sb-opacity-30 !sb-text-black"
+                @click="updateShared('email')"
+              >
                 <v-icon size="16"> mdi-email-outline </v-icon>
                 <p class="sb-text-sm sb-font-bold !sb-m-0">Mail</p>
                 <p class="sb-text-sm sb-font-light !sb-m-0">
                   {{ post.shared.email }}
                 </p>
-              </div>
+              </a>
               <p class="sb-font-light sb-text-sm">
                 Este post fue compartido <br />
                 {{ totalShared }} veces
@@ -133,22 +147,7 @@
         <div class="sb-py-3 sb-w-full sb-mt-16">
           <subscribe-news-letter />
           <v-divider class="sb-py-5" />
-          <div>
-            <h3 class="sb-text-xl sb-font-bold sb-mb-2">
-              NASDAQ Market Movers
-            </h3>
-            <price-actives-tabs :markets="NASDAQ" />
-          </div>
-          <v-divider class="sb-py-5" />
-          <div>
-            <h3 class="sb-text-xl sb-font-bold sb-mb-2">NYSE Market Movers</h3>
-            <price-actives-tabs :markets="NYSE" />
-          </div>
-          <v-divider class="sb-py-5" />
-          <div>
-            <h3 class="sb-text-xl sb-font-bold sb-mb-2">OTC Market Movers</h3>
-            <price-actives-tabs :markets="OTC" />
-          </div>
+          <markets-table />
         </div>
       </v-col>
     </v-row>
@@ -160,16 +159,15 @@ import {
   defineComponent,
   onMounted,
   computed,
-  ref,
   useRoute,
   useMeta,
 } from '@nuxtjs/composition-api'
 import dayjs from 'dayjs'
 import SubscribeNewsLetter from '~/components/newsletter/SubscribeNewsLetter.vue'
-import PriceActivesTabs from '~/components/stock/container/PriceActivesTabs.vue'
 import { usePosts, useStockPrices } from '~/composables'
 import { Posts } from '~/models'
 import 'dayjs/locale/es'
+import MarketsTable from '~/components/stock/markets/MarketsTable.vue'
 
 export default defineComponent({
   // eslint-disable-next-line vue/match-component-file-name
@@ -178,17 +176,17 @@ export default defineComponent({
   auth: false,
 
   components: {
+    MarketsTable,
     SubscribeNewsLetter,
-    PriceActivesTabs,
   },
 
   setup() {
     const route = useRoute()
     const postComposable = usePosts()
-    const stockPriceComposable = useStockPrices()
 
     const slug = computed(() => route.value.params.slug)
     const post = computed<Posts | undefined>(() => postComposable.post.value)
+    const currentUrl = document.location.href
 
     const getPost = async () => {
       await postComposable.getOneBySlug(slug.value)
@@ -212,19 +210,16 @@ export default defineComponent({
       return 0
     })
 
-    const getStockTable = async () => {
+    const updateShared = async (type: string) => {
       try {
-        await stockPriceComposable.getNASDAQ()
-        await stockPriceComposable.getNYSE()
-        await stockPriceComposable.getOTC()
+        if (post.value && post.value.id) {
+          await postComposable.updateShared(post.value.id, type)
+          await getPost()
+        }
       } catch (e) {
         console.log(e)
       }
     }
-
-    const NASDAQ = computed(() => stockPriceComposable.NASDAQ.value)
-    const NYSE = computed(() => stockPriceComposable.NYSE.value)
-    const OTC = computed(() => stockPriceComposable.OTC.value)
 
     useMeta({
       title: slug.value
@@ -236,7 +231,6 @@ export default defineComponent({
 
     onMounted(() => {
       getPost()
-      getStockTable()
     })
 
     return {
@@ -244,9 +238,8 @@ export default defineComponent({
       getFormateDate,
       readingTime,
       totalShared,
-      NASDAQ,
-      NYSE,
-      OTC,
+      currentUrl,
+      updateShared,
     }
   },
 

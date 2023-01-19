@@ -69,7 +69,7 @@ import {
   useRouter,
 } from '@nuxtjs/composition-api'
 import { useCategories } from '@/composables'
-import categories from '~/pages/admin-panel/blog/categories/index.vue'
+
 export default defineComponent({
   // eslint-disable-next-line
   name: 'New',

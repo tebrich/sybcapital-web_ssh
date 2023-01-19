@@ -1,9 +1,12 @@
 <template>
   <div
-    class="sb-border-b-2 sb-border-gray-500 sb-border-opacity-10 sb-shadow-md sb-bg-white sb-fixed sb-top-0 sb-left-0 sb-w-full sb-z-50"
+    class="sb-border-b-2 sb-border-gray-500 sb-border-opacity-10 sb-shadow-md sb-bg-white sb-fixed sb-top-0 sb-left-0 sb-w-full sb-z-50 sb-h-32"
   >
-    <v-container>
-      <header class="sb-flex sb-justify-between sb-items-center sb-gap-3">
+    <v-container class="sb-h-full">
+      <header
+        v-if="!showSearch"
+        class="sb-flex sb-justify-between sb-items-center sb-gap-3"
+      >
         <div>
           <v-img
             width="100"
@@ -56,22 +59,32 @@
           class="sb-h-[90px] sb-bg-black sb-border-r-[2px] sb-border-r-gray-500 sb-opacity-10"
         />
         <div>
-          <v-btn icon>
+          <v-btn icon @click="showSearch = true">
             <v-icon color="primary"> mdi-magnify </v-icon>
           </v-btn>
         </div>
       </header>
+      <search-menu v-else @close="showSearch = false" />
     </v-container>
   </div>
 </template>
 
 <script>
-import { defineComponent, onMounted, computed } from '@nuxtjs/composition-api'
+import {
+  defineComponent,
+  onMounted,
+  computed,
+  ref,
+} from '@nuxtjs/composition-api'
 import { useCategories } from '~/composables'
+import SearchMenu from '~/components/header/SearchMenu.vue'
 export default defineComponent({
   name: 'PageHeader',
+  components: { SearchMenu },
 
   setup() {
+    const showSearch = ref(false)
+
     const categoriesComposables = useCategories()
 
     const categoriesMenu = computed(
@@ -88,6 +101,7 @@ export default defineComponent({
 
     return {
       categoriesMenu,
+      showSearch,
     }
   },
 })

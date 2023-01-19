@@ -42,6 +42,10 @@ export const usePosts = () => {
     return await $axios.$patch(`/posts/${id}`, post)
   }
 
+  const updateShared = async (id: number, shared: string) => {
+    return await $axios.$patch(`/posts/update/shared?id=${id}&shared=${shared}`)
+  }
+
   const deletePost = async (id: number) => {
     return await $axios.$delete(`/posts/${id}`)
   }
@@ -59,5 +63,6 @@ export const usePosts = () => {
     draft,
     resetDraft,
     loadMorePosts,
+    updateShared,
   }
 }

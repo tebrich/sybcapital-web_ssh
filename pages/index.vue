@@ -79,24 +79,7 @@
           <div class="sb-py-3 sb-w-full">
             <subscribe-news-letter />
             <v-divider class="sb-py-5" />
-            <div>
-              <h3 class="sb-text-xl sb-font-bold sb-mb-2">
-                NASDAQ Market Movers
-              </h3>
-              <price-actives-tabs :markets="NASDAQ" />
-            </div>
-            <v-divider class="sb-py-5" />
-            <div>
-              <h3 class="sb-text-xl sb-font-bold sb-mb-2">
-                NYSE Market Movers
-              </h3>
-              <price-actives-tabs :markets="NYSE" />
-            </div>
-            <v-divider class="sb-py-5" />
-            <div>
-              <h3 class="sb-text-xl sb-font-bold sb-mb-2">OTC Market Movers</h3>
-              <price-actives-tabs :markets="OTC" />
-            </div>
+            <markets-table />
           </div>
         </v-col>
       </v-row>
@@ -116,19 +99,19 @@ import { useElementVisibility } from '@vueuse/core'
 import SubscribeNewsLetter from '~/components/newsletter/SubscribeNewsLetter.vue'
 import FeatureStockPrice from '~/components/stock/container/FeatureStockPrice.vue'
 import PreviewNewsContainer from '~/components/stock/news/PreviewNewsContainer.vue'
-import PriceActivesTabs from '@/components/stock/container/PriceActivesTabs.vue'
 
 import { usePosts, useStockPrices } from '@/composables'
+import MarketsTable from '~/components/stock/markets/MarketsTable.vue'
 export default defineComponent({
   name: 'Index',
 
   auth: false,
 
   components: {
+    MarketsTable,
     FeatureStockPrice,
     PreviewNewsContainer,
     SubscribeNewsLetter,
-    PriceActivesTabs,
   },
 
   setup() {
@@ -153,29 +136,15 @@ export default defineComponent({
       }
     }
 
-    const getStockTable = async () => {
-      try {
-        await stockPriceComposable.getNASDAQ()
-        await stockPriceComposable.getNYSE()
-        await stockPriceComposable.getOTC()
-      } catch (e) {
-        console.log(e)
-      }
-    }
-
     const featuredPost = computed(() => postComposable.posts.value[0])
     const threePosts = computed(() => postComposable.posts.value.slice(1, 4))
     const otherPosts = computed(() => postComposable.posts.value.slice(4))
 
     const stockMarkets = computed(() => stockPriceComposable.stockMarkets.value)
-    const NASDAQ = computed(() => stockPriceComposable.NASDAQ.value)
-    const NYSE = computed(() => stockPriceComposable.NYSE.value)
-    const OTC = computed(() => stockPriceComposable.OTC.value)
 
     onMounted(() => {
       getPosts()
       getMarkets()
-      getStockTable()
     })
 
     const infiniteTarget = ref(null)
@@ -198,9 +167,6 @@ export default defineComponent({
       infiniteTarget,
       showLoadMore: computed(() => postComposable.loadMorePosts.value),
       stockMarkets,
-      NASDAQ,
-      OTC,
-      NYSE,
     }
   },
 
