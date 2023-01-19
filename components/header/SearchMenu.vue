@@ -1,6 +1,6 @@
 <template>
   <div class="sb-flex sb-items-center sb-h-full">
-    <div class="sb-w-9/12">
+    <div class="sb-w-11/12">
       <v-text-field
         v-model="search"
         :label="
@@ -15,7 +15,7 @@
         @keydown.enter="searchByType"
       />
     </div>
-    <div class="sb-w-2/12">
+    <div v-if="false" class="sb-w-2/12">
       <v-select
         v-model="searchType"
         :items="['Articulos', 'Divisas']"
