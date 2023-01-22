@@ -96,7 +96,7 @@ export default {
   },
   setup(props: any) {
     const file: any = computed(() =>
-      props.post.files.find((file: Files) => file.feature)
+      props.post.files.length > 0 ? props.post.files[0] : null
     )
 
     const getDate = (date: Date) => {
