@@ -221,12 +221,60 @@ export default defineComponent({
       }
     }
 
-    useMeta({
-      title: slug.value
-        .replaceAll('-', ' ')
-        .replace(/(?:^|\s|["'([{])+\S/g, (match: string) =>
-          match.toUpperCase()
-        ),
+    useMeta(() => {
+      if (post.value) {
+        return {
+          title: post.value.title,
+          meta: [
+            {
+              hid: 'description',
+              name: 'description',
+              content: post.value?.excerpt,
+            },
+            {
+              hid: 'og:title',
+              property: 'og:title',
+              content: post.value.title,
+            },
+            {
+              hid: 'og:description',
+              property: 'og:description',
+              content: post.value?.excerpt,
+            },
+            {
+              hid: 'og:image',
+              property: 'og:image',
+              content: post.value.files[0].url,
+            },
+            {
+              hid: 'og:url',
+              property: 'og:url',
+              content: currentUrl,
+            },
+            {
+              hid: 'twitter:title',
+              name: 'twitter:title',
+              content: post.value.title,
+            },
+            {
+              hid: 'twitter:description',
+              name: 'twitter:description',
+              content: post.value?.excerpt,
+            },
+            {
+              hid: 'twitter:image',
+              name: 'twitter:image',
+              content: post.value.files[0].url,
+            },
+            {
+              hid: 'twitter:card',
+              name: 'twitter:card',
+              content: 'summary_large_image',
+            },
+          ],
+        }
+      }
+      return {}
     })
 
     onMounted(() => {

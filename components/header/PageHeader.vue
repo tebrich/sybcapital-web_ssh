@@ -58,7 +58,7 @@
             </v-menu>
 
             <li>
-              <v-btn small nuxt text to=""> Contacto </v-btn>
+              <v-btn small nuxt text to="/contact"> Contacto </v-btn>
             </li>
           </ul>
         </div>
