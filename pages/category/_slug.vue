@@ -46,7 +46,11 @@ import { Categories } from '@/models'
 export default defineComponent({
   // eslint-disable-next-line vue/match-component-file-name
   name: 'Slug',
+
+  auth: false,
+
   components: { MarketsTable, SubscribeNewsLetter, PreviewNewsContainer },
+
   setup() {
     const categoriesComposable = useCategories()
     const route = useRoute()
