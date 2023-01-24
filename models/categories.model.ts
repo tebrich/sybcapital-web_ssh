@@ -8,6 +8,7 @@ export interface Categories extends Entity {
   posts: Posts[]
   featured: true
   children: Categories[]
+  parent: Categories
 }
 
 export interface CategoriesFilter {

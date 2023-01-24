@@ -37,14 +37,21 @@
               offset-y
             >
               <template #activator="{ on, attrs }">
-                <v-btn small text v-bind="attrs" v-on="on">
+                <v-btn
+                  small
+                  text
+                  v-bind="attrs"
+                  v-on="on"
+                  nuxt
+                  :to="`/category/${item.slug}`"
+                >
                   {{ item.name }}
                   <v-icon color="primary"> mdi-chevron-down </v-icon>
                 </v-btn>
               </template>
 
               <v-list v-for="(child, cindex) in item.children" :key="cindex">
-                <v-list-item nuxt to="#">
+                <v-list-item nuxt :to="`/category/${child.slug}`">
                   <v-list-item-title>{{ child.name }}</v-list-item-title>
                 </v-list-item>
               </v-list>

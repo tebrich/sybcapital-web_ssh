@@ -28,6 +28,10 @@ export const useCategories = () => {
     category.value = await $axios.$get(`/categories/${id}`)
   }
 
+  const getOneBySlug = async (slug: string) => {
+    return await $axios.$get(`/categories/slug/${slug}`)
+  }
+
   const create = async (category: Categories) => {
     return await $axios.$post('/categories', category)
   }
@@ -59,5 +63,6 @@ export const useCategories = () => {
     remove,
     getCategoriesMenu,
     categoriesMenu,
+    getOneBySlug,
   }
 }

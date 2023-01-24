@@ -54,7 +54,7 @@
         class="sb-opacity-70 sb-font-light sb-text-sm"
         :class="[!noticeBlack ? 'sb-text-white' : 'sb-text-black']"
       >
-        We hate spam. Unsubscribe anytime.
+        Odiamos el spam. Desuscribete en cualquier momento.
       </span>
     </div>
   </div>

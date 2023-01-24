@@ -6,21 +6,27 @@
       color="#ED3237"
       centered
     >
-      <v-tab v-for="item in items" :key="item">
-        {{ item }}
-      </v-tab>
+      <v-tab> Actives </v-tab>
+      <v-tab> Gainers </v-tab>
+      <v-tab> Decliners </v-tab>
     </v-tabs>
 
     <v-tabs-items v-model="tab">
-      <v-tab-item v-for="item in items" :key="item">
+      <v-tab-item>
         <price-actives-list :markets="markets" />
+      </v-tab-item>
+      <v-tab-item>
+        <price-actives-list :markets="gainers" />
+      </v-tab-item>
+      <v-tab-item>
+        <price-actives-list :markets="decliners" />
       </v-tab-item>
     </v-tabs-items>
   </v-card>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from '@nuxtjs/composition-api'
+import { computed, defineComponent, ref, toRefs } from '@nuxtjs/composition-api'
 import PriceActivesList from './PriceActivesList.vue'
 import { StockMarketsMoversModel } from '~/models/stock-prices.model'
 
@@ -36,12 +42,22 @@ export default defineComponent({
     },
   },
 
-  setup() {
+  setup(props) {
+    const { markets } = toRefs(props)
+
     const tab = ref(null)
-    const items = ['Actives', 'Gainers', 'Decliners']
+
+    const gainers = computed(() =>
+      markets.value.filter((market) => market.stockPrice?.changesPercentage > 0)
+    )
+    const decliners = computed(() =>
+      markets.value.filter((market) => market.stockPrice?.changesPercentage < 0)
+    )
+
     return {
       tab,
-      items,
+      gainers,
+      decliners,
     }
   },
 })

@@ -21,7 +21,7 @@ export const useStockPrices = () => {
     const { data } = await $axios.get('/stock-prices/movers', {
       params: {
         exchange: 'NASDAQ',
-        limit: 10,
+        limit: 100,
       },
     })
     NASDAQ.value = data
@@ -31,7 +31,7 @@ export const useStockPrices = () => {
     const { data } = await $axios.get('/stock-prices/movers', {
       params: {
         exchange: 'NYSE',
-        limit: 10,
+        limit: 100,
       },
     })
     NYSE.value = data
@@ -41,7 +41,7 @@ export const useStockPrices = () => {
     const { data } = await $axios.get('/stock-prices/movers', {
       params: {
         exchange: 'OTC',
-        limit: 10,
+        limit: 100,
       },
     })
     OTC.value = data

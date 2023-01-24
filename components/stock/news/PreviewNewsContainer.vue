@@ -37,9 +37,8 @@
         v-if="post.excerpt"
         class="sb-font-light !sb-mb-2"
         :class="[!small ? 'sb-text-xl' : 'sb-text-sm']"
-      >
-        {{ post.excerpt }}
-      </p>
+        v-html="post.excerpt"
+      ></p>
       <div class="sb-flex sb-items-center sb-justify-start sb-gap-2">
         <span
           class="sb-flex sb-items-center sb-justify-center sb-font-light"

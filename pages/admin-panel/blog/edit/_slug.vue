@@ -219,7 +219,7 @@ export default defineComponent({
       try {
         let image = post.value.files
         if (showImageFileInput.value) {
-          image = await filesComposable.uploadFile(draft.value.files)
+          image = await filesComposable.uploadFile(draft.value.files, true)
         }
         await postComposable.update(post.value.id, {
           author: draft.value.author.id,

@@ -11,7 +11,7 @@
   >
     <template #expanded-item="{ headers, item }">
       <td :colspan="headers.length">
-        <table class="sb-w-full" v-if="item.stockPrice">
+        <table v-if="item.stockPrice" class="sb-w-full">
           <tr>
             <th class="sb-w-6/12 sb-text-left sb-text-sm sb-font-normal">
               Company:

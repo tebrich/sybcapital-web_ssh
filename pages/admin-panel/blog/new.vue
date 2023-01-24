@@ -181,7 +181,7 @@ export default defineComponent({
       const tags = draft.value.tags
 
       try {
-        const image = await filesComposable.uploadFile(draft.value.files)
+        const image = await filesComposable.uploadFile(draft.value.files, true)
 
         await postComposable.create({
           authorId: draft.value.author,
