@@ -44,6 +44,7 @@ import { usePosts } from '~/composables'
 
 export default defineComponent({
   name: 'Index',
+  auth: false,
   components: { MarketsTable, SubscribeNewsLetter, PreviewNewsContainer },
   setup() {
     const postsComposable = usePosts()
