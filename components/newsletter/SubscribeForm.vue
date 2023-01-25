@@ -2,14 +2,15 @@
   <div class="sb-pb-2">
     <div>
       <h2 v-if="!dismindTitle" class="sb-font-bold sb-text-3xl sb-text-white">
-        Join Our Free Stock Market Newsletter:
+        Suscríbase a nuestro Newsletter GRATIS
       </h2>
       <p
         v-if="!dismindDetail"
         class="!sb-my-2 sb-text-white sb-font-light sb-text-sm"
       >
-        SyBCapital.com is the #1 resource for all things Stocks. Sign up today
-        for Free!
+        SyBCapital.com es la plataforma #1 de información sobre el mercado
+        financiero. Únase gratis hoy y reciba actualizaciones semanales,
+        consejos de trading, señales y más.
       </p>
     </div>
     <div class="!sb-my-5">

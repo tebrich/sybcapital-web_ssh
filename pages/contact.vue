@@ -6,7 +6,7 @@
         <validation-observer
           v-slot="{ invalid }"
           tag="form"
-          @submit.prevent="createPosts"
+          @submit.prevent="createContact"
         >
           <validation-provider v-slot="{ errors }" name="name" rules="required">
             <v-text-field
@@ -30,15 +30,25 @@
           </validation-provider>
           <validation-provider
             v-slot="{ errors }"
-            name="email"
-            rules="required"
+            name="message"
+            rules="required|max:200"
           >
             <v-textarea
+              v-model="form.message"
               outlined
               label="Mensaje"
-              v-model="form.message"
               :error-messages="errors"
-            />
+              counter
+              :rules="[
+                (v) =>
+                  (v || '').length <= 200 ||
+                  'Description must be 200 characters or less',
+              ]"
+            >
+              <template #[`counter`]="{ props }">
+                <span>{{ props.value }} / 200</span>
+              </template>
+            </v-textarea>
           </validation-provider>
           <v-btn
             type="submit"
@@ -59,13 +69,15 @@
     </v-row>
   </div>
 </template>
+
 <script>
 import { defineComponent, ref } from '@nuxtjs/composition-api'
 import SubscribeNewsLetter from '~/components/newsletter/SubscribeNewsLetter.vue'
-import MarketsTable from '~/components/stock/markets/MarketsTable.vue'
+import { useContacts } from '@/composables'
+
 export default defineComponent({
   name: 'Contact',
-  components: { MarketsTable, SubscribeNewsLetter },
+  components: { SubscribeNewsLetter },
   auth: false,
   setup() {
     const form = ref({
@@ -74,10 +86,25 @@ export default defineComponent({
       message: '',
     })
 
+    const contactsComposable = useContacts()
+
+    const createContact = async () => {
+      try {
+        await contactsComposable.createContact(form.value)
+        // eslint-disable-next-line no-alert
+        alert('Mensaje enviado correctamente')
+        window.location.reload()
+      } catch (e) {
+        console.log(e)
+      }
+    }
+
     return {
       form,
+      createContact,
     }
   },
 })
 </script>
+
 <style></style>
