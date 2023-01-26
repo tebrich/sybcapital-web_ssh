@@ -1,6 +1,6 @@
 <template>
   <a
-    :href="`/post/${post.slug}`"
+    @click="gotToPost"
     :class="{
       'sb-flex sb-flex-row-reverse sb-items-center sb-justify-between sb-gap-3':
         small,
@@ -77,9 +77,10 @@
 </template>
 
 <script lang="ts">
-import { computed } from '@nuxtjs/composition-api'
+import { computed, useStore, useRouter } from '@nuxtjs/composition-api'
 import dayjs from 'dayjs'
-import { Files, Posts } from '~/models'
+import { Posts } from '~/models'
+import * as process from 'process'
 
 export default {
   name: 'PreviewNewsContainer',
@@ -94,6 +95,9 @@ export default {
     },
   },
   setup(props: any) {
+    const store = useStore()
+    const router = useRouter()
+
     const file: any = computed(() =>
       props.post.files.length > 0 ? props.post.files[0] : null
     )
@@ -102,9 +106,15 @@ export default {
       return dayjs(date).format('DD/MM/YYYY')
     }
 
+    const gotToPost = () => {
+      store.commit('news/setCurrentPost', props.post)
+      router.push(`/post/${props.post.slug}`)
+    }
+
     return {
       file,
       getDate,
+      gotToPost,
     }
   },
 }

@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import { defineComponent, ref } from '@nuxtjs/composition-api'
+import { defineComponent, ref, useRouter } from '@nuxtjs/composition-api'
 import { useSubscribe } from '~/composables'
 
 export default defineComponent({
@@ -83,6 +83,7 @@ export default defineComponent({
   },
   setup() {
     const subscribeComposable = useSubscribe()
+    const router = useRouter()
 
     const name = ref('')
     const email = ref('')
@@ -94,10 +95,7 @@ export default defineComponent({
           email: email.value,
         })
 
-        // eslint-disable-next-line no-alert
-        alert('Gracias por registrarte!')
-        name.value = ''
-        email.value = ''
+        router.push('/newsletter/thanks')
       } catch (e) {
         console.log(e)
       }

@@ -161,6 +161,7 @@ import {
   computed,
   useRoute,
   useMeta,
+  useStore,
 } from '@nuxtjs/composition-api'
 import dayjs from 'dayjs'
 import SubscribeNewsLetter from '~/components/newsletter/SubscribeNewsLetter.vue'
@@ -183,6 +184,7 @@ export default defineComponent({
   setup() {
     const route = useRoute()
     const postComposable = usePosts()
+    const store = useStore()
 
     const slug = computed(() => route.value.params.slug)
     const post = computed<Posts | undefined>(() => postComposable.post.value)
@@ -221,30 +223,32 @@ export default defineComponent({
       }
     }
 
+    const postMeta = computed(() => store.getters['news/getCurrentPost'])
+
     useMeta(() => {
-      if (post.value) {
+      if (postMeta.value) {
         return {
-          title: post.value.title,
+          title: postMeta.value.title,
           meta: [
             {
               hid: 'description',
               name: 'description',
-              content: post.value?.excerpt,
+              content: postMeta.value?.excerpt,
             },
             {
               hid: 'og:title',
               property: 'og:title',
-              content: post.value.title,
+              content: postMeta.value.title,
             },
             {
               hid: 'og:description',
               property: 'og:description',
-              content: post.value?.excerpt,
+              content: postMeta.value?.excerpt,
             },
             {
               hid: 'og:image',
               property: 'og:image',
-              content: post.value.files[0].url,
+              content: postMeta.value.files[0].url,
             },
             {
               hid: 'og:url',
@@ -254,17 +258,17 @@ export default defineComponent({
             {
               hid: 'twitter:title',
               name: 'twitter:title',
-              content: post.value.title,
+              content: postMeta.value.title,
             },
             {
               hid: 'twitter:description',
               name: 'twitter:description',
-              content: post.value?.excerpt,
+              content: postMeta.value?.excerpt,
             },
             {
               hid: 'twitter:image',
               name: 'twitter:image',
-              content: post.value.files[0].url,
+              content: postMeta.value.files[0].url,
             },
             {
               hid: 'twitter:card',

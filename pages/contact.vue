@@ -50,10 +50,13 @@
               </template>
             </v-textarea>
           </validation-provider>
+          <vue-recaptcha
+            sitekey="6LdkeCskAAAAAACTf4d3TiHWmbcsjbFAjAn3cxCUyarn"
+          />
           <v-btn
             type="submit"
             :disabled="invalid"
-            class="!sb-bg-secondary !sb-text-white"
+            class="!sb-bg-secondary !sb-text-white sb-mt-10"
             block
             large
           >
@@ -72,12 +75,13 @@
 
 <script>
 import { defineComponent, ref } from '@nuxtjs/composition-api'
+import { VueRecaptcha } from 'vue-recaptcha'
 import SubscribeNewsLetter from '~/components/newsletter/SubscribeNewsLetter.vue'
 import { useContacts } from '@/composables'
 
 export default defineComponent({
   name: 'Contact',
-  components: { SubscribeNewsLetter },
+  components: { SubscribeNewsLetter, VueRecaptcha },
   auth: false,
   setup() {
     const form = ref({
