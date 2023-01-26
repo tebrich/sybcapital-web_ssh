@@ -50,9 +50,7 @@
               </template>
             </v-textarea>
           </validation-provider>
-          <vue-recaptcha
-            sitekey="6LdkeCskAAAAAACTf4d3TiHWmbcsjbFAjAn3cxCUyarn"
-          />
+          <vue-recaptcha sitekey="6LdkeCskAAAAAOaBkg_4-MM07e7U5s_KPG3K7GdQ" />
           <v-btn
             type="submit"
             :disabled="invalid"
