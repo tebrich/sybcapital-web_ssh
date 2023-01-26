@@ -50,11 +50,10 @@
               </template>
             </v-textarea>
           </validation-provider>
-          <vue-recaptcha sitekey="6LdkeCskAAAAAOaBkg_4-MM07e7U5s_KPG3K7GdQ" />
           <v-btn
             type="submit"
             :disabled="invalid"
-            class="!sb-bg-secondary !sb-text-white sb-mt-10"
+            class="!sb-bg-secondary !sb-text-white"
             block
             large
           >
@@ -72,14 +71,15 @@
 </template>
 
 <script>
-import { defineComponent, ref } from '@nuxtjs/composition-api'
-import { VueRecaptcha } from 'vue-recaptcha'
+import { defineComponent, ref, wrapProperty } from '@nuxtjs/composition-api'
 import SubscribeNewsLetter from '~/components/newsletter/SubscribeNewsLetter.vue'
 import { useContacts } from '@/composables'
 
+const useRecaptcha = wrapProperty('$recaptcha', false)
+
 export default defineComponent({
   name: 'Contact',
-  components: { SubscribeNewsLetter, VueRecaptcha },
+  components: { SubscribeNewsLetter },
   auth: false,
   setup() {
     const form = ref({
@@ -89,13 +89,21 @@ export default defineComponent({
     })
 
     const contactsComposable = useContacts()
+    const recaptcha = useRecaptcha()
 
     const createContact = async () => {
       try {
-        await contactsComposable.createContact(form.value)
-        // eslint-disable-next-line no-alert
-        alert('Mensaje enviado correctamente')
-        window.location.reload()
+        const token = await recaptcha.execute('login')
+
+        if (token) {
+          await contactsComposable.createContact(form.value)
+          // eslint-disable-next-line no-alert
+          alert('Mensaje enviado correctamente')
+          window.location.reload()
+        } else {
+          // eslint-disable-next-line no-alert
+          alert('Error al completar recaptcha')
+        }
       } catch (e) {
         console.log(e)
       }
@@ -105,6 +113,16 @@ export default defineComponent({
       form,
       createContact,
     }
+  },
+  async mounted() {
+    try {
+      await this.$recaptcha.init()
+    } catch (e) {
+      console.error(e)
+    }
+  },
+  beforeDestroy() {
+    this.$recaptcha.destroy()
   },
 })
 </script>

@@ -41,7 +41,21 @@ export default {
     { src: '@/plugins/tiptapVuetify', mode: 'client' },
   ],
 
-  modules: ['@nuxtjs/axios', '@nuxtjs/auth-next'],
+  modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/auth-next',
+    [
+      '@nuxtjs/recaptcha',
+      {
+        hideBadge: false,
+        language: 'es',
+        mode: 'enterprise', // Mode: 'base', 'enterprise'
+        siteKey: '6LdkeCskAAAAAOaBkg_4-MM07e7U5s_KPG3K7GdQ', // Site key for requests
+        version: 'v3', // Version
+        size: 'normal',
+      },
+    ],
+  ],
 
   axios: {
     baseURL: process.env.API_BASE_URL || 'https://sybcapital-api.worksheep.net',
