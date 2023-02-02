@@ -223,32 +223,30 @@ export default defineComponent({
       }
     }
 
-    const postMeta = computed(() => store.getters['news/getCurrentPost'])
-
     useMeta(() => {
-      if (postMeta.value) {
+      if (post.value) {
         return {
-          title: postMeta.value.title,
+          title: post.value.title,
           meta: [
             {
               hid: 'description',
               name: 'description',
-              content: postMeta.value?.excerpt,
+              content: post.value?.excerpt,
             },
             {
               hid: 'og:title',
               property: 'og:title',
-              content: postMeta.value.title,
+              content: post.value.title,
             },
             {
               hid: 'og:description',
               property: 'og:description',
-              content: postMeta.value?.excerpt,
+              content: post.value?.excerpt,
             },
             {
               hid: 'og:image',
               property: 'og:image',
-              content: postMeta.value.files[0].url,
+              content: post.value.files[0].url,
             },
             {
               hid: 'og:url',
@@ -258,17 +256,17 @@ export default defineComponent({
             {
               hid: 'twitter:title',
               name: 'twitter:title',
-              content: postMeta.value.title,
+              content: post.value.title,
             },
             {
               hid: 'twitter:description',
               name: 'twitter:description',
-              content: postMeta.value?.excerpt,
+              content: post.value?.excerpt,
             },
             {
               hid: 'twitter:image',
               name: 'twitter:image',
-              content: postMeta.value.files[0].url,
+              content: post.value.files[0].url,
             },
             {
               hid: 'twitter:card',
