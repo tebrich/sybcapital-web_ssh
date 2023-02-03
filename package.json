@@ -21,6 +21,7 @@
     "core-js": "^3.25.3",
     "dayjs": "^1.11.7",
     "nuxt": "^2.15.8",
+    "nuxt-property-decorator": "^2.9.1",
     "tiptap-vuetify": "2.24.0",
     "vee-validate": "3.3.7",
     "vue": "^2.7.10",

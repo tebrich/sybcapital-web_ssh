@@ -4,7 +4,7 @@ export default {
     host: process.env.HOST || '0.0.0.0',
   },
 
-  ssr: true,
+  ssr: false,
 
   target: 'static',
 
