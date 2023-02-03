@@ -278,7 +278,11 @@ export default defineComponent({
           ],
         }
       }
-      return {}
+      return {
+        title:
+          slug.value.replaceAll('-', ' ').charAt(0).toUpperCase() +
+          slug.value.replaceAll('-', ' ').slice(1),
+      }
     })
 
     onMounted(() => {
