@@ -1,6 +1,5 @@
 <template>
   <v-container v-if="post">
-    <seo-headers :slug="slug" />
     <h2 class="sb-text-5xl sb-font-bold">
       {{ post.title }}
     </h2>
@@ -170,7 +169,6 @@ import { usePosts, useStockPrices } from '~/composables'
 import { Posts } from '~/models'
 import 'dayjs/locale/es'
 import MarketsTable from '~/components/stock/markets/MarketsTable.vue'
-import SeoHeaders from '~/components/commons/SeoHeaders.vue'
 
 export default defineComponent({
   // eslint-disable-next-line vue/match-component-file-name
@@ -179,7 +177,6 @@ export default defineComponent({
   auth: false,
 
   components: {
-    SeoHeaders,
     MarketsTable,
     SubscribeNewsLetter,
   },
@@ -226,10 +223,12 @@ export default defineComponent({
       }
     }
 
-    /* useMeta(() => {
+    useMeta(() => {
       if (post.value) {
         return {
-          title: post.value.title,
+          title:
+            slug.value.replaceAll('-', ' ').charAt(0).toUpperCase() +
+            slug.value.replaceAll('-', ' ').slice(1),
           meta: [
             {
               hid: 'description',
@@ -280,7 +279,7 @@ export default defineComponent({
         }
       }
       return {}
-    }) */
+    })
 
     onMounted(() => {
       getPost()
@@ -296,6 +295,8 @@ export default defineComponent({
       slug,
     }
   },
+
+  head: {},
 })
 </script>
 
