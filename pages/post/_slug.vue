@@ -282,6 +282,15 @@ export default defineComponent({
         title:
           slug.value.replaceAll('-', ' ').charAt(0).toUpperCase() +
           slug.value.replaceAll('-', ' ').slice(1),
+        meta: [
+          {
+            hid: 'og:title',
+            property: 'og:title',
+            content:
+              slug.value.replaceAll('-', ' ').charAt(0).toUpperCase() +
+              slug.value.replaceAll('-', ' ').slice(1),
+          },
+        ],
       }
     })
 
