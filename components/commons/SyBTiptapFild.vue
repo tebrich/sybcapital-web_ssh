@@ -39,6 +39,7 @@ import {
   TableHeader,
   TableRow,
 } from 'tiptap-vuetify'
+import FileSelector from '~/components/commons/FileSelector.vue'
 
 export default {
   name: 'SyBTiptapFild',
@@ -107,7 +108,17 @@ export default {
       OrderedList,
 
       // Others
-      Image,
+      [
+        Image,
+        {
+          options: {
+            imageSources: [
+              { component: FileSelector, name: 'Carga de imagenes' },
+            ],
+            imageSourcesOverride: true,
+          },
+        },
+      ],
       Table,
       TableCell,
       TableHeader,
