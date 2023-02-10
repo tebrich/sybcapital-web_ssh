@@ -19,7 +19,7 @@
     <section class="sb-my-8">
       <v-row align="stretch">
         <v-col cols="12" md="6">
-          <h2 class="sb-mb-3 sb-text-2xl sb-font-bold">Ultimas entradas</h2>
+          <h2 class="sb-mb-3 sb-text-2xl sb-font-bold">Ultimas Entradas</h2>
           <preview-news-container :post="featuredPost" />
         </v-col>
         <v-col cols="12" md="6">
@@ -49,7 +49,7 @@
         beneficiarse dentro de los diferentes mercados mundiales!
       </p>
       <p class="sb-text-sm md:sb-text-xl">
-        Ofrecemos acceso a cotizaciones de acciones gratuitas, gráficos de
+        Ofrecemos acceso gratuito a cotizaciones de acciones, gráficos de
         acciones, noticias bursátiles de última hora, historias principales del
         mercado, calificaciones gratuitas de acciones, presentaciones ante la
         SEC, IPO, historial de precios de acciones, futuros, ETFs, Commodities,
