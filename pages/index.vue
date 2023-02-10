@@ -2,49 +2,53 @@
   <div v-if="otherPosts.length > 0">
     <section v-if="stockMarkets">
       <v-row>
-        <v-col class="sb-flex sb-items-center sb-justify-between">
+        <v-col cols="6" lg="3">
           <feature-stock-price :values="stockMarkets.GSPC" />
         </v-col>
-        <v-col class="sb-flex sb-items-center sb-justify-between">
+        <v-col cols="6" lg="3">
           <feature-stock-price :values="stockMarkets.IXIC" />
         </v-col>
-        <v-col class="sb-flex sb-items-center sb-justify-between">
+        <v-col cols="6" lg="3">
           <feature-stock-price :values="stockMarkets.DJI" />
         </v-col>
-        <v-col class="sb-flex sb-items-center sb-justify-between">
+        <v-col cols="6" lg="3">
           <feature-stock-price :values="stockMarkets.VIX" />
         </v-col>
       </v-row>
     </section>
     <section class="sb-my-8">
       <v-row align="stretch">
-        <v-col cols="6">
+        <v-col cols="12" md="6">
           <h2 class="sb-mb-3 sb-text-2xl sb-font-bold">Ultimas entradas</h2>
           <preview-news-container :post="featuredPost" />
         </v-col>
-        <v-col cols="6">
-          <preview-news-container
-            v-for="(item, index) in threePosts"
-            :key="index"
-            :post="item"
-            small
-          />
+        <v-col cols="12" md="6">
+          <div class="sb-flex sb-flex-col">
+            <preview-news-container
+              v-for="(item, index) in threePosts"
+              :key="index"
+              :post="item"
+              :small="$vuetify.breakpoint.mdAndUp"
+            />
+          </div>
         </v-col>
       </v-row>
     </section>
     <section>
-      <h1 class="sb-text-center sb-text-2xl sb-font-extrabold sb-mb-3">
+      <h1
+        class="sb-text-center sb-text-xl md:sb-text-2xl sb-font-extrabold sb-mb-3"
+      >
         SyB Capital (SyBCapital.com) | Noticias de Mercado, Cotizaciones,
         Gráficos e Información Financiera
       </h1>
-      <p>
+      <p class="sb-text-sm md:sb-text-xl">
         <a href="/" class="sb-text-primary">Sybcapital.com</a>, es una
         plataforma global de mercados financieros que se esfuerza por educar,
         informar, involucrar y capacitar a las personas para que tomen el
         control de sus vidas financieras actuales y futuras, ¡para que puedan
         beneficiarse dentro de los diferentes mercados mundiales!
       </p>
-      <p>
+      <p class="sb-text-sm md:sb-text-xl">
         Ofrecemos acceso a cotizaciones de acciones gratuitas, gráficos de
         acciones, noticias bursátiles de última hora, historias principales del
         mercado, calificaciones gratuitas de acciones, presentaciones ante la
@@ -58,13 +62,15 @@
     </section>
     <section>
       <v-row>
-        <v-col cols="8">
-          <preview-news-container
-            v-for="(item, index) in otherPosts"
-            :key="index"
-            :post="item"
-            small
-          />
+        <v-col cols="12" md="8">
+          <div class="sb-flex sb-flex-col">
+            <preview-news-container
+              v-for="(item, index) in otherPosts"
+              :key="index"
+              :post="item"
+              :small="$vuetify.breakpoint.mdAndUp"
+            />
+          </div>
           <v-btn
             v-if="showLoadMore"
             ref="infiniteTarget"
@@ -75,7 +81,7 @@
             class="!sb-block sb-mx-auto sb-my-5"
           ></v-btn>
         </v-col>
-        <v-col cols="4">
+        <v-col v-if="$vuetify.breakpoint.mdAndUp" cols="4">
           <div class="sb-py-3 sb-w-full">
             <subscribe-news-letter />
             <v-divider class="sb-py-5" />

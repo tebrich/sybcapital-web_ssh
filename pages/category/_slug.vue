@@ -3,18 +3,20 @@
     <template v-if="category">
       <v-breadcrumbs :items="breadcrumbs" />
       <v-row>
-        <v-col v-if="category.posts.length > 0" cols="8">
-          <preview-news-container
-            v-for="(item, index) in category.posts"
-            :key="index"
-            :post="item"
-            small
-          />
+        <v-col v-if="category.posts.length > 0" cols="12" md="8">
+          <div class="sb-flex sb-flex-col">
+            <preview-news-container
+              v-for="(item, index) in category.posts"
+              :key="index"
+              :post="item"
+              :small="$vuetify.breakpoint.mdAndUp"
+            />
+          </div>
         </v-col>
-        <v-col v-else cols="8">
+        <v-col v-else cols="12" md="8">
           <h2>Aún no tenemos posts para esta categoría!</h2>
         </v-col>
-        <v-col cols="4">
+        <v-col v-if="$vuetify.breakpoint.mdAndUp" cols="12" md="4">
           <div class="sb-py-3 sb-w-full">
             <subscribe-news-letter />
             <v-divider class="sb-py-5" />

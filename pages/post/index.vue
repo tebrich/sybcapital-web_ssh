@@ -1,12 +1,14 @@
 <template>
   <v-row>
-    <v-col cols="8">
-      <preview-news-container
-        v-for="(item, index) in posts"
-        :key="index"
-        :post="item"
-        small
-      />
+    <v-col cols="12" md="8">
+      <div class="sb-flex sb-flex-col">
+        <preview-news-container
+          v-for="(item, index) in posts"
+          :key="index"
+          :post="item"
+          :small="$vuetify.breakpoint.mdAndUp"
+        />
+      </div>
       <v-btn
         v-if="showLoadMore"
         ref="infiniteTarget"
@@ -17,7 +19,7 @@
         class="!sb-block sb-mx-auto sb-my-5"
       ></v-btn>
     </v-col>
-    <v-col cols="4">
+    <v-col v-if="$vuetify.breakpoint.mdAndUp" cols="4">
       <div class="sb-py-3 sb-w-full">
         <subscribe-news-letter />
         <v-divider class="sb-py-5" />

@@ -1,18 +1,18 @@
 <template>
   <a
-    @click="gotToPost"
     :class="{
       'sb-flex sb-flex-row-reverse sb-items-center sb-justify-between sb-gap-3':
         small,
-      'sb-h-full': !small,
+      'sb-h-full !sb-mb-5': !small || $vuetify.breakpoint.mdAndDown,
     }"
     class="sb-border-b-[2px] sb-border-r-gray-500 sb-border-opacity-10 sb-py-3 !sb-text-black hover:sb-opacity-50"
+    @click="gotToPost"
   >
     <v-img
       v-if="file"
       :width="!small ? 580 : 260"
       :height="!small ? 300 : 140"
-      class="sb-w-full"
+      class="sb-w-full sb-block sb-mx-auto md:sb-mx-0"
       :class="[!small ? 'sb-h-[400px]' : 'sb-h-[140px]']"
       cover
       :src="file.url"
@@ -29,12 +29,14 @@
     <div :class="{ 'sb-w-8/12': small }">
       <h2
         class="sb-font-bold"
-        :class="[!small ? 'sb-text-3xl sb-my-2' : 'sb-text-xl sb-mb-2']"
+        :class="[
+          !small ? 'sb-text-xl md:sb-text-3xl sb-my-2' : 'sb-text-xl sb-mb-2',
+        ]"
       >
         {{ post.title }}
       </h2>
       <p
-        v-if="post.excerpt"
+        v-if="post.excerpt && $vuetify.breakpoint.mdAndUp"
         class="sb-font-light !sb-mb-2"
         :class="[!small ? 'sb-text-xl' : 'sb-text-sm']"
         v-html="post.excerpt"
@@ -80,7 +82,6 @@
 import { computed, useStore, useRouter } from '@nuxtjs/composition-api'
 import dayjs from 'dayjs'
 import { Posts } from '~/models'
-import * as process from 'process'
 
 export default {
   name: 'PreviewNewsContainer',

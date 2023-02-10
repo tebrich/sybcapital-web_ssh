@@ -1,7 +1,7 @@
 <template>
   <div class="sb-my-10">
     <h2 class="sb-text-6xl sb-font-bold sb-text-gray-900">Gracias</h2>
-    <h3 class="sb-text-3xl sb-font-normal sb-my-10">
+    <h3 class="sb-text-xl md:sb-text-3xl sb-font-normal sb-my-10">
       Usted está suscrito al Newsletter de
       <a class="sb-text-primary" href="/">sybcapital.com</a>. Agradecemos su
       preferencia.

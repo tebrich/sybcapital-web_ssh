@@ -2,7 +2,7 @@
   <div>
     <h2 class="sb-text-center sb-text-3xl sb-font-bold sb-mb-10">Contacto</h2>
     <v-row class="!sb-mb-10" justify="center">
-      <v-col cols="8">
+      <v-col cols="12" md="8">
         <validation-observer
           v-slot="{ invalid }"
           tag="form"
@@ -61,7 +61,11 @@
           </v-btn>
         </validation-observer>
       </v-col>
-      <v-col cols="4">
+      <v-col
+        cols="12"
+        md="4"
+        :class="{ 'sb-mt-10': $vuetify.breakpoint.mdAndDown }"
+      >
         <div class="sb-w-full">
           <subscribe-news-letter />
         </div>

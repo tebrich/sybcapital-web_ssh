@@ -1,6 +1,6 @@
 <template>
   <v-container v-if="post">
-    <h2 class="sb-text-5xl sb-font-bold">
+    <h2 class="sb-text-xl md:sb-text-3xl lg:sb-text-5xl sb-font-bold">
       {{ post.title }}
     </h2>
     <p
@@ -9,7 +9,7 @@
       v-html="post.excerpt"
     />
     <v-row>
-      <v-col cols="8">
+      <v-col cols="12" md="8">
         <div
           class="sb-font-light sb-text-sm"
           :class="{ 'sb-mt-5': !post.excerpt }"
@@ -24,9 +24,9 @@
           </span>
         </div>
         <div
-          class="sb-flex sb-items-center sb-justify-between sb-gap-2 sb-my-3"
+          class="sb-block md:sb-flex sb-items-center sb-justify-between sb-gap-2 sb-my-3"
         >
-          <div class="sb-flex sb-items-center sb-gap-2">
+          <div class="sb-flex sb-items-center sb-gap-2 sb-mb-2 md:sb-mb-0">
             <div>
               <v-icon size="14"> mdi-timer-outline </v-icon>
               <span class="sb-text-sm sb-font-extralight"
@@ -54,19 +54,24 @@
           </div>
         </div>
         <v-row class="!sb-my-3">
-          <v-col cols="3">
-            <div>
-              <strong class="sb-text-sm">Publicado el:</strong>
-              <p class="sb-text-xs sb-font-light">
-                {{ getFormateDate(post.createdAt) }}
-              </p>
-            </div>
-            <v-divider />
-            <div class="sb-mt-3">
-              <strong class="sb-text-sm">Autor:</strong>
-              <p class="sb-text-xs sb-font-light">
-                {{ post.author.fullName }}
-              </p>
+          <v-col cols="12" md="3">
+            <div class="sb-flex sb-items-start md:sb-block">
+              <div class="sb-w-6/12 md:sb-w-full">
+                <strong class="sb-text-sm">Publicado el:</strong>
+                <p class="sb-text-xs sb-font-light">
+                  {{ getFormateDate(post.createdAt) }}
+                </p>
+              </div>
+              <v-divider v-if="$vuetify.breakpoint.mdAndUp" />
+              <div
+                class="sb-w-6/12 md:sb-w-full"
+                :class="{ 'sb-mt-3': $vuetify.breakpoint.mdAndUp }"
+              >
+                <strong class="sb-text-sm">Autor:</strong>
+                <p class="sb-text-xs sb-font-light">
+                  {{ post.author.fullName }}
+                </p>
+              </div>
             </div>
             <v-divider v-if="post.tags.length > 0" />
             <div v-if="post.tags.length > 0" class="sb-mt-3">
@@ -83,7 +88,7 @@
               </p>
             </div>
             <v-divider />
-            <div class="sb-mt-3">
+            <div v-if="$vuetify.breakpoint.mdAndUp" class="sb-mt-3">
               <strong class="sb-text-sm">Compartir:</strong>
               <a
                 :href="`https://www.facebook.com/sharer.php?u=${currentUrl}`"
@@ -126,7 +131,7 @@
               </p>
             </div>
           </v-col>
-          <v-col cols="9">
+          <v-col cols="12" md="9">
             <v-img
               v-if="post.files.length > 0"
               :src="post.files[0].url"
@@ -141,9 +146,53 @@
             />
             <div class="post-content" v-html="post.content"></div>
           </v-col>
+          <v-col cols="12">
+            <div v-if="$vuetify.breakpoint.mdAndDown" class="sb-mt-3">
+              <strong class="sb-text-sm">Compartir:</strong>
+              <a
+                :href="`https://www.facebook.com/sharer.php?u=${currentUrl}`"
+                target="_blank"
+                class="sb-flex sb-items-center sb-gap-2 sb-my-2 sb-cursor-pointer hover:sb-opacity-30 !sb-text-black"
+                @click="updateShared('facebook')"
+              >
+                <v-icon size="16"> mdi-facebook </v-icon>
+                <p class="sb-text-sm sb-font-bold !sb-m-0">Facebook</p>
+                <p class="sb-text-sm sb-font-light !sb-m-0">
+                  {{ post.shared.facebook }}
+                </p>
+              </a>
+              <a
+                :href="`http://twitter.com/share?url=${currentUrl}`"
+                target="_blank"
+                class="sb-flex sb-items-center sb-gap-2 sb-my-2 sb-cursor-pointer hover:sb-opacity-30 !sb-text-black"
+                @click="updateShared('twitter')"
+              >
+                <v-icon size="16"> mdi-twitter </v-icon>
+                <p class="sb-text-sm sb-font-bold !sb-m-0">Twitter</p>
+                <p class="sb-text-sm sb-font-light !sb-m-0">
+                  {{ post.shared.twitter }}
+                </p>
+              </a>
+              <a
+                :href="`mailto:no-one@snai1mai1.com?body=${currentUrl}`"
+                class="sb-flex sb-items-center sb-gap-2 sb-my-2 sb-cursor-pointer hover:sb-opacity-30 !sb-text-black"
+                @click="updateShared('email')"
+              >
+                <v-icon size="16"> mdi-email-outline </v-icon>
+                <p class="sb-text-sm sb-font-bold !sb-m-0">Mail</p>
+                <p class="sb-text-sm sb-font-light !sb-m-0">
+                  {{ post.shared.email }}
+                </p>
+              </a>
+              <p class="sb-font-light sb-text-sm">
+                Este post fue compartido <br />
+                {{ totalShared }} veces
+              </p>
+            </div>
+          </v-col>
         </v-row>
       </v-col>
-      <v-col cols="4">
+      <v-col v-if="$vuetify.breakpoint.mdAndUp" cols="4">
         <div class="sb-py-3 sb-w-full sb-mt-16">
           <subscribe-news-letter />
           <v-divider class="sb-py-5" />

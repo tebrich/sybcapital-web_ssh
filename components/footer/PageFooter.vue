@@ -1,8 +1,8 @@
 <template>
   <footer class="sb-bg-primary sb-py-5">
     <v-container>
-      <v-row>
-        <v-col cols="8">
+      <v-row class="sb-flex-row-reverse md:sb-flex-row">
+        <v-col cols="12" md="8">
           <h2 class="sb-text-white sb-font-bold sb-text-lg">
             SyB Capital (SyBCapital.com) | Noticias de Mercado, Cotizaciones,
             Gráficos e Información Financiera
@@ -55,7 +55,7 @@
             >
           </p>
         </v-col>
-        <v-col cols="4">
+        <v-col cols="12" md="4">
           <subscribe-form />
         </v-col>
       </v-row>
