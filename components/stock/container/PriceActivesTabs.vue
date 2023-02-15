@@ -54,7 +54,7 @@ export default defineComponent({
     let gainers: any = []
     let decliners: any = []
 
-    if (!isForex) {
+    if (!isForex.value) {
       gainers = computed(() =>
         markets.value.filter(
           (market: any) => market.stockPrice?.changesPercentage > 0
