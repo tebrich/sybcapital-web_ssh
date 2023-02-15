@@ -13,13 +13,13 @@
 
     <v-tabs-items v-model="tab">
       <v-tab-item>
-        <price-actives-list :markets="markets" />
+        <price-actives-list :markets="markets" :is-forex="isForex" />
       </v-tab-item>
       <v-tab-item>
-        <price-actives-list :markets="gainers" />
+        <price-actives-list :markets="gainers" :is-forex="isForex" />
       </v-tab-item>
       <v-tab-item>
-        <price-actives-list :markets="decliners" />
+        <price-actives-list :markets="decliners" :is-forex="isForex" />
       </v-tab-item>
     </v-tabs-items>
   </v-card>
@@ -40,19 +40,39 @@ export default defineComponent({
       type: Array as () => StockMarketsMoversModel[],
       required: true,
     },
+    isForex: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   setup(props) {
-    const { markets } = toRefs(props)
+    const { isForex, markets } = toRefs(props)
 
     const tab = ref(null)
 
-    const gainers = computed(() =>
-      markets.value.filter((market) => market.stockPrice?.changesPercentage > 0)
-    )
-    const decliners = computed(() =>
-      markets.value.filter((market) => market.stockPrice?.changesPercentage < 0)
-    )
+    let gainers: any = []
+    let decliners: any = []
+
+    if (!isForex) {
+      gainers = computed(() =>
+        markets.value.filter(
+          (market: any) => market.stockPrice?.changesPercentage > 0
+        )
+      )
+      decliners = computed(() =>
+        markets.value.filter(
+          (market: any) => market.stockPrice?.changesPercentage < 0
+        )
+      )
+    } else {
+      gainers = computed(() =>
+        markets.value.filter((market: any) => market.changesPercentage > 0)
+      )
+      decliners = computed(() =>
+        markets.value.filter((market: any) => market.changesPercentage < 0)
+      )
+    }
 
     return {
       tab,

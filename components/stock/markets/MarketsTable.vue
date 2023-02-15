@@ -11,8 +11,8 @@
     </div>
     <v-divider class="sb-py-5" />
     <div>
-      <h3 class="sb-text-xl sb-font-bold sb-mb-2">OTC Market Movers</h3>
-      <price-actives-tabs :markets="OTC" />
+      <h3 class="sb-text-xl sb-font-bold sb-mb-2">Forex Actives Prices</h3>
+      <price-actives-tabs :markets="FOREX" is-forex />
     </div>
   </div>
 </template>
@@ -32,7 +32,7 @@ export default defineComponent({
       try {
         await stockPriceComposable.getNASDAQ()
         await stockPriceComposable.getNYSE()
-        await stockPriceComposable.getOTC()
+        await stockPriceComposable.getForex()
       } catch (e) {
         console.log(e)
       }
@@ -40,7 +40,7 @@ export default defineComponent({
 
     const NASDAQ = computed(() => stockPriceComposable.NASDAQ.value)
     const NYSE = computed(() => stockPriceComposable.NYSE.value)
-    const OTC = computed(() => stockPriceComposable.OTC.value)
+    const FOREX = computed(() => stockPriceComposable.FOREX.value)
 
     onMounted(() => {
       getStockTable()
@@ -49,7 +49,7 @@ export default defineComponent({
     return {
       NASDAQ,
       NYSE,
-      OTC,
+      FOREX,
     }
   },
 })

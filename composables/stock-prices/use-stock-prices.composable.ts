@@ -1,7 +1,8 @@
-import { ref, computed, useContext } from '@nuxtjs/composition-api'
+import { ref, useContext } from '@nuxtjs/composition-api'
 import {
   StockMarketsModel,
   StockMarketsMoversModel,
+  StockPricesModel,
 } from '~/models/stock-prices.model'
 
 export const useStockPrices = () => {
@@ -9,6 +10,7 @@ export const useStockPrices = () => {
   const NASDAQ = ref<StockMarketsMoversModel[]>([])
   const NYSE = ref<StockMarketsMoversModel[]>([])
   const OTC = ref<StockMarketsMoversModel[]>([])
+  const FOREX = ref<StockPricesModel[]>([])
 
   const { $axios } = useContext()
 
@@ -47,6 +49,11 @@ export const useStockPrices = () => {
     OTC.value = data
   }
 
+  const getForex = async () => {
+    const { data } = await $axios.get('/stock-prices/forex')
+    FOREX.value = data
+  }
+
   return {
     stockMarkets,
     NASDAQ,
@@ -56,5 +63,7 @@ export const useStockPrices = () => {
     getNASDAQ,
     getNYSE,
     getOTC,
+    getForex,
+    FOREX,
   }
 }
