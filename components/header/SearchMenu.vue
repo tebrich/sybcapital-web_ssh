@@ -1,21 +1,30 @@
 <template>
   <div class="sb-flex sb-items-center sb-h-full">
-    <div class="sb-w-11/12">
+    <div class="sb-w-9/12">
       <v-text-field
+        v-if="searchType === 'Articulos'"
         v-model="search"
-        :label="
-          searchType === 'Articulos'
-            ? 'Buscar articulos (preciona enter para buscar)'
-            : 'Buscar divisas (preciona enter para buscar)'
-        "
+        label="Buscar articulos (preciona enter para buscar)"
         outlined
         dense
         hide-details
         height="60"
         @keydown.enter="searchByType"
       />
+      <v-autocomplete
+        v-else
+        v-model="symbol"
+        outlined
+        dense
+        hide-details
+        height="60"
+        :items="financialSymbolsList"
+        label="Buscar divisas (preciona enter para buscar)"
+        @change="goToSymbol"
+        @keydown.enter="goToSymbol"
+      />
     </div>
-    <div v-if="false" class="sb-w-2/12">
+    <div class="sb-w-2/12">
       <v-select
         v-model="searchType"
         :items="['Articulos', 'Divisas']"
@@ -30,39 +39,60 @@
         class="sb-text-center sb-mx-auto !sb-block"
         @click="$emit('close')"
       >
-        <v-icon color="primary"> mdi-close </v-icon>
+        <v-icon color="primary">
+          mdi-close
+        </v-icon>
       </v-btn>
     </div>
   </div>
 </template>
 
-<script>
-import { defineComponent, ref, useRouter } from '@nuxtjs/composition-api'
+<script lang="ts">
+import { defineComponent, onMounted, ref, useRouter } from '@nuxtjs/composition-api'
+import { useStockPrices } from '~/composables'
 
 export default defineComponent({
   name: 'SearchMenu',
 
   setup(_, { emit }) {
     const router = useRouter()
+    const useStockComposable = useStockPrices()
 
     const searchType = ref('Articulos')
     const search = ref('')
+    const symbol = ref(null)
+    const financialSymbolsList = ref<string[]>([])
 
     const searchByType = () => {
       emit('close')
-      if (searchType.value === 'Articulos') {
-        router.push(encodeURI(`/post?s=${search.value}`))
-      } else {
-        console.log('searching currencies')
-      }
+
+      router.push(encodeURI(`/post?s=${search.value}`))
     }
+
+    const goToSymbol = () => {
+      emit('close')
+      if (!symbol.value) { return }
+
+      router.push(encodeURI(`/ticker/${symbol.value}`))
+    }
+
+    const getFinancialStatementSymbolLists = async () => {
+      financialSymbolsList.value = await useStockComposable.getFinancialStatementSymbolLists()
+    }
+
+    onMounted(() => {
+      getFinancialStatementSymbolLists()
+    })
 
     return {
       searchType,
       search,
       searchByType,
+      financialSymbolsList,
+      goToSymbol,
+      symbol
     }
-  },
+  }
 })
 </script>
 

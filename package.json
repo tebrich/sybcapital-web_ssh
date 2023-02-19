@@ -31,6 +31,7 @@
     "vue": "^2.7.10",
     "vue-filepond": "^7.0.3",
     "vue-infinite-scroll": "^2.0.2",
+    "vue-mathjax": "^0.1.1",
     "vue-recaptcha": "^2.0.3",
     "vue-server-renderer": "^2.7.10",
     "vue-template-compiler": "^2.7.10",

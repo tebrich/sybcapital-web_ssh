@@ -1,8 +1,9 @@
 import { ref, useContext } from '@nuxtjs/composition-api'
 import {
+  StockFinancialRatios,
   StockMarketsModel,
   StockMarketsMoversModel,
-  StockPricesModel,
+  StockPricesModel
 } from '~/models/stock-prices.model'
 
 export const useStockPrices = () => {
@@ -11,6 +12,8 @@ export const useStockPrices = () => {
   const NYSE = ref<StockMarketsMoversModel[]>([])
   const OTC = ref<StockMarketsMoversModel[]>([])
   const FOREX = ref<StockPricesModel[]>([])
+  const financialRatios = ref<StockFinancialRatios>()
+  const companyData = ref<StockPricesModel>()
 
   const { $axios } = useContext()
 
@@ -23,8 +26,8 @@ export const useStockPrices = () => {
     const { data } = await $axios.get('/stock-prices/movers', {
       params: {
         exchange: 'NASDAQ',
-        limit: 100,
-      },
+        limit: 100
+      }
     })
     NASDAQ.value = data
   }
@@ -33,8 +36,8 @@ export const useStockPrices = () => {
     const { data } = await $axios.get('/stock-prices/movers', {
       params: {
         exchange: 'NYSE',
-        limit: 100,
-      },
+        limit: 100
+      }
     })
     NYSE.value = data
   }
@@ -43,8 +46,8 @@ export const useStockPrices = () => {
     const { data } = await $axios.get('/stock-prices/movers', {
       params: {
         exchange: 'OTC',
-        limit: 100,
-      },
+        limit: 100
+      }
     })
     OTC.value = data
   }
@@ -52,6 +55,23 @@ export const useStockPrices = () => {
   const getForex = async () => {
     const { data } = await $axios.get('/stock-prices/forex')
     FOREX.value = data
+  }
+
+  const getFinancialRatios = async (symbol: string) => {
+    const { data } = await $axios.get(`/stock-prices/financial-ratios/${symbol}`)
+    financialRatios.value = data
+    return data
+  }
+
+  const getCompanyData = async (symbol: string) => {
+    const { data } = await $axios.get(`/stock-prices/stock/${symbol}`)
+    companyData.value = data
+    return data
+  }
+
+  const getFinancialStatementSymbolLists = async () => {
+    const { data } = await $axios.get('/stock-prices/financial-symbol-lists')
+    return data
   }
 
   return {
@@ -65,5 +85,10 @@ export const useStockPrices = () => {
     getOTC,
     getForex,
     FOREX,
+    getFinancialRatios,
+    financialRatios,
+    getCompanyData,
+    companyData,
+    getFinancialStatementSymbolLists
   }
 }

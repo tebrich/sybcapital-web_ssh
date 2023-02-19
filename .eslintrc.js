@@ -33,6 +33,7 @@ module.exports = {
     'padded-blocks': ['error', 'never'],
     'padding-line-between-statements': 2,
     'prefer-const': 2,
+    'no-console': 'off',
     'prefer-object-spread': 2,
     'vue/attribute-hyphenation': 2,
     'space-before-function-paren': 'off',

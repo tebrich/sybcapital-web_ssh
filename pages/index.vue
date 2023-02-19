@@ -19,7 +19,9 @@
     <section class="sb-my-8">
       <v-row align="stretch">
         <v-col cols="12" md="6">
-          <h2 class="sb-mb-3 sb-text-2xl sb-font-bold">Ultimas Entradas</h2>
+          <h2 class="sb-mb-3 sb-text-2xl sb-font-bold">
+            Ultimas Entradas
+          </h2>
           <preview-news-container :post="featuredPost" />
         </v-col>
         <v-col cols="12" md="6">
@@ -55,8 +57,7 @@
         SEC, IPO, historial de precios de acciones, futuros, ETFs, Commodities,
         eventos corporativos, finanzas de empresas públicas y mucho más.
         Strategy & Business Capital Market (<a href="/" class="sb-text-primary">
-          sybcapital.com </a
-        >), es un verdadero disruptor, mejorando enormemente la forma en que las
+          sybcapital.com </a>), es un verdadero disruptor, mejorando enormemente la forma en que las
         personas consumen los datos del mercado financiero.
       </p>
     </section>
@@ -99,7 +100,7 @@ import {
   defineComponent,
   onMounted,
   computed,
-  watch,
+  watch
 } from '@nuxtjs/composition-api'
 import { useElementVisibility } from '@vueuse/core'
 import SubscribeNewsLetter from '~/components/newsletter/SubscribeNewsLetter.vue'
@@ -117,7 +118,7 @@ export default defineComponent({
     MarketsTable,
     FeatureStockPrice,
     PreviewNewsContainer,
-    SubscribeNewsLetter,
+    SubscribeNewsLetter
   },
 
   setup() {
@@ -172,12 +173,12 @@ export default defineComponent({
       otherPosts,
       infiniteTarget,
       showLoadMore: computed(() => postComposable.loadMorePosts.value),
-      stockMarkets,
+      stockMarkets
     }
   },
 
   head: {
-    title: 'Inicio',
-  },
+    title: 'Inicio'
+  }
 })
 </script>

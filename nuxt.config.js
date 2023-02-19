@@ -1,7 +1,7 @@
 export default {
   server: {
     port: process.env.NUXT_ENV_PORT || 8082,
-    host: process.env.HOST || '0.0.0.0',
+    host: process.env.HOST || '0.0.0.0'
   },
 
   ssr: false,
@@ -13,7 +13,7 @@ export default {
       '%s - SyB Capital Noticias de Mercado, Cotizaciones, Gráficos e Información Financiera',
     title: 'SyB Capital',
     htmlAttrs: {
-      lang: 'es',
+      lang: 'es'
     },
     meta: [
       { charset: 'utf-8' },
@@ -23,40 +23,40 @@ export default {
       {
         name: 'description',
         content:
-          'Sybcapital.com, es una plataforma global de mercados financieros que se esfuerza por educar, informar, involucrar y capacitar a las personas para que tomen el control de sus vidas financieras actuales y futuras, ¡para que puedan beneficiarse dentro de los diferentes mercados mundiales! Ofrecemos acceso a cotizaciones de acciones gratuitas, gráficos de  acciones, noticias bursátiles de última hora, historias principales del mercado, calificaciones gratuitas de acciones, presentaciones ante la SEC, IPO, historial de precios de acciones, futuros, ETFs, Commodities, eventos corporativos, finanzas de empresas públicas y mucho más. Strategy & Business Capital Market (sybcapital.com), es un verdadero disruptor, mejorando enormemente la forma en que las personas consumen los datos del mercado financiero.',
+          'Sybcapital.com, es una plataforma global de mercados financieros que se esfuerza por educar, informar, involucrar y capacitar a las personas para que tomen el control de sus vidas financieras actuales y futuras, ¡para que puedan beneficiarse dentro de los diferentes mercados mundiales! Ofrecemos acceso a cotizaciones de acciones gratuitas, gráficos de  acciones, noticias bursátiles de última hora, historias principales del mercado, calificaciones gratuitas de acciones, presentaciones ante la SEC, IPO, historial de precios de acciones, futuros, ETFs, Commodities, eventos corporativos, finanzas de empresas públicas y mucho más. Strategy & Business Capital Market (sybcapital.com), es un verdadero disruptor, mejorando enormemente la forma en que las personas consumen los datos del mercado financiero.'
       },
       {
         property: 'og:title',
         content:
-          'SyB Capital Noticias de Mercado, Cotizaciones, Gráficos e Información Financiera',
+          'SyB Capital Noticias de Mercado, Cotizaciones, Gráficos e Información Financiera'
       },
       {
         property: 'og:description',
         content:
-          'Sybcapital.com, es una plataforma global de mercados financieros que se esfuerza por educar, informar, involucrar y capacitar a las personas para que tomen el control de sus vidas financieras actuales y futuras, ¡para que puedan beneficiarse dentro de los diferentes mercados mundiales! Ofrecemos acceso a cotizaciones de acciones gratuitas, gráficos de  acciones, noticias bursátiles de última hora, historias principales del mercado, calificaciones gratuitas de acciones, presentaciones ante la SEC, IPO, historial de precios de acciones, futuros, ETFs, Commodities, eventos corporativos, finanzas de empresas públicas y mucho más. Strategy & Business Capital Market (sybcapital.com), es un verdadero disruptor, mejorando enormemente la forma en que las personas consumen los datos del mercado financiero.',
+          'Sybcapital.com, es una plataforma global de mercados financieros que se esfuerza por educar, informar, involucrar y capacitar a las personas para que tomen el control de sus vidas financieras actuales y futuras, ¡para que puedan beneficiarse dentro de los diferentes mercados mundiales! Ofrecemos acceso a cotizaciones de acciones gratuitas, gráficos de  acciones, noticias bursátiles de última hora, historias principales del mercado, calificaciones gratuitas de acciones, presentaciones ante la SEC, IPO, historial de precios de acciones, futuros, ETFs, Commodities, eventos corporativos, finanzas de empresas públicas y mucho más. Strategy & Business Capital Market (sybcapital.com), es un verdadero disruptor, mejorando enormemente la forma en que las personas consumen los datos del mercado financiero.'
       },
       {
         property: 'og:image',
         content:
-          'https://sybcapital-website.s3.sa-east-1.amazonaws.com/logo-color',
+          'https://sybcapital-website.s3.sa-east-1.amazonaws.com/logo-color'
       },
       {
         property: 'twitter:title',
         content:
-          'SyB Capital Noticias de Mercado, Cotizaciones, Gráficos e Información Financiera',
+          'SyB Capital Noticias de Mercado, Cotizaciones, Gráficos e Información Financiera'
       },
       {
         property: 'twitter:description',
         content:
-          'Sybcapital.com, es una plataforma global de mercados financieros que se esfuerza por educar, informar, involucrar y capacitar a las personas para que tomen el control de sus vidas financieras actuales y futuras, ¡para que puedan beneficiarse dentro de los diferentes mercados mundiales! Ofrecemos acceso a cotizaciones de acciones gratuitas, gráficos de  acciones, noticias bursátiles de última hora, historias principales del mercado, calificaciones gratuitas de acciones, presentaciones ante la SEC, IPO, historial de precios de acciones, futuros, ETFs, Commodities, eventos corporativos, finanzas de empresas públicas y mucho más. Strategy & Business Capital Market (sybcapital.com), es un verdadero disruptor, mejorando enormemente la forma en que las personas consumen los datos del mercado financiero.',
+          'Sybcapital.com, es una plataforma global de mercados financieros que se esfuerza por educar, informar, involucrar y capacitar a las personas para que tomen el control de sus vidas financieras actuales y futuras, ¡para que puedan beneficiarse dentro de los diferentes mercados mundiales! Ofrecemos acceso a cotizaciones de acciones gratuitas, gráficos de  acciones, noticias bursátiles de última hora, historias principales del mercado, calificaciones gratuitas de acciones, presentaciones ante la SEC, IPO, historial de precios de acciones, futuros, ETFs, Commodities, eventos corporativos, finanzas de empresas públicas y mucho más. Strategy & Business Capital Market (sybcapital.com), es un verdadero disruptor, mejorando enormemente la forma en que las personas consumen los datos del mercado financiero.'
       },
       {
         property: 'twitter:image',
         content:
-          'https://sybcapital-website.s3.sa-east-1.amazonaws.com/logo-color',
-      },
+          'https://sybcapital-website.s3.sa-east-1.amazonaws.com/logo-color'
+      }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
 
   css: ['~/assets/css/main.css'],
@@ -67,13 +67,14 @@ export default {
     '@nuxt/typescript-build',
     '@nuxtjs/vuetify',
     '@nuxtjs/composition-api/module',
-    '@nuxt/postcss8',
+    '@nuxt/postcss8'
   ],
 
   plugins: [
     '@/plugins/axios',
     '@/plugins/validate',
-    { src: '@/plugins/tiptapVuetify', mode: 'client' },
+    '@/plugins/vueMathjax',
+    { src: '@/plugins/tiptapVuetify', mode: 'client' }
   ],
 
   modules: [
@@ -87,13 +88,13 @@ export default {
         mode: 'enterprise', // Mode: 'base', 'enterprise'
         siteKey: '6LdkeCskAAAAAOaBkg_4-MM07e7U5s_KPG3K7GdQ', // Site key for requests
         version: 'v3', // Version
-        size: 'normal',
-      },
-    ],
+        size: 'normal'
+      }
+    ]
   ],
 
   axios: {
-    baseURL: process.env.API_BASE_URL || 'https://sybcapital-api.worksheep.net',
+    baseURL: process.env.API_BASE_URL || 'https://sybcapital-api.worksheep.net'
   },
 
   auth: {
@@ -102,30 +103,30 @@ export default {
         token: {
           property: 'accessToken',
           global: true,
-          type: 'Bearer',
+          type: 'Bearer'
         },
         user: {
-          property: 'data',
+          property: 'data'
           // autoFetch: true
         },
         endpoints: {
           login: { url: '/auth/login', method: 'post' },
           logout: false,
-          user: { url: '/users/me', method: 'get' },
+          user: { url: '/users/me', method: 'get' }
         },
         redirect: {
           login: '/admin-panel',
-          home: '/',
+          home: '/'
         },
         watchLoggedIn: true,
         rewriteRedirects: false,
-        resetOnError: true,
-      },
-    },
+        resetOnError: true
+      }
+    }
   },
 
   router: {
-    middleware: ['auth'],
+    middleware: ['auth']
   },
 
   vuetify: {
@@ -135,21 +136,21 @@ export default {
       light: {
         // vuetify shortcut colors
         primary: '#3E4095',
-        secondary: '#ED3237',
-      },
-    },
+        secondary: '#ED3237'
+      }
+    }
   },
 
   build: {
     postcss: {
       plugins: {
         tailwindcss: {},
-        autoprefixer: {},
-      },
-    },
+        autoprefixer: {}
+      }
+    }
   },
 
   env: {
-    apiBaseUrl: process.env.API_BASE_URL || 'https://api.sybcapital.com',
-  },
+    apiBaseUrl: process.env.API_BASE_URL || 'https://api.sybcapital.com'
+  }
 }
