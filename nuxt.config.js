@@ -4,9 +4,9 @@ export default {
     host: process.env.HOST || '0.0.0.0'
   },
 
-  ssr: false,
+  ssr: true,
 
-  target: 'static',
+  target: 'server',
 
   head: {
     titleTemplate:
@@ -80,6 +80,7 @@ export default {
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/auth-next',
+    '@nuxtjs/vuetify',
     [
       '@nuxtjs/recaptcha',
       {
@@ -147,7 +148,8 @@ export default {
         tailwindcss: {},
         autoprefixer: {}
       }
-    }
+    },
+    transpile: ['vuetify/lib', 'tiptap-vuetify', 'vee-validate/dist/rules', 'vee-validate/dist/locale']
   },
 
   env: {

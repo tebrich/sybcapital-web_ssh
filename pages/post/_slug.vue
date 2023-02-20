@@ -28,10 +28,10 @@
         >
           <div class="sb-flex sb-items-center sb-gap-2 sb-mb-2 md:sb-mb-0">
             <div>
-              <v-icon size="14"> mdi-timer-outline </v-icon>
-              <span class="sb-text-sm sb-font-extralight"
-                >{{ readingTime(post.content) }} minutos de lectura</span
-              >
+              <v-icon size="14">
+                mdi-timer-outline
+              </v-icon>
+              <span class="sb-text-sm sb-font-extralight">{{ readingTime(post.content) }} minutos de lectura</span>
             </div>
           </div>
           <div class="sb-flex sb-items-center sb-gap-3">
@@ -40,15 +40,21 @@
               <span class="sb-font-light">Compartidos</span>
             </div>
             <div class="sb-flex sb-items-center sb-gap-1">
-              <v-icon size="16"> mdi-facebook </v-icon>
+              <v-icon size="16">
+                mdi-facebook
+              </v-icon>
               <span class="sb-font-light">{{ post.shared.facebook }}</span>
             </div>
             <div class="sb-flex sb-items-center sb-gap-1">
-              <v-icon size="16"> mdi-twitter </v-icon>
+              <v-icon size="16">
+                mdi-twitter
+              </v-icon>
               <span class="sb-font-light">{{ post.shared.twitter }}</span>
             </div>
             <div class="sb-flex sb-items-center sb-gap-1">
-              <v-icon size="16"> mdi-email-outline </v-icon>
+              <v-icon size="16">
+                mdi-email-outline
+              </v-icon>
               <span class="sb-font-light">{{ post.shared.email }}</span>
             </div>
           </div>
@@ -75,7 +81,9 @@
             </div>
             <v-divider v-if="post.tags.length > 0" />
             <div v-if="post.tags.length > 0" class="sb-mt-3">
-              <div class="sb-text-sm sb-font-light">TAGS:</div>
+              <div class="sb-text-sm sb-font-light">
+                TAGS:
+              </div>
               <p class="sb-text-xs sb-font-bold sb-leading-5">
                 <span
                   v-for="(item, index) in post.tags"
@@ -210,7 +218,7 @@ import {
   computed,
   useRoute,
   useMeta,
-  useStore,
+  useStore
 } from '@nuxtjs/composition-api'
 import dayjs from 'dayjs'
 import SubscribeNewsLetter from '~/components/newsletter/SubscribeNewsLetter.vue'
@@ -227,17 +235,17 @@ export default defineComponent({
 
   components: {
     MarketsTable,
-    SubscribeNewsLetter,
+    SubscribeNewsLetter
   },
 
   setup() {
     const route = useRoute()
     const postComposable = usePosts()
-    const store = useStore()
 
     const slug = computed(() => route.value.params.slug)
     const post = computed<Posts | undefined>(() => postComposable.post.value)
-    const currentUrl = document.location.href
+
+    const currentUrl = `https://sybcapital.com/post/${slug.value}`
 
     const getPost = async () => {
       await postComposable.getOneBySlug(slug.value)
@@ -272,77 +280,6 @@ export default defineComponent({
       }
     }
 
-    useMeta(() => {
-      if (post.value) {
-        return {
-          title:
-            slug.value.replaceAll('-', ' ').charAt(0).toUpperCase() +
-            slug.value.replaceAll('-', ' ').slice(1),
-          meta: [
-            {
-              hid: 'description',
-              name: 'description',
-              content: post.value?.excerpt,
-            },
-            {
-              hid: 'og:title',
-              property: 'og:title',
-              content: post.value.title,
-            },
-            {
-              hid: 'og:description',
-              property: 'og:description',
-              content: post.value?.excerpt,
-            },
-            {
-              hid: 'og:image',
-              property: 'og:image',
-              content: post.value.files[0].url,
-            },
-            {
-              hid: 'og:url',
-              property: 'og:url',
-              content: currentUrl,
-            },
-            {
-              hid: 'twitter:title',
-              name: 'twitter:title',
-              content: post.value.title,
-            },
-            {
-              hid: 'twitter:description',
-              name: 'twitter:description',
-              content: post.value?.excerpt,
-            },
-            {
-              hid: 'twitter:image',
-              name: 'twitter:image',
-              content: post.value.files[0].url,
-            },
-            {
-              hid: 'twitter:card',
-              name: 'twitter:card',
-              content: 'summary_large_image',
-            },
-          ],
-        }
-      }
-      return {
-        title:
-          slug.value.replaceAll('-', ' ').charAt(0).toUpperCase() +
-          slug.value.replaceAll('-', ' ').slice(1),
-        meta: [
-          {
-            hid: 'og:title',
-            property: 'og:title',
-            content:
-              slug.value.replaceAll('-', ' ').charAt(0).toUpperCase() +
-              slug.value.replaceAll('-', ' ').slice(1),
-          },
-        ],
-      }
-    })
-
     onMounted(() => {
       getPost()
     })
@@ -354,11 +291,82 @@ export default defineComponent({
       totalShared,
       currentUrl,
       updateShared,
-      slug,
+      slug
     }
   },
 
-  head: {},
+  data() {
+    return {
+      postMeta: { }
+    }
+  },
+
+  async fetch() {
+    this.postMeta = await this.$axios.$get(
+      `${process.env.apiBaseUrl}/posts/slug/${this.$route.params.slug}`
+    )
+  },
+
+  head() {
+    return {
+      // @ts-ignore
+      title: this.postMeta.title,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          // @ts-ignore
+          content: this.postMeta.excerpt
+        },
+        {
+          hid: 'og:title',
+          property: 'og:title',
+          // @ts-ignore
+          content: this.postMeta.title
+        },
+        {
+          hid: 'og:description',
+          property: 'og:description',
+          // @ts-ignore
+          content: this.postMeta.excerpt
+        },
+        {
+          hid: 'og:image',
+          property: 'og:image',
+          // @ts-ignore
+          content: this.postMeta && this.postMeta.files && this.postMeta.files.length > 0 ? this.postMeta.files[0].url : 'https://sybcapital-website.s3.sa-east-1.amazonaws.com/logo-color'
+        },
+        {
+          hid: 'og:url',
+          property: 'og:url',
+          content: `https://sybcapital.com/post/${this.$route.params.slug}`
+        },
+        {
+          hid: 'twitter:title',
+          name: 'twitter:title',
+          // @ts-ignore
+          content: this.postMeta.title
+        },
+        {
+          hid: 'twitter:description',
+          name: 'twitter:description',
+          // @ts-ignore
+          content: this.postMeta.excerpt
+        },
+        {
+          hid: 'twitter:image',
+          name: 'twitter:image',
+          // @ts-ignore
+          content: this.postMeta && this.postMeta.files && this.postMeta.files.length > 0 ? this.postMeta.files[0].url : 'https://sybcapital-website.s3.sa-east-1.amazonaws.com/logo-color'
+        },
+        {
+          hid: 'twitter:card',
+          name: 'twitter:card',
+          content: 'summary_large_image'
+        }
+      ]
+    }
+  }
 })
 </script>
 

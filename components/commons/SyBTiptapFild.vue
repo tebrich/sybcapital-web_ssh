@@ -37,7 +37,7 @@ import {
   Table,
   TableCell,
   TableHeader,
-  TableRow,
+  TableRow
 } from 'tiptap-vuetify'
 import FileSelector from '~/components/commons/FileSelector.vue'
 
@@ -45,39 +45,39 @@ export default {
   name: 'SyBTiptapFild',
 
   components: {
-    TiptapVuetify,
+    TiptapVuetify
   },
 
   props: {
     editorProperties: {
       type: Object,
-      default: () => ({}),
+      default: () => ({})
     },
 
     flat: {
       type: [Boolean, Number, String],
-      default: false,
+      default: false
     },
 
     label: {
       type: String,
-      default: '',
+      default: ''
     },
 
     readonly: {
       type: [Boolean, Number, String],
-      default: false,
+      default: false
     },
 
     value: {
       type: [Number, Object, String],
-      default: '',
+      default: ''
     },
 
     useImageExtensions: {
       type: Boolean,
-      default: true,
-    },
+      default: true
+    }
   },
 
   data: () => ({
@@ -95,9 +95,9 @@ export default {
         Heading,
         {
           options: {
-            levels: [1, 2, 3, 4, 5, 6],
-          },
-        },
+            levels: [1, 2, 3, 4, 5, 6]
+          }
+        }
       ],
       Code,
       CodeBlock,
@@ -113,11 +113,11 @@ export default {
         {
           options: {
             imageSources: [
-              { component: FileSelector, name: 'Carga de imagenes' },
+              { component: FileSelector, name: 'Carga de imagenes' }
             ],
-            imageSourcesOverride: true,
-          },
-        },
+            imageSourcesOverride: true
+          }
+        }
       ],
       Table,
       TableCell,
@@ -125,8 +125,8 @@ export default {
       TableRow,
       Paragraph,
       HorizontalRule,
-      HardBreak,
-    ],
+      HardBreak
+    ]
   }),
 
   computed: {
@@ -136,15 +136,15 @@ export default {
       },
       set(input) {
         this.$emit('input', input)
-      },
-    },
+      }
+    }
   },
 
   mounted() {
     if (this.useImageExtensions) {
       this.extensions.push(Image)
     }
-  },
+  }
 }
 </script>
 
