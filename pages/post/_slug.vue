@@ -297,7 +297,9 @@ export default defineComponent({
 
   data() {
     return {
-      postMeta: { }
+      postMeta: {
+        files: [{ url: 'https://sybcapital-website.s3.sa-east-1.amazonaws.com/logo-color' }]
+      }
     }
   },
 
@@ -308,6 +310,7 @@ export default defineComponent({
   },
 
   head() {
+    console.log(this.postMeta.files && this.postMeta.files[0].url ? this.postMeta.files[0].url : 'https://sybcapital-website.s3.sa-east-1.amazonaws.com/logo-color')
     return {
       // @ts-ignore
       title: this.postMeta.title,
@@ -334,7 +337,7 @@ export default defineComponent({
           hid: 'og:image',
           property: 'og:image',
           // @ts-ignore
-          content: this.postMeta && this.postMeta.files && this.postMeta.files.length > 0 ? this.postMeta.files[0].url : 'https://sybcapital-website.s3.sa-east-1.amazonaws.com/logo-color'
+          content: this.postMeta.files && this.postMeta.files[0].url ? this.postMeta.files[0].url : 'https://sybcapital-website.s3.sa-east-1.amazonaws.com/logo-color'
         },
         {
           hid: 'og:url',

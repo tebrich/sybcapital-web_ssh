@@ -26,31 +26,37 @@ export default {
           'Sybcapital.com, es una plataforma global de mercados financieros que se esfuerza por educar, informar, involucrar y capacitar a las personas para que tomen el control de sus vidas financieras actuales y futuras, ¡para que puedan beneficiarse dentro de los diferentes mercados mundiales! Ofrecemos acceso a cotizaciones de acciones gratuitas, gráficos de  acciones, noticias bursátiles de última hora, historias principales del mercado, calificaciones gratuitas de acciones, presentaciones ante la SEC, IPO, historial de precios de acciones, futuros, ETFs, Commodities, eventos corporativos, finanzas de empresas públicas y mucho más. Strategy & Business Capital Market (sybcapital.com), es un verdadero disruptor, mejorando enormemente la forma en que las personas consumen los datos del mercado financiero.'
       },
       {
+        hid: 'og:title',
         property: 'og:title',
         content:
           'SyB Capital Noticias de Mercado, Cotizaciones, Gráficos e Información Financiera'
       },
       {
+        hid: 'og:description',
         property: 'og:description',
         content:
           'Sybcapital.com, es una plataforma global de mercados financieros que se esfuerza por educar, informar, involucrar y capacitar a las personas para que tomen el control de sus vidas financieras actuales y futuras, ¡para que puedan beneficiarse dentro de los diferentes mercados mundiales! Ofrecemos acceso a cotizaciones de acciones gratuitas, gráficos de  acciones, noticias bursátiles de última hora, historias principales del mercado, calificaciones gratuitas de acciones, presentaciones ante la SEC, IPO, historial de precios de acciones, futuros, ETFs, Commodities, eventos corporativos, finanzas de empresas públicas y mucho más. Strategy & Business Capital Market (sybcapital.com), es un verdadero disruptor, mejorando enormemente la forma en que las personas consumen los datos del mercado financiero.'
       },
       {
+        hid: 'og:image',
         property: 'og:image',
         content:
           'https://sybcapital-website.s3.sa-east-1.amazonaws.com/logo-color'
       },
       {
+        hid: 'twitter:title',
         property: 'twitter:title',
         content:
           'SyB Capital Noticias de Mercado, Cotizaciones, Gráficos e Información Financiera'
       },
       {
+        hid: 'twitter:description',
         property: 'twitter:description',
         content:
           'Sybcapital.com, es una plataforma global de mercados financieros que se esfuerza por educar, informar, involucrar y capacitar a las personas para que tomen el control de sus vidas financieras actuales y futuras, ¡para que puedan beneficiarse dentro de los diferentes mercados mundiales! Ofrecemos acceso a cotizaciones de acciones gratuitas, gráficos de  acciones, noticias bursátiles de última hora, historias principales del mercado, calificaciones gratuitas de acciones, presentaciones ante la SEC, IPO, historial de precios de acciones, futuros, ETFs, Commodities, eventos corporativos, finanzas de empresas públicas y mucho más. Strategy & Business Capital Market (sybcapital.com), es un verdadero disruptor, mejorando enormemente la forma en que las personas consumen los datos del mercado financiero.'
       },
       {
+        hid: 'twitter:image',
         property: 'twitter:image',
         content:
           'https://sybcapital-website.s3.sa-east-1.amazonaws.com/logo-color'
