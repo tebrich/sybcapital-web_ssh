@@ -2,11 +2,11 @@
   <div class="sb-py-10">
     <div>
       <h2 class="sb-text-2xl sb-font-bold sb-mb-5">
-        Liquidity Measurement Ratios
+        Ratios de Medida de Liquidez
       </h2>
       <div class="sb-flex sb-py-4 sb-border-2 sb-border-gray-200 sb-px-3 sb-bg-gray-100">
         <div class="sb-w-1/12 sb-text-sm">
-          Current Ratio
+          Índice de Liquidez
         </div>
         <div class="sb-w-5/12 sb-text-[12px]">
           <vue-mathjax formula="$$CurrentAssets \over CurrentLiabilities$$" />
@@ -15,12 +15,12 @@
           {{ financialRatios.currentRatioTTM | formatNumber }}
         </div>
         <div class="sb-w-5/12 sb-text-sm">
-          A current ratio of 1.0 or greater is an indication that the company is well-positioned to cover its current or short-term liabilities.
+          Ratio de liquidez de 1,0 o superior es una indicación de que la empresa está bien posicionada para cubrir sus pasivos corrientes o a corto plazo.
         </div>
       </div>
       <div class="sb-flex sb-py-4 sb-border-2 sb-border-t-0 sb-border-gray-200 sb-px-3">
         <div class="sb-w-1/12 sb-text-sm">
-          Quick Ratio
+          Índice de Solvencia Inmediata
         </div>
         <div class="sb-w-5/12 sb-text-[12px]">
           <vue-mathjax formula="$$CashandCashEquivalents + ShortTermInvestments + AccountReceivables \over CurrentLiabilities$$" />
@@ -29,12 +29,12 @@
           {{ financialRatios.quickRatioTTM | formatNumber }}
         </div>
         <div class="sb-w-5/12 sb-text-sm">
-          The quick ratio is more conservative than the current ratio because it excludes inventory and other current assets, which generally are more difficult to turn into cash. A higher quick ratio means a more liquid current position.
+          El índice de solvencia inmediata es más conservador que el índice de liquidez, ya que excluye el inventario y otros activos corrientes, que generalmente son más difíciles de convertir en efectivo. Un índice de solvencia inmediata más alto significa una mejor posición actual de liquidez
         </div>
       </div>
       <div class="sb-flex sb-py-4 sb-border-2 sb-border-t-0 sb-border-gray-200 sb-px-3 sb-bg-gray-100">
         <div class="sb-w-1/12 sb-text-sm">
-          Cash Ratio
+          Índice de Caja
         </div>
         <div class="sb-w-5/12 sb-text-[12px]">
           <vue-mathjax formula="$$CashandCashEquivalents \over CurrentLiabilities$$" />
@@ -43,12 +43,12 @@
           {{ financialRatios.cashRatioTTM | formatNumber }}
         </div>
         <div class="sb-w-5/12 sb-text-sm">
-          The cash ratio is almost like an indicator of a firm’s value under the worst-case scenario where the company is about to go out of business.
+          El índice de caja es una medida de liquidez que muestra la capacidad de una empresa para cubrir sus obligaciones a corto plazo utilizando únicamente efectivo y equivalentes de efectivo. La relación de caja se obtiene sumando las reservas totales de efectivo y valores cercanos al efectivo de una empresa y dividiendo esa suma por su pasivo corriente total.
         </div>
       </div>
       <div class="sb-flex sb-py-4 sb-border-2 sb-border-t-0 sb-border-gray-200 sb-px-3">
         <div class="sb-w-1/12 sb-text-sm">
-          Days of Sales Outstanding
+          Días de Ventas Pendientes
         </div>
         <div class="sb-w-5/12 sb-text-[12px]">
           <vue-mathjax formula="$$(AccountReceivable(start) + AccountReceivable(end)) / 2 \over Revenue / 356$$" />
@@ -57,12 +57,12 @@
           {{ financialRatios.daysOfSalesOutstandingTTM | formatNumber }}
         </div>
         <div class="sb-w-5/12 sb-text-sm">
-          DSO tells you how many days after the sale it takes people to pay you on average.
+          Días de ventas pendientes (DSO) es el número promedio de días que una empresa tarda en recibir el pago de una venta. Un alto número de DSO sugiere que una empresa está experimentando retrasos en la recepción de pagos, lo que puede resultar en un problema de flujo de efectivo. Un DSO bajo indica que la compañía está recibiendo sus pagos rápidamente.
         </div>
       </div>
       <div class="sb-flex sb-py-4 sb-border-2 sb-border-t-0 sb-border-gray-200 sb-px-3 sb-bg-gray-100">
         <div class="sb-w-1/12 sb-text-sm">
-          Days of Inventory Outstanding
+          Días de Inventario Pendiente
         </div>
         <div class="sb-w-5/12 sb-text-[12px]">
           <vue-mathjax formula="$$(Inventories(start) + Inventories(end)) / 2 \over Revenue / 356$$" />
@@ -71,12 +71,12 @@
           {{ financialRatios.daysOfInventoryOutstandingTTM | formatNumber }}
         </div>
         <div class="sb-w-5/12 sb-text-sm">
-          DIO tells you how many days inventory sits on the shelf on average.
+          Días de inventario pendiente (DIO) es una relación de gestión de capital de trabajo que mide el número promedio de días que una empresa tiene inventario para antes de convertirlo en ventas. Cuanto más baja sea la cifra, más corto será el período en que el efectivo esté inmovilizado en el inventario y menor será el riesgo de que las existencias se vuelvan obsoletas.
         </div>
       </div>
       <div class="sb-flex sb-py-4 sb-border-2 sb-border-t-0 sb-border-gray-200 sb-px-3">
         <div class="sb-w-1/12 sb-text-sm">
-          Operating Cycle
+          Ciclo de Funcionamiento
         </div>
         <div class="sb-w-5/12 sb-text-[12px]">
           <vue-mathjax formula="$$ DSO + DIO $$" />
@@ -85,12 +85,12 @@
           {{ financialRatios.operatingCycleTTM | formatNumber }}
         </div>
         <div class="sb-w-5/12 sb-text-sm">
-          (DSO + DIO )Basically the Operating Cycle tells you how many days it takes for something to go from first being in inventory to receiving the cash after the sale.
+          (DSO + DIO) - Un Ciclo de Operación (OC) se refiere a los días requeridos para que una empresa reciba el inventario, venda el inventario y recoja efectivo de la venta del inventario. Este ciclo juega un papel importante en la determinación de la eficiencia de un negocio.
         </div>
       </div>
       <div class="sb-flex sb-py-4 sb-border-2 sb-border-t-0 sb-border-gray-200 sb-px-3 sb-bg-gray-100">
         <div class="sb-w-1/12 sb-text-sm">
-          Days of Payables Outstanding
+          Días Pendientes de Cuentas por Pagar
         </div>
         <div class="sb-w-5/12 sb-text-[12px]">
           <vue-mathjax formula="$$(AccountsPayable(start) + AccountsPayable(end)) / 2 \over COGS / 356$$" />
@@ -99,12 +99,12 @@
           {{ financialRatios.daysOfPayablesOutstandingTTM | formatNumber }}
         </div>
         <div class="sb-w-5/12 sb-text-sm">
-          DPO tells you how many days the company takes to pay its suppliers.
+          Días pendientes de pago (DPO) es el promedio de días que una empresa tarda en pagar facturas por bienes y servicios obtenidos a crédito. El DPO es una métrica financiera clave para el seguimiento y la gestión del flujo de caja. Un DPO alto es generalmente favorable porque significa que hay más efectivo disponible para financiar operaciones
         </div>
       </div>
       <div class="sb-flex sb-py-4 sb-border-2 sb-border-t-0 sb-border-gray-200 sb-px-3">
         <div class="sb-w-1/12 sb-text-sm">
-          Cash Conversion Cycle
+          Ciclo de Conversión de Efectivo (CCC)
         </div>
         <div class="sb-w-5/12 sb-text-[12px]">
           <vue-mathjax formula="$$ DSO + DIO - DPO $$" />
@@ -113,7 +113,7 @@
           {{ financialRatios.cashConversionCycleTTM | formatNumber }}
         </div>
         <div class="sb-w-5/12 sb-text-sm">
-          DPO tells you how many days the company takes to pay its suppliers.
+          El ciclo de conversión de efectivo (CCC=DSO + DIO - DPO), es una métrica que expresa el tiempo (en días) que tarda una empresa en convertir sus inversiones en inventario y otros recursos en flujos de efectivo de las ventas
         </div>
       </div>
     </div>

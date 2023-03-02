@@ -2,11 +2,11 @@
   <div class="sb-py-10">
     <div>
       <h2 class="sb-text-2xl sb-font-bold sb-mb-5">
-        Profitability Indicator Ratios
+        Índices de Indicadores de Rentabilidad
       </h2>
       <div class="sb-flex sb-py-4 sb-border-2 sb-border-gray-200 sb-px-3 sb-bg-gray-100">
         <div class="sb-w-1/12 sb-text-sm">
-          Gross Profit Margin
+          Margen de Beneficio Bruto
         </div>
         <div class="sb-w-5/12 sb-text-[12px]">
           <vue-mathjax formula="$$ GrossProfit \over Revenue $$" />
@@ -15,12 +15,12 @@
           {{ financialRatios.grossProfitMarginTTM | formatNumber }}
         </div>
         <div class="sb-w-5/12 sb-text-sm">
-          You can think of it as the amount of money from product sales left over after all of the direct costs associated with manufacturing the product have been paid.
+          Puede pensar en ello como la cantidad de dinero de las ventas del producto que queda después de que se hayan pagado todos los costos directos asociados con la fabricación del producto.
         </div>
       </div>
       <div class="sb-flex sb-py-4 sb-border-2 sb-border-t-0 sb-border-gray-200 sb-px-3">
         <div class="sb-w-1/12 sb-text-sm">
-          Operating Profit Margin
+          Margen de Beneficio Operativo
         </div>
         <div class="sb-w-5/12 sb-text-[12px]">
           <vue-mathjax formula="$$ OperatingIncome \over Revenue $$" />
@@ -29,12 +29,12 @@
           {{ financialRatios.operatingProfitMarginTTM | formatNumber }}
         </div>
         <div class="sb-w-5/12 sb-text-sm">
-          If companies can make enough money from their operations to support the business, the company is usually considered more stable.
+          Si las empresas pueden ganar suficiente dinero con sus operaciones para apoyar el negocio, la empresa generalmente se considera más estable.
         </div>
       </div>
       <div class="sb-flex sb-py-4 sb-border-2 sb-border-t-0 sb-border-gray-200 sb-px-3 sb-bg-gray-100">
         <div class="sb-w-1/12 sb-text-sm">
-          Pretax Profit Margin
+          Margen de Beneficio Antes de Impuestos
         </div>
         <div class="sb-w-5/12 sb-text-[12px]">
           <vue-mathjax formula="$$ IncomeBeforeTax \over Revenue $$" />
@@ -43,12 +43,12 @@
           {{ financialRatios.pretaxProfitMarginTTM | formatNumber }}
         </div>
         <div class="sb-w-5/12 sb-text-sm">
-          Profit is the main goal of for-profit organizations. The goal is to make a profit through growth and to grow every year. As a result, one of the most important roles of the financial and investment analyst is to track and forecast profitability.
+          El margen de beneficio antes de impuestos (o margen EBT) es el porcentaje de ganancias retenidas por una empresa antes de cumplir con sus obligaciones tributarias requeridas con el gobierno estatal y federal. La fórmula de margen antes de impuestos se calcula dividiendo las ganancias de una empresa antes de impuestos (EBT) por sus ingresos.
         </div>
       </div>
       <div class="sb-flex sb-py-4 sb-border-2 sb-border-t-0 sb-border-gray-200 sb-px-3">
         <div class="sb-w-1/12 sb-text-sm">
-          Net Profit Margin
+          Margen de Utilidad Neto
         </div>
         <div class="sb-w-5/12 sb-text-[12px]">
           <vue-mathjax formula="$$ NetIncome \over Revenue $$" />
@@ -57,12 +57,12 @@
           {{ financialRatios.netProfitMarginTTM | formatNumber }}
         </div>
         <div class="sb-w-5/12 sb-text-sm">
-          Generally, a net profit margin in excess of 10% is considered excellent, though it depends on the industry and the structure of the business.
+          En general, un margen de beneficio neto superior al 10% se considera excelente, aunque depende de la industria y la estructura del negocio.
         </div>
       </div>
       <div class="sb-flex sb-py-4 sb-border-2 sb-border-t-0 sb-border-gray-200 sb-px-3 sb-bg-gray-100">
         <div class="sb-w-1/12 sb-text-sm">
-          Effective Tax Rate
+          Tasa Impositiva Efectiva
         </div>
         <div class="sb-w-5/12 sb-text-[12px]">
           <vue-mathjax formula="$$ ProvisionForIncomeTaxes \over IncomeBeforeTax $$" />
@@ -71,12 +71,12 @@
           {{ financialRatios.effectiveTaxRateTTM | formatNumber }}
         </div>
         <div class="sb-w-5/12 sb-text-sm">
-          If there’s one takeaway, it should be that a company’s tax situation is all but a living, breathing organism in its own right.
+          La tasa impositiva efectiva es una representación más precisa de la obligación tributaria total de una persona o corporación que su tasa impositiva marginal, y generalmente es más baja.
         </div>
       </div>
       <div class="sb-flex sb-py-4 sb-border-2 sb-border-t-0 sb-border-gray-200 sb-px-3">
         <div class="sb-w-1/12 sb-text-sm">
-          Return On Assets
+          Rendimiento de los Activos
         </div>
         <div class="sb-w-5/12 sb-text-[12px]">
           <vue-mathjax formula="$$ NetIncome \over AverageTotalAssets $$" />
@@ -85,12 +85,12 @@
           {{ financialRatios.returnOnAssetsTTM | formatNumber }}
         </div>
         <div class="sb-w-5/12 sb-text-sm">
-          ROA Return on assets gives an indication of the capital intensity of the company, which will depend on the industry; companies that require large initial investments will generally have lower return on assets. ROAs over 5% are generally considered good.
+          ROA:  el rendimiento de los activos señala la intensidad de capital de la empresa, la cual dependerá de la industria o sector; Las empresas que requieren grandes inversiones iniciales generalmente tendrán un menor rendimiento de los activos. Los ROA superiores al 5%, generalmente se consideran buenos.
         </div>
       </div>
       <div class="sb-flex sb-py-4 sb-border-2 sb-border-t-0 sb-border-gray-200 sb-px-3 sb-bg-gray-100">
         <div class="sb-w-1/12 sb-text-sm">
-          Return On Equity
+          Retorno sobre el Capital
         </div>
         <div class="sb-w-5/12 sb-text-[12px]">
           <vue-mathjax formula="$$ NetIncome \over AverageTotalEquity $$" />
@@ -99,12 +99,12 @@
           {{ financialRatios.returnOnEquityTTM | formatNumber }}
         </div>
         <div class="sb-w-5/12 sb-text-sm">
-          ROE this ratio calculates how much money is made based on the investors' investment in the company.investors want to see a high return on equity ratio because this indicates that the company is using its investors' funds effectively.
+          ROE: esta relación, calcula cuánto dinero se gana en función de la inversión que realizan los inversionistas en la empresa. Los inversionistas, quieren ver un alto rendimiento sobre el capital, porque esto indica que la empresa está utilizando los fondos de sus inversiones de manera efectiva.
         </div>
       </div>
       <div class="sb-flex sb-py-4 sb-border-2 sb-border-t-0 sb-border-gray-200 sb-px-3">
         <div class="sb-w-1/12 sb-text-sm">
-          Return On Capital Employed
+          Rendimiento del Capital Empleado
         </div>
         <div class="sb-w-5/12 sb-text-[12px]">
           <vue-mathjax formula="$$ EBIT \over AverageTotalAsset - AverageCurrentLiabilities $$" />
@@ -113,7 +113,7 @@
           {{ financialRatios.returnOnCapitalEmployedTTM | formatNumber }}
         </div>
         <div class="sb-w-5/12 sb-text-sm">
-          ROCE shows investors how many dollars in profits each dollar of capital employed generates.
+          ROCE, muestra a los inversionistas, cuántos dólares en ganancias genera cada dólar de capital empleado.
         </div>
       </div>
       <div class="sb-flex sb-py-4 sb-border-2 sb-border-t-0 sb-border-gray-200 sb-px-3 sb-bg-gray-100">

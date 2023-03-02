@@ -27,15 +27,20 @@
       </h2>
     </div>
     <v-tabs v-model="tab" color="primary">
-      <v-tab value="financial-ratios">
-        Financial Ratios
+      <v-tab value="financial-summary">
+        Resumen Financiero
       </v-tab>
-    </v-tabs>
-    <v-window>
-      <v-window-item value="financial-ratios">
+      <v-tab value="financial-ratios">
+        Ratios Financieros
+      </v-tab>
+
+      <v-tab-item>
+        En construccion
+      </v-tab-item>
+      <v-tab-item>
         <financial-ratios />
-      </v-window-item>
-    </v-window>
+      </v-tab-item>
+    </v-tabs>
   </v-card>
 </template>
 

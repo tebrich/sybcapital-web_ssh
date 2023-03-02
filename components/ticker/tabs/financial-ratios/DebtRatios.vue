@@ -2,11 +2,11 @@
   <div class="sb-py-10">
     <div>
       <h2 class="sb-text-2xl sb-font-bold sb-mb-5">
-        Debt Ratios
+        Ratios de Endeudamiento
       </h2>
       <div class="sb-flex sb-py-4 sb-border-2 sb-border-gray-200 sb-px-3 sb-bg-gray-100">
         <div class="sb-w-1/12 sb-text-sm">
-          Debt Ratio
+          Índice de Deuda
         </div>
         <div class="sb-w-5/12 sb-text-[12px]">
           <vue-mathjax formula="$$ TotalLiabilities \over TotalAssets $$" />
@@ -15,12 +15,12 @@
           {{ financialRatios.debtRatioTTM | formatNumber }}
         </div>
         <div class="sb-w-5/12 sb-text-sm">
-          The debt ratio tells us the degree of leverage used by the company.
+          El índice de endeudamiento, nos indica el grado de apalancamiento utilizado por la empresa.
         </div>
       </div>
       <div class="sb-flex sb-py-4 sb-border-2 sb-border-t-0 sb-border-gray-200 sb-px-3">
         <div class="sb-w-1/12 sb-text-sm">
-          Debt Equity Ratio
+          Índice de Deuda de Capital
         </div>
         <div class="sb-w-5/12 sb-text-[12px]">
           <vue-mathjax formula="$$ TotalDebt \over TotalEquity $$" />
@@ -29,12 +29,12 @@
           {{ financialRatios.debtEquityRatioTTM | formatNumber }}
         </div>
         <div class="sb-w-5/12 sb-text-sm">
-          This is a measurement of the percentage of the company’s balance sheet that is financed by suppliers, lenders, creditors and obligors versus what the shareholders have committed.
+          Esta es una medida del porcentaje del balance de la empresa que es financiado por proveedores, prestamistas, acreedores y deudores frente a lo que los accionistas se han comprometido.
         </div>
       </div>
       <div class="sb-flex sb-py-4 sb-border-2 sb-border-t-0 sb-border-gray-200 sb-px-3 sb-bg-gray-100">
         <div class="sb-w-1/12 sb-text-sm">
-          Long-term Debt to Capitalization
+          Capitalización de la Deuda a Largo Plazo
         </div>
         <div class="sb-w-5/12 sb-text-[12px]">
           <vue-mathjax formula="$$ Long - TermDebt \over Long - TermDebt + ShareholdersEquity $$" />
@@ -43,12 +43,12 @@
           {{ financialRatios.longTermDebtToCapitalizationTTM | formatNumber }}
         </div>
         <div class="sb-w-5/12 sb-text-sm">
-          While a high capitalization ratio can increase the return on equity because of the tax shield of debt, a higher proportion of debt increases the risk of bankruptcy for a company.
+          Mientras que un alto índice de capitalización puede aumentar el rendimiento del capital debido al proteccionismo fiscal de la deuda, una mayor proporción de deuda aumenta el riesgo de quiebra para una empresa.
         </div>
       </div>
       <div class="sb-flex sb-py-4 sb-border-2 sb-border-t-0 sb-border-gray-200 sb-px-3">
         <div class="sb-w-1/12 sb-text-sm">
-          Total Debt to Capitalization
+          Capitalización de la Deuda Total
         </div>
         <div class="sb-w-5/12 sb-text-[12px]">
           <vue-mathjax formula="$$ TotalDebt \over TotalDebt + ShareholdersEquity $$" />
@@ -57,12 +57,12 @@
           {{ financialRatios.totalDebtToCapitalizationTTM | formatNumber }}
         </div>
         <div class="sb-w-5/12 sb-text-sm">
-          Capitalization ratio describes to investors the extent to which a company is using debt to fund its business and expansion plans.
+          El índice de capitalización señala a los inversionistas la medida en que una empresa está utilizando la deuda para financiar sus planes comerciales y de expansión.
         </div>
       </div>
       <div class="sb-flex sb-py-4 sb-border-2 sb-border-t-0 sb-border-gray-200 sb-px-3 sb-bg-gray-100">
         <div class="sb-w-1/12 sb-text-sm">
-          Interest Coverage Ratio
+          Índice de Cobertura de Intereses
         </div>
         <div class="sb-w-5/12 sb-text-[12px]">
           <vue-mathjax formula="$$ EBIT \over InterestExpense $$" />
@@ -71,12 +71,12 @@
           {{ financialRatios.interestCoverageTTM | formatNumber }}
         </div>
         <div class="sb-w-5/12 sb-text-sm">
-          The lower a company’s interest coverage ratio is, the more its debt expenses burden the company.
+          El coeficiente de cobertura de intereses, mide la capacidad de una empresa para manejar su deuda pendiente. El término "cobertura", se refiere a la duración del tiempo, normalmente, el número de años fiscales para el cual se pueden hacer pagos de intereses con las ganancias disponibles actualmente de la compañía. En términos más simples, representa cuántas veces la empresa puede pagar sus obligaciones utilizando sus ganancias
         </div>
       </div>
       <div class="sb-flex sb-py-4 sb-border-2 sb-border-t-0 sb-border-gray-200 sb-px-3">
         <div class="sb-w-1/12 sb-text-sm">
-          Cash Flow to Debt Ratio
+          La relación flujo de efectivo a deuda revela la capacidad de una empresa para respaldar sus obligaciones de deuda de sus flujos de efectivo operativos.
         </div>
         <div class="sb-w-5/12 sb-text-[12px]">
           <vue-mathjax formula="$$ OperatingCashFlows \over TotalDebt $$" />
@@ -85,12 +85,12 @@
           {{ financialRatios.cashFlowToDebtRatioTTM | formatNumber }}
         </div>
         <div class="sb-w-5/12 sb-text-sm">
-          The cash flow to debt ratio reveals the ability of a business to support its debt obligations from its operating cash flows.
+          Ratio de Flujo de Caja a Deuda
         </div>
       </div>
       <div class="sb-flex sb-py-4 sb-border-2 sb-border-t-0 sb-border-gray-200 sb-px-3 sb-bg-gray-100">
         <div class="sb-w-1/12 sb-text-sm">
-          Company Equity Multiplier
+          Esta es una medida de apalancamiento financiero.
         </div>
         <div class="sb-w-5/12 sb-text-[12px]">
           <vue-mathjax formula="$$ TotalAssets \over TotalEquity $$" />
@@ -99,7 +99,7 @@
           {{ financialRatios.companyEquityMultiplierTTM | formatNumber }}
         </div>
         <div class="sb-w-5/12 sb-text-sm">
-          This is a measure of financial leverage.
+          Multiplicador del Capital de la Empresa
         </div>
       </div>
     </div>

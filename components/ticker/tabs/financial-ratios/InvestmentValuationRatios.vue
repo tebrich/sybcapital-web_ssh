@@ -2,11 +2,11 @@
   <div class="sb-py-10">
     <div>
       <h2 class="sb-text-2xl sb-font-bold sb-mb-5">
-        Investment Valuation Ratios
+        Ratios de Valoración de Inversiones
       </h2>
       <div class="sb-flex sb-py-4 sb-border-2 sb-border-gray-200 sb-px-3 sb-bg-gray-100">
         <div class="sb-w-1/12 sb-text-sm">
-          Price Book Value Ratio
+          Relación Precio-Valor Contable
         </div>
         <div class="sb-w-5/12 sb-text-[12px]">
           <vue-mathjax formula="$$ StockPriceperShare \over EquityperShare $$" />
@@ -15,12 +15,12 @@
           {{ financialRatios.priceBookValueRatioTTM | formatNumber }}
         </div>
         <div class="sb-w-5/12 sb-text-sm">
-          The price-to-book value ratio, expressed as a multiple (i.e. how many times a company's stock is trading per share compared to the company's book value per share), is an indication of how much shareholders are paying for the net assets of a company.
+          La relación precio-valor contable, expresada como un múltiplo (es decir, cuántas veces las acciones de una empresa se negocian por acción en comparación con el valor contable por acción de la empresa), es una indicación de cuánto pagan los accionistas por los activos netos de una empresa.
         </div>
       </div>
       <div class="sb-flex sb-py-4 sb-border-2 sb-border-t-0 sb-border-gray-200 sb-px-3">
         <div class="sb-w-1/12 sb-text-sm">
-          Price Cash Flow Ratio
+          Relación Precio-Flujo de Caja
         </div>
         <div class="sb-w-5/12 sb-text-[12px]">
           <vue-mathjax formula="$$ StockPriceperShare \over OperatingCashFlowperShare $$" />
@@ -29,12 +29,12 @@
           {{ financialRatios.priceCashFlowRatioTTM | formatNumber }}
         </div>
         <div class="sb-w-5/12 sb-text-sm">
-          The price/cash flow ratio is used by investors to evaluate the investment attractiveness, from a value standpoint, of a company's stock.
+          La relación precio/flujo de caja es utilizada por los inversionistas para evaluar el atractivo de la inversión, desde el punto de vista del valor de las acciones de una empresa.
         </div>
       </div>
       <div class="sb-flex sb-py-4 sb-border-2 sb-border-t-0 sb-border-gray-200 sb-px-3 sb-bg-gray-100">
         <div class="sb-w-1/12 sb-text-sm">
-          Price Earnings Ratio
+          Relación Precio-Ganancias
         </div>
         <div class="sb-w-5/12 sb-text-[12px]">
           <vue-mathjax formula="$$ StockPriceperShare \over EPS $$" />
@@ -43,12 +43,12 @@
           {{ financialRatios.priceEarningsRatioTTM | formatNumber }}
         </div>
         <div class="sb-w-5/12 sb-text-sm">
-          The financial reporting of both companies and investment research services use a basic earnings per share (EPS) figure divided into the current stock price to calculate the P/E multiple (i.e. how many times a stock is trading (its price) per each dollar of EPS).
+          Los informes financieros tanto de las empresas como de los servicios de investigación de inversiones utilizan una cifra básica de ganancias por acción (EPS) dividida en el precio actual de las acciones para calcular el múltiplo P/E (es decir, cuántas veces se negocia una acción (su precio) por cada dólar de EPS).
         </div>
       </div>
       <div class="sb-flex sb-py-4 sb-border-2 sb-border-t-0 sb-border-gray-200 sb-px-3">
         <div class="sb-w-1/12 sb-text-sm">
-          Price Earnings to Growth Ratio
+          Relación Precio-Ganancias a Tasa de Crecimiento
         </div>
         <div class="sb-w-5/12 sb-text-[12px]">
           <vue-mathjax formula="$$ PriceEarningsRatio \over ExpectedRevenueGrowth $$" />
@@ -57,12 +57,12 @@
           {{ financialRatios.priceEarningsToGrowthRatioTTM | formatNumber }}
         </div>
         <div class="sb-w-5/12 sb-text-sm">
-          The PEG ratio is a refinement of the P/E ratio and factors in a stock's estimated earnings growth into its current valuation.The general consensus is that if the PEG ratio indicates a value of 1, this means that the market is correctly valuing (the current P/E ratio) a stock in accordance with the stock's current estimated earnings per share growth. If the PEG ratio is less than 1, this means that EPS growth is potentially able to surpass the market's current valuation. In other words, the stock's price is being undervalued. On the other hand, stocks with high PEG ratios can indicate just the opposite - that the stock is currently overvalued.
+          La relación PEG, es un refinamiento de la relación P/E y tiene en cuenta el crecimiento de las ganancias estimadas de una acción en su valoración actual. El consenso general es que si la relación PEG indica un valor de 1, esto significa que el mercado está valorando correctamente (la relación P/E actual) una acción de acuerdo con el crecimiento actual estimado de las ganancias por acción de la acción. Si el ratio PEG es inferior a 1, esto significa que el crecimiento del BPA es potencialmente capaz de superar la valoración actual del mercado. En otras palabras, el precio de la acción está siendo infravalorado. Por otro lado, las acciones con altos índices PEG pueden indicar justo lo contrario: que la acción está actualmente sobrevalorada.
         </div>
       </div>
       <div class="sb-flex sb-py-4 sb-border-2 sb-border-t-0 sb-border-gray-200 sb-px-3 sb-bg-gray-100">
         <div class="sb-w-1/12 sb-text-sm">
-          Price Sales Ratio
+          Relación Precio-Venta
         </div>
         <div class="sb-w-5/12 sb-text-[12px]">
           <vue-mathjax formula="$$ StockPriceperShare \over RevenueperShare $$" />
@@ -71,12 +71,12 @@
           {{ financialRatios.priceSalesRatioTTM | formatNumber }}
         </div>
         <div class="sb-w-5/12 sb-text-sm">
-          The P/E ratio and P/S reflects how many times investors are paying for every dollar of a company's sales. Since earnings are subject, to one degree or another, to accounting estimates and management manipulation, many investors consider a company's sales (revenue) figure a more reliable ratio component in calculating a stock's price multiple than the earnings figure.
+          La relación P/E y P/S refleja cuántas veces los inversionistas están pagando por cada dólar de las ventas de una empresa. Dado que las ganancias están sujetas, en un grado u otro, a estimaciones contables y manipulación de la gestión, muchos inversionistas consideran que la cifra de ventas (ingresos) de una empresa es un componente de relación más confiable para calcular el múltiplo del precio de una acción que la cifra de ganancias.
         </div>
       </div>
       <div class="sb-flex sb-py-4 sb-border-2 sb-border-t-0 sb-border-gray-200 sb-px-3">
         <div class="sb-w-1/12 sb-text-sm">
-          Dividend Yield
+          Rentabilidad por Dividendo
         </div>
         <div class="sb-w-5/12 sb-text-[12px]">
           <vue-mathjax formula="$$ DividendperShare \over StockPriceperShare $$" />
@@ -85,12 +85,12 @@
           {{ financialRatios.dividendYieldTTM | formatNumber }}
         </div>
         <div class="sb-w-5/12 sb-text-sm">
-          Income investors value a dividend-paying stock, while growth investors have little interest in dividends, preferring to capture large capital gains. Whatever your investing style, it is a matter of historical record that dividend-paying stocks have performed better than non-paying-dividend stocks over the long term.
+          Los inversionistas de ingresos valoran una acción que paga dividendos, mientras que los inversionistas de crecimiento tienen poco interés en los dividendos, prefiriendo capturar grandes ganancias de capital. Cualquiera que sea su estilo de inversión, es una cuestión de registro histórico que las acciones que pagan dividendos se han desempeñado mejor que las acciones que no pagan dividendos a largo plazo.
         </div>
       </div>
       <div class="sb-flex sb-py-4 sb-border-2 sb-border-t-0 sb-border-gray-200 sb-px-3 sb-bg-gray-100">
         <div class="sb-w-1/12 sb-text-sm">
-          Enterprise Value Multiplier
+          Multiplicador de Valor Empresarial
         </div>
         <div class="sb-w-5/12 sb-text-[12px]">
           <vue-mathjax formula="$$ EntrepriseValue \over EBITDA $$" />
@@ -99,12 +99,12 @@
           {{ financialRatios.enterpriseValueMultipleTTM | formatNumber }}
         </div>
         <div class="sb-w-5/12 sb-text-sm">
-          Overall, this measurement allows investors to assess a company on the same basis as that of an acquirer. As a rough calculation, enterprise value multiple serves as a proxy for how long it would take for an acquisition to earn enough to pay off its costs in years(assuming no change in EBITDA).
+          En general, esta medición permite a los inversionistas evaluar una empresa sobre la misma base que la de un adquirente. Como un cálculo aproximado, el múltiplo de valor empresarial sirve como un indicador de cuánto tiempo le tomaría a una adquisición ganar lo suficiente para pagar sus costos en años (suponiendo que no haya cambios en el EBITDA).
         </div>
       </div>
       <div class="sb-flex sb-py-4 sb-border-2 sb-border-t-0 sb-border-gray-200 sb-px-3">
         <div class="sb-w-1/12 sb-text-sm">
-          Price Fair Value
+          Precio Valor Razonable (Justo)
         </div>
         <div class="sb-w-5/12 sb-text-[12px]">
           <vue-mathjax formula="$$ StockPriceperShare \over IntrinsicValue $$" />
@@ -113,7 +113,7 @@
           {{ financialRatios.priceFairValueTTM | formatNumber }}
         </div>
         <div class="sb-w-5/12 sb-text-sm">
-          Helps investors determine whether a stock is trading at, below, or above its fair value estimate,A price/fair value ratio below 1 suggests the stock is trading at a discount to its fair value, while a ratio above 1 suggests it is trading at a premium to its fair value.
+          Ayuda a los inversionistas a determinar si una acción se cotiza a, por debajo o por encima de su estimación de valor razonable, una relación precio/valor razonable por debajo de 1 sugiere que la acción se está negociando con un descuento sobre su valor razonable, mientras que una relación por encima de 1 sugiere que se está negociando con una prima sobre su valor razonable.
         </div>
       </div>
     </div>
