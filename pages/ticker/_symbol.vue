@@ -35,7 +35,7 @@
       </v-tab>
 
       <v-tab-item>
-        En construccion
+        <financial-summary />
       </v-tab-item>
       <v-tab-item>
         <financial-ratios />
@@ -48,11 +48,12 @@
 import { defineComponent, ref, computed, onMounted, useRoute } from '@nuxtjs/composition-api'
 import FinancialRatios from '~/components/ticker/tabs/financial-ratios/FinancialRatios.vue'
 import { useStockPrices } from '~/composables'
+import FinancialSummary from '~/components/ticker/tabs/finalcial-summary/FinancialSummary.vue'
 
 export default defineComponent({
   // eslint-disable-next-line vue/match-component-file-name
   name: 'TickerSymbol',
-  components: { FinancialRatios },
+  components: { FinancialSummary, FinancialRatios },
 
   auth: false,
 
