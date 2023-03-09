@@ -50,7 +50,7 @@
             Cap. Mercado
           </p>
           <p class="sb-font-bold">
-            {{ (financialResume.mktCap / 1000000000000).toFixed(3) }}B
+            {{ (financialResume.mktCap / 1000000000).toFixed(3) }}B
           </p>
         </div>
 
