@@ -48,7 +48,7 @@
 import { defineComponent, ref, computed, onMounted, useRoute } from '@nuxtjs/composition-api'
 import FinancialRatios from '~/components/ticker/tabs/financial-ratios/FinancialRatios.vue'
 import { useStockPrices } from '~/composables'
-import FinancialSummary from '~/components/ticker/tabs/finalcial-summary/FinancialSummary.vue'
+import FinancialSummary from '~/components/ticker/tabs/financial-summary/FinancialSummary.vue'
 
 export default defineComponent({
   // eslint-disable-next-line vue/match-component-file-name

@@ -80,7 +80,8 @@ export default {
     '@/plugins/axios',
     '@/plugins/validate',
     '@/plugins/vueMathjax',
-    { src: '@/plugins/tiptapVuetify', mode: 'client' }
+    { src: '@/plugins/tiptapVuetify', mode: 'client' },
+    { src: '~/plugins/apex-chart.js', mode: 'client' }
   ],
 
   modules: [
