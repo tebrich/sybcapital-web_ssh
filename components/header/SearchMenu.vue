@@ -16,10 +16,12 @@
         v-model="symbol"
         outlined
         dense
+        item-value="symbol"
+        item-text="name"
         hide-details
         height="60"
         :items="financialSymbolsList"
-        label="Buscar divisas (preciona enter para buscar)"
+        label="Buscar acción (preciona enter para buscar)"
         @change="goToSymbol"
         @keydown.enter="goToSymbol"
       />
