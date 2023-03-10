@@ -41,7 +41,7 @@
             Beta
           </p>
           <p class="sb-font-bold">
-            {{ (financialResume.beta).toFixed(3) }}
+            {{ financialResume.beta | formatNumber }}
           </p>
         </div>
 
@@ -77,7 +77,7 @@
             PO Alcista
           </p>
           <p class="sb-font-bold">
-            {{ financialResume.targetHigh.toFixed(2) }}
+            {{ financialResume.targetHigh | formatNumber }}
           </p>
         </div>
       </div>
@@ -113,7 +113,7 @@
           </p>
           <div class="sb-flex sb-items-center sb-gap-2">
             <p class="sb-font-bold">
-              {{ financialResume.roe.toFixed(2) }}
+              {{ financialResume.roe | formatNumber }}
             </p>
             <p :class="[financialResume.roeRecommendation.search('Buy') > -1 ? 'sb-text-green-500' : 'sb-text-red-500']" class="sb-font-bold sb-w-20 sb-text-center">
               {{ financialResume.roeRecommendation }}
@@ -127,7 +127,7 @@
           </p>
           <div class="sb-flex sb-items-center sb-gap-2">
             <p class="sb-font-bold">
-              {{ financialResume.roa.toFixed(2) }}
+              {{ financialResume.roa | formatNumber }}
             </p>
             <p :class="[financialResume.roaRecommendation.search('Buy') > -1 ? 'sb-text-green-500' : 'sb-text-red-500']" class="sb-font-bold sb-w-20 sb-text-center">
               {{ financialResume.roaRecommendation }}
@@ -141,7 +141,7 @@
           </p>
           <div class="sb-flex sb-items-center sb-gap-2">
             <p class="sb-font-bold">
-              {{ financialResume.debtEquity.toFixed(2) }}
+              {{ financialResume.debtEquity | formatNumber }}
             </p>
             <p :class="[financialResume.debtEquityRecommendation.search('Buy') > -1 ? 'sb-text-green-500' : 'sb-text-red-500']" class="sb-font-bold sb-w-20 sb-text-center">
               {{ financialResume.debtEquityRecommendation }}
@@ -155,7 +155,7 @@
           </p>
           <div class="sb-flex sb-items-center sb-gap-2">
             <p class="sb-font-bold">
-              {{ financialResume.pe.toFixed(2) }}
+              {{ financialResume.pe | formatNumber }}
             </p>
             <p :class="[financialResume.peRecommendation.search('Buy') > -1 ? 'sb-text-green-500' : 'sb-text-red-500']" class="sb-font-bold sb-w-20 sb-text-center">
               {{ financialResume.peRecommendation }}
@@ -169,7 +169,7 @@
           </p>
           <div class="sb-flex sb-items-center sb-gap-2">
             <p class="sb-font-bold ">
-              {{ financialResume.pb.toFixed(2) }}
+              {{ financialResume.pb | formatNumber }}
             </p>
             <p :class="[financialResume.pbRecommendation.search('Buy') > -1 ? 'sb-text-green-500' : 'sb-text-red-500']" class="sb-font-bold sb-w-20 sb-text-center">
               {{ financialResume.pbRecommendation }}
@@ -187,6 +187,12 @@ import { useFinancialSummary } from '~/composables'
 
 export default defineComponent({
   name: 'FinancialResume',
+
+  filters: {
+    formatNumber(value: number) {
+      return value > 0 ? value.toFixed(2) : value
+    }
+  },
 
   props: {
     symbol: {
