@@ -29,7 +29,7 @@
     <div class="sb-w-2/12">
       <v-select
         v-model="searchType"
-        :items="['Divisas', 'Articulos']"
+        :items="['Ticker', 'Articulos']"
         outlined
         hide-details
         height="60"
@@ -60,7 +60,7 @@ export default defineComponent({
     const router = useRouter()
     const useStockComposable = useStockPrices()
 
-    const searchType = ref('Divisas')
+    const searchType = ref('Ticker')
     const search = ref('')
     const symbol = ref(null)
     const financialSymbolsList = ref<string[]>([])
