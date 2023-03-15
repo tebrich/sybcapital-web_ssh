@@ -1,5 +1,11 @@
 import { ref, useContext } from '@nuxtjs/composition-api'
-import { FinancialBars, FinancialBubbles, FinancialResume, FinancialUpgrades } from '~/models/stock-prices.model'
+import {
+  FinancialBars,
+  FinancialBubbles,
+  FinancialPriceArea,
+  FinancialResume,
+  FinancialUpgrades
+} from '~/models/stock-prices.model'
 
 export const useFinancialSummary = () => {
   const { $axios } = useContext()
@@ -7,6 +13,7 @@ export const useFinancialSummary = () => {
   const financialBars = ref<FinancialBars>()
   const financialBubbles = ref<FinancialBubbles[]>([])
   const financialUpgrades = ref<FinancialUpgrades[]>([])
+  const financialPriceArea = ref<FinancialPriceArea[]>([])
 
   const getFinancialResume = async (symbol: string) => {
     const data = await $axios.$get<FinancialResume>(`/stock-prices/financial-resume/${symbol}`)
@@ -32,6 +39,12 @@ export const useFinancialSummary = () => {
     return data
   }
 
+  const getFinancialPriceArea = async (symbol: string, mode: string) => {
+    const data = await $axios.$get<FinancialPriceArea[]>(`/stock-prices/financial-price-area/${symbol}?mode=${mode}`)
+    financialPriceArea.value = data
+    return data
+  }
+
   return {
     financialResume,
     getFinancialResume,
@@ -40,6 +53,8 @@ export const useFinancialSummary = () => {
     financialBubbles,
     getFinancialBubbles,
     financialUpgrades,
-    getFinancialUpgrades
+    getFinancialUpgrades,
+    financialPriceArea,
+    getFinancialPriceArea
   }
 }

@@ -55,7 +55,9 @@ export default defineComponent({
     const loading = ref(false)
 
     const getFinancialUpgrades = async () => {
+      loading.value = true
       await useFinancialSummaryComposable.getFinancialUpgrades(props.symbol)
+      loading.value = false
     }
 
     const financialUpgrades = computed(() => useFinancialSummaryComposable.financialUpgrades.value.splice(0, 4))
