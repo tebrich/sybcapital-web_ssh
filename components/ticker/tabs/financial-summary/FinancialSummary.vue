@@ -5,7 +5,7 @@
         <financial-resume :symbol="$route.params.symbol" />
       </v-col>
       <v-divider vertical class="!sb-my-4" />
-      <v-col cols="5">
+      <v-col cols="12" md="5">
         <financial-price-area :symbol="$route.params.symbol" />
       </v-col>
       <v-col cols="12" md="4">
