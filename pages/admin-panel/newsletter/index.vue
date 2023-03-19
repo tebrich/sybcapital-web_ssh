@@ -9,7 +9,7 @@
           color="primary"
           large
           class="!sb-px-10 !sb-mr-5"
-          @cliclk="downloadSubscribers"
+          @click="downloadSubscribers"
         >
           <v-icon>mdi-plus</v-icon>
           <span>Descargar CSV</span>
@@ -57,6 +57,7 @@ import {
   onMounted,
   ref
 } from '@nuxtjs/composition-api'
+import exportFromJSON from 'export-from-json'
 import { useSubscribe } from '@/composables'
 
 export default defineComponent({
@@ -80,7 +81,15 @@ export default defineComponent({
     }
 
     const downloadSubscribers = () => {
-      console.log('Test')
+      const data = subscribers.value.map((subscriber, index) => {
+        return {
+          id: index + 1,
+          name: subscriber.name,
+          email: subscriber.email,
+          subscribed: subscriber.subscribed ? 'Activo' : 'Cancelado'
+        }
+      })
+      exportFromJSON({ data, fileName: 'subscribers', exportType: 'csv' })
     }
 
     onMounted(() => {
