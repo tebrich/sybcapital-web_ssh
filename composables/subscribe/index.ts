@@ -1,1 +1,1 @@
-export * from './subscribe.composable'
+export * from './use-subscribe.composable'

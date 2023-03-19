@@ -156,7 +156,7 @@ export default {
         autoprefixer: {}
       }
     },
-    transpile: ['vuetify/lib', 'tiptap-vuetify', 'vee-validate/dist/rules', 'vee-validate/dist/locale']
+    transpile: ['vuetify/lib', 'tiptap-vuetify', 'vee-validate/dist/rules', 'vee-validate/dist/locale', 'export-from-json']
   },
 
   env: {
