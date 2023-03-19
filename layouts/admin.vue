@@ -8,7 +8,9 @@
               Marcos Tebrich
             </v-list-item-title>
             <v-list-item-subtitle>sandra_a88@gmail.com</v-list-item-subtitle>
-            <p class="sb-text-sm sb-font-extralight">Administrador</p>
+            <p class="sb-text-sm sb-font-extralight">
+              Administrador
+            </p>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -53,12 +55,19 @@
             </v-list-item>
           </v-list-group>
 
-          <v-list-item link nuxt to="/admin-panel/users">
+          <v-list-item link nuxt to="/admin-panel/newsletter">
+            <v-list-item-icon>
+              <v-icon>mdi-bullhorn-variant-outline</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Suscriptores</v-list-item-title>
+          </v-list-item>
+
+          <!-- <v-list-item link nuxt to="/admin-panel/users">
             <v-list-item-icon>
               <v-icon>mdi-account-search-outline</v-icon>
             </v-list-item-icon>
             <v-list-item-title>Usuarios</v-list-item-title>
-          </v-list-item>
+          </v-list-item>-->
         </v-list-item-group>
       </v-list>
 
@@ -85,13 +94,13 @@ export default defineComponent({
   data() {
     return {
       drawer: true,
-      group: null,
+      group: null
     }
   },
 
   head() {
     return {
-      meta: [{ hid: 'robots', name: 'robots', content: 'noindex' }],
+      meta: [{ hid: 'robots', name: 'robots', content: 'noindex' }]
     }
   },
 
@@ -99,8 +108,8 @@ export default defineComponent({
     logout() {
       this.$auth.logout()
       window.location.reload()
-    },
-  },
+    }
+  }
 })
 </script>
 

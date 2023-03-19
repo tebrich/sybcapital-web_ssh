@@ -5,9 +5,13 @@ export const useSubscribe = () => {
 
   const { $axios } = useContext()
 
+  const getAll = async () => {
+    return await $axios.$get('/subscribe')
+  }
+
   const subscribeToNewsletter = async ({
     name,
-    email,
+    email
   }: {
     name: string
     email: string
@@ -18,5 +22,6 @@ export const useSubscribe = () => {
   return {
     subscribe,
     subscribeToNewsletter,
+    getAll
   }
 }
