@@ -150,6 +150,9 @@ export default {
   },
 
   build: {
+    parallel: true,
+    hardSource: true,
+    cache: true,
     postcss: {
       plugins: {
         tailwindcss: {},
