@@ -1,5 +1,6 @@
 import { ref, useContext } from '@nuxtjs/composition-api'
 import {
+  FinancialAnalytics,
   StockFinancialRatios,
   StockMarketsModel,
   StockMarketsMoversModel,
@@ -74,6 +75,11 @@ export const useStockPrices = () => {
     return data
   }
 
+  const getFinancialAnalytics = async (symbol: string): Promise<FinancialAnalytics> => {
+    const { data } = await $axios.get(`/stock-prices/financial-analytics/${symbol}`)
+    return data
+  }
+
   return {
     stockMarkets,
     NASDAQ,
@@ -89,6 +95,7 @@ export const useStockPrices = () => {
     financialRatios,
     getCompanyData,
     companyData,
-    getFinancialStatementSymbolLists
+    getFinancialStatementSymbolLists,
+    getFinancialAnalytics
   }
 }
