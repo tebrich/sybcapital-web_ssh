@@ -34,7 +34,7 @@
         Ratios Financieros
       </v-tab>
       <v-tab value="financial-analytics">
-        Analisís Financiero
+        Indicadores Técnicos
       </v-tab>
 
       <v-tab-item>
