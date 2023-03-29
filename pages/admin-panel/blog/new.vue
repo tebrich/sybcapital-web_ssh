@@ -77,27 +77,31 @@
         <validation-provider
           v-slot="{ errors }"
           name="excerpt"
-          rules="required"
+          rules="required|max:500"
         >
           <sy-b-tiptap-fild
             v-model="draft.excerpt"
-            :error-messages="errors"
             :use-image-extensions="false"
             label="Excerpt"
           />
+          <p v-for="(item, index) in errors" :key="index" class="sb-text-red-500 sb-text-sm sb-font-light">
+            {{ item }}
+          </p>
         </validation-provider>
 
         <validation-provider
           v-slot="{ errors }"
           name="content"
-          rules="required"
+          rules="required|max:14700000"
         >
           <sy-b-tiptap-fild
             v-model="draft.content"
             :use-image-extensions="true"
-            :error-messages="errors"
             label="Contenido"
           />
+          <p v-for="(item, index) in errors" :key="index" class="sb-text-red-500 sb-text-sm sb-font-light">
+            {{ item }}
+          </p>
         </validation-provider>
 
         <validation-provider v-slot="{ errors }" name="image" rules="required">
@@ -131,14 +135,14 @@ import {
   defineComponent,
   onMounted,
   ref,
-  useRouter,
+  useRouter
 } from '@nuxtjs/composition-api'
 import {
   usePosts,
   useCategories,
   useUsers,
   useTags,
-  useFiles,
+  useFiles
 } from '@/composables'
 import SyBTiptapFild from '~/components/commons/SyBTiptapFild.vue'
 export default defineComponent({
@@ -191,7 +195,7 @@ export default defineComponent({
           excerpt: draft.value.excerpt,
           files: image[0].id,
           status: draft.value.status,
-          title: draft.value.title,
+          title: draft.value.title
         })
 
         router.replace('/admin-panel/blog/posts')
@@ -208,9 +212,9 @@ export default defineComponent({
       tags,
       users,
       createPosts,
-      submiting,
+      submiting
     }
-  },
+  }
 })
 </script>
 

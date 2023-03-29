@@ -78,27 +78,31 @@
         <validation-provider
           v-slot="{ errors }"
           name="excerpt"
-          rules="required"
+          rules="required|max:500"
         >
           <sy-b-tiptap-fild
             v-model="draft.excerpt"
-            :error-messages="errors"
             :use-image-extensions="false"
             label="Excerpt"
           />
+          <p v-for="(item, index) in errors" :key="index" class="sb-text-red-500 sb-text-sm sb-font-light">
+            {{ item }}
+          </p>
         </validation-provider>
 
         <validation-provider
           v-slot="{ errors }"
           name="content"
-          rules="required"
+          rules="required|max:14700000"
         >
           <sy-b-tiptap-fild
             v-model="draft.content"
             :use-image-extensions="true"
-            :error-messages="errors"
             label="Contenido"
           />
+          <p v-for="(item, index) in errors" :key="index" class="sb-text-red-500 sb-text-sm sb-font-light">
+            {{ item }}
+          </p>
         </validation-provider>
 
         <div
@@ -154,14 +158,14 @@ import {
   onMounted,
   ref,
   useRoute,
-  useRouter,
+  useRouter
 } from '@nuxtjs/composition-api'
 import {
   usePosts,
   useCategories,
   useUsers,
   useTags,
-  useFiles,
+  useFiles
 } from '@/composables'
 import SyBTiptapFild from '~/components/commons/SyBTiptapFild.vue'
 export default defineComponent({
@@ -210,10 +214,10 @@ export default defineComponent({
       submiting.value = true
 
       const categories = draft.value.categories[0].hasOwnProperty('name')
-        ? draft.value.categories.map((category) => category.name)
+        ? draft.value.categories.map(category => category.name)
         : draft.value.categories
       const tags = draft.value.tags[0].hasOwnProperty('name')
-        ? draft.value.tags.map((tag) => tag.name)
+        ? draft.value.tags.map(tag => tag.name)
         : draft.value.tags
 
       try {
@@ -229,7 +233,7 @@ export default defineComponent({
           excerpt: draft.value.excerpt,
           files: image[0].id,
           status: draft.value.status,
-          title: draft.value.title,
+          title: draft.value.title
         })
 
         router.replace('/admin-panel/blog/posts')
@@ -248,9 +252,9 @@ export default defineComponent({
       users,
       updatePosts,
       showImageFileInput,
-      submiting,
+      submiting
     }
-  },
+  }
 })
 </script>
 
