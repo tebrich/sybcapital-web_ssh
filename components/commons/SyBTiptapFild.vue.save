@@ -39,15 +39,13 @@ import {
   TableHeader,
   TableRow
 } from 'tiptap-vuetify'
-import { defineComponent } from '@nuxtjs/composition-api'
 import FileSelector from '~/components/commons/FileSelector'
 
-export default defineComponent({
+export default {
   name: 'SyBTiptapFild',
 
   components: {
-    TiptapVuetify,
-    FileSelector
+    TiptapVuetify
   },
 
   props: {
@@ -55,82 +53,81 @@ export default defineComponent({
       type: Object,
       default: () => ({})
     },
+
     flat: {
       type: [Boolean, Number, String],
       default: false
     },
+
     label: {
       type: String,
       default: ''
     },
+
     readonly: {
       type: [Boolean, Number, String],
       default: false
     },
+
     value: {
       type: [Number, Object, String],
       default: ''
     },
+
     useImageExtensions: {
       type: Boolean,
       default: true
     }
   },
 
-  data() {
-    return {
-      extensions: [
-        History,
+  data: () => ({
+    extensions: [
+      History,
 
-        // Font modifications
-        Blockquote,
-        Link,
-        Underline,
-        Strike,
-        Italic,
-        Bold,
-        [
-          Heading,
-          {
-            options: {
-              levels: [1, 2, 3, 4, 5, 6]
-            }
+      // Font mods
+      Blockquote,
+      Link,
+      Underline,
+      Strike,
+      Italic,
+      Bold,
+      [
+        Heading,
+        {
+          options: {
+            levels: [1, 2, 3, 4, 5, 6]
           }
-        ],
-        Code,
-        CodeBlock,
+        }
+      ],
+      Code,
+      CodeBlock,
 
-        // Lists
-        ListItem,
-        BulletList,
-        OrderedList,
+      // Lists
+      ListItem,
+      BulletList,
+      OrderedList,
 
-        // Custom Image extension insertion
-        [
-          Image,
-          {
-            options: {
-              imageSources: [
-                { component: FileSelector, name: 'Carga de imágenes' }
-              ],
-              imageSourcesOverride: true
-            }
+      // Others
+      [
+        Image,
+        {
+          options: {
+            imageSources: [
+              { component: FileSelector, name: 'Carga de imagenes' }
+            ],
+            imageSourcesOverride: true
           }
-        ],
-
-        // Table support
-        Table,
-        TableCell,
-        TableHeader,
-        TableRow,
-
-        // Others
-        Paragraph,
-        HorizontalRule,
-        HardBreak
-      ]
-    }
-  },
+        }
+      ],
+      Table,
+      TableCell,
+      TableHeader,
+      TableRow,
+      Paragraph,
+      HorizontalRule,
+      HardBreak
+    ]
+  }),
 
   computed: {
     input: {
@@ -144,12 +141,11 @@ export default defineComponent({
   },
 
   mounted() {
-    // If needed, add raw Image extension as fallback
     if (this.useImageExtensions) {
       this.extensions.push(Image)
     }
   }
-})
+}
 </script>
 
 <style lang="scss" scoped>
@@ -165,4 +161,3 @@ export default defineComponent({
   }
 }
 </style>
-

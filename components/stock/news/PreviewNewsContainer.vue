@@ -1,12 +1,11 @@
 <template>
-  <a
+  <nuxt-link
+    :to="`/post/${post.slug}`"
+    class="sb-border-b-[2px] sb-border-r-gray-500 sb-border-opacity-10 sb-py-3 hover:sb-opacity-50"
     :class="{
-      'sb-flex sb-flex-row-reverse sb-items-center sb-justify-between sb-gap-3':
-        small,
-      'sb-h-full !sb-mb-5': !small || $vuetify.breakpoint.mdAndDown,
+      'sb-flex sb-flex-row-reverse sb-items-center sb-justify-between sb-gap-3': small,
+      'sb-h-full !sb-mb-5': !small || $vuetify.breakpoint.mdAndDown
     }"
-    class="sb-border-b-[2px] sb-border-r-gray-500 sb-border-opacity-10 sb-py-3 !sb-text-black hover:sb-opacity-50"
-    @click="gotToPost"
   >
     <v-img
       v-if="file"
@@ -29,9 +28,7 @@
     <div :class="{ 'sb-w-8/12': small }">
       <h2
         class="sb-font-bold"
-        :class="[
-          !small ? 'sb-text-xl md:sb-text-3xl sb-my-2' : 'sb-text-xl sb-mb-2',
-        ]"
+        :class="[!small ? 'sb-text-xl md:sb-text-3xl sb-my-2' : 'sb-text-xl sb-mb-2']"
       >
         {{ post.title }}
       </h2>
@@ -44,79 +41,72 @@
       <div class="sb-flex sb-items-center sb-justify-start sb-gap-2">
         <span
           class="sb-flex sb-items-center sb-justify-center sb-font-light"
-          :class="[
-            !small ? 'sb-text-[14px] sb-gap-1' : 'sb-text-[10px] sb-gap-2',
-          ]"
+          :class="[!small ? 'sb-text-[14px] sb-gap-1' : 'sb-text-[10px] sb-gap-2']"
         >
-          <v-icon :size="!small ? 14 : 10" color="primary"
-            >mdi-share-variant-outline</v-icon
-          >
-          2 compartidos
+          <v-icon :size="!small ? 14 : 10" color="primary">mdi-share-variant-outline</v-icon>
+          {{ totalShared }} compartidos
         </span>
         <span
           class="sb-flex sb-items-center sb-justify-center sb-font-light"
-          :class="[
-            !small ? 'sb-text-[14px] sb-gap-1' : 'sb-text-[10px] sb-gap-2',
-          ]"
+          :class="[!small ? 'sb-text-[14px] sb-gap-1' : 'sb-text-[10px] sb-gap-2']"
         >
-          <v-icon :size="!small ? 14 : 10" color="primary"
-            >mdi-timer-outline</v-icon
-          >
-          3 min. de lectura
+          <v-icon :size="!small ? 14 : 10" color="primary">mdi-timer-outline</v-icon>
+          {{ readingTime(post.content) }} min. de lectura
         </span>
         <span
           class="sb-flex sb-items-center sb-justify-center sb-font-light"
-          :class="[
-            !small ? 'sb-text-[14px] sb-gap-1' : 'sb-text-[10px] sb-gap-2',
-          ]"
+          :class="[!small ? 'sb-text-[14px] sb-gap-1' : 'sb-text-[10px] sb-gap-2']"
         >
           <v-icon :size="!small ? 14 : 10" color="primary">mdi-calendar</v-icon>
           {{ getDate(post.createdAt) }}
         </span>
       </div>
     </div>
-  </a>
+  </nuxt-link>
 </template>
 
 <script lang="ts">
-import { computed, useStore, useRouter } from '@nuxtjs/composition-api'
+import { defineComponent, computed } from '@nuxtjs/composition-api'
+import { useStore, useRouter } from '@nuxtjs/composition-api'
 import dayjs from 'dayjs'
 import { Posts } from '~/models'
 
-export default {
+export default defineComponent({
   name: 'PreviewNewsContainer',
   props: {
-    small: {
-      type: Boolean,
-      default: false,
-    },
-    post: {
-      type: Object as () => Posts,
-      required: true,
-    },
+    small: { type: Boolean, default: false },
+    post: { type: Object as () => Posts, required: true }
   },
-  setup(props: any) {
+  setup(props) {
     const store = useStore()
     const router = useRouter()
 
-    const file: any = computed(() =>
-      props.post.files.length > 0 ? props.post.files[0] : null
+    // Si el post tiene imágenes, tomo la primera; si no, será null
+    const file = computed(() =>
+      props.post.files && props.post.files.length ? props.post.files[0] : null
     )
 
-    const getDate = (date: Date) => {
-      return dayjs(date).format('DD/MM/YYYY')
+    // Sumo las comparticiones de todas las redes
+    const totalShared = computed(() => {
+      const s = props.post.shared || { facebook: 0, twitter: 0, email: 0 }
+      return (s.facebook || 0) + (s.twitter || 0) + (s.email || 0)
+    })
+
+    // Estimación rápida de tiempo de lectura
+    const readingTime = (text: string) => {
+      const wpm = 225
+      return Math.ceil(text.trim().split(/\s+/).length / wpm)
     }
 
-    const gotToPost = () => {
-      store.commit('news/setCurrentPost', props.post)
-      router.push(`/post/${props.post.slug}`)
-    }
+    // Formateo de la fecha
+    const getDate = (date: string) => dayjs(date).format('DD/MM/YYYY')
 
-    return {
-      file,
-      getDate,
-      gotToPost,
-    }
-  },
-}
+    return { file, totalShared, readingTime, getDate }
+  }
+})
 </script>
+
+<style scoped>
+/* Si tenías estilos adicionales, ponlos aquí */
+</style>
+

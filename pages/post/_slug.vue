@@ -1,5 +1,6 @@
 <template>
   <v-container v-if="post">
+    <!-- Título y extracto -->
     <h2 class="sb-text-xl md:sb-text-3xl lg:sb-text-5xl sb-font-bold">
       {{ post.title }}
     </h2>
@@ -8,204 +9,92 @@
       class="sb-my-5 sb-text-2xl sb-font-light"
       v-html="post.excerpt"
     />
+
     <v-row>
       <v-col cols="12" md="8">
-        <div
-          class="sb-font-light sb-text-sm"
-          :class="{ 'sb-mt-5': !post.excerpt }"
-        >
+        <!-- Categorías, fecha y autor -->
+        <div class="sb-font-light sb-text-sm sb-mb-3">
           <span
-            v-for="(item, index) in post.categories"
-            :key="index"
+            v-for="(cat, i) in post.categories"
+            :key="i"
             class="sb-capitalize"
           >
-            {{ item.name }}
-            <template v-if="index !== post.categories.length - 1">,</template>
+            {{ cat.name }}<span v-if="i + 1 < post.categories.length">, </span>
           </span>
         </div>
-        <div
-          class="sb-block md:sb-flex sb-items-center sb-justify-between sb-gap-2 sb-my-3"
-        >
-          <div class="sb-flex sb-items-center sb-gap-2 sb-mb-2 md:sb-mb-0">
-            <div>
-              <v-icon size="14">
-                mdi-timer-outline
-              </v-icon>
-              <span class="sb-text-sm sb-font-extralight">{{ readingTime(post.content) }} minutos de lectura</span>
-            </div>
+        <div class="sb-flex sb-items-center sb-justify-between sb-mb-6">
+          <div class="sb-flex sb-items-center sb-gap-2">
+            <v-icon size="14">mdi-timer-outline</v-icon>
+            <span class="sb-text-sm sb-font-light">
+              {{ readingTime(post.content) }} min de lectura
+            </span>
           </div>
-          <div class="sb-flex sb-items-center sb-gap-3">
+          <div class="sb-flex sb-items-center sb-gap-4">
             <div>
-              <strong>{{ totalShared }}</strong>
-              <span class="sb-font-light">Compartidos</span>
+              <strong class="sb-text-sm">Publicado:</strong>
+              <p class="sb-text-xs sb-font-light">
+                {{ formatDate(post.createdAt) }}
+              </p>
             </div>
-            <div class="sb-flex sb-items-center sb-gap-1">
-              <v-icon size="16">
-                mdi-facebook
-              </v-icon>
-              <span class="sb-font-light">{{ post.shared.facebook }}</span>
-            </div>
-            <div class="sb-flex sb-items-center sb-gap-1">
-              <v-icon size="16">
-                mdi-twitter
-              </v-icon>
-              <span class="sb-font-light">{{ post.shared.twitter }}</span>
-            </div>
-            <div class="sb-flex sb-items-center sb-gap-1">
-              <v-icon size="16">
-                mdi-email-outline
-              </v-icon>
-              <span class="sb-font-light">{{ post.shared.email }}</span>
+            <div>
+              <strong class="sb-text-sm">Autor:</strong>
+              <p class="sb-text-xs sb-font-light">
+                {{ post.author.fullName }}
+              </p>
             </div>
           </div>
         </div>
-        <v-row class="!sb-my-3">
-          <v-col cols="12" md="3">
-            <div class="sb-flex sb-items-start md:sb-block">
-              <div class="sb-w-6/12 md:sb-w-full">
-                <strong class="sb-text-sm">Publicado el:</strong>
-                <p class="sb-text-xs sb-font-light">
-                  {{ getFormateDate(post.createdAt) }}
-                </p>
-              </div>
-              <v-divider v-if="$vuetify.breakpoint.mdAndUp" />
-              <div
-                class="sb-w-6/12 md:sb-w-full"
-                :class="{ 'sb-mt-3': $vuetify.breakpoint.mdAndUp }"
-              >
-                <strong class="sb-text-sm">Autor:</strong>
-                <p class="sb-text-xs sb-font-light">
-                  {{ post.author.fullName }}
-                </p>
-              </div>
-            </div>
-            <v-divider v-if="post.tags.length > 0" />
-            <div v-if="post.tags.length > 0" class="sb-mt-3">
-              <div class="sb-text-sm sb-font-light">
-                TAGS:
-              </div>
-              <p class="sb-text-xs sb-font-bold sb-leading-5">
-                <span
-                  v-for="(item, index) in post.tags"
-                  :key="index"
-                  class="sb-capitalize"
-                >
-                  {{ item.name }}
-                  <template v-if="index !== post.tags.length - 1">,</template>
-                </span>
-              </p>
-            </div>
-            <v-divider />
-            <div v-if="$vuetify.breakpoint.mdAndUp" class="sb-mt-3">
-              <strong class="sb-text-sm">Compartir:</strong>
-              <a
-                :href="`https://www.facebook.com/sharer.php?u=${currentUrl}`"
-                target="_blank"
-                class="sb-flex sb-items-center sb-gap-2 sb-my-2 sb-cursor-pointer hover:sb-opacity-30 !sb-text-black"
-                @click="updateShared('facebook')"
-              >
-                <v-icon size="16"> mdi-facebook </v-icon>
-                <p class="sb-text-sm sb-font-bold !sb-m-0">Facebook</p>
-                <p class="sb-text-sm sb-font-light !sb-m-0">
-                  {{ post.shared.facebook }}
-                </p>
-              </a>
-              <a
-                :href="`http://twitter.com/share?url=${currentUrl}`"
-                target="_blank"
-                class="sb-flex sb-items-center sb-gap-2 sb-my-2 sb-cursor-pointer hover:sb-opacity-30 !sb-text-black"
-                @click="updateShared('twitter')"
-              >
-                <v-icon size="16"> mdi-twitter </v-icon>
-                <p class="sb-text-sm sb-font-bold !sb-m-0">Twitter</p>
-                <p class="sb-text-sm sb-font-light !sb-m-0">
-                  {{ post.shared.twitter }}
-                </p>
-              </a>
-              <a
-                :href="`mailto:no-one@snai1mai1.com?body=${currentUrl}`"
-                class="sb-flex sb-items-center sb-gap-2 sb-my-2 sb-cursor-pointer hover:sb-opacity-30 !sb-text-black"
-                @click="updateShared('email')"
-              >
-                <v-icon size="16"> mdi-email-outline </v-icon>
-                <p class="sb-text-sm sb-font-bold !sb-m-0">Mail</p>
-                <p class="sb-text-sm sb-font-light !sb-m-0">
-                  {{ post.shared.email }}
-                </p>
-              </a>
-              <p class="sb-font-light sb-text-sm">
-                Este post fue compartido <br />
-                {{ totalShared }} veces
-              </p>
-            </div>
-          </v-col>
-          <v-col cols="12" md="9">
-            <v-img
-              v-if="post.files.length > 0"
-              :src="post.files[0].url"
-              class="sb-w-full sb-h-80 sb-mb-5"
-              cover
-            />
-            <v-img
-              v-else
-              src="https://sybcapital-website.s3.sa-east-1.amazonaws.com/logo-color"
-              class="sb-w-full sb-h-80 sb-mb-5"
-              contain
-            />
-            <div class="post-content" v-html="post.content"></div>
-          </v-col>
-          <v-col cols="12">
-            <div v-if="$vuetify.breakpoint.mdAndDown" class="sb-mt-3">
-              <strong class="sb-text-sm">Compartir:</strong>
-              <a
-                :href="`https://www.facebook.com/sharer.php?u=${currentUrl}`"
-                target="_blank"
-                class="sb-flex sb-items-center sb-gap-2 sb-my-2 sb-cursor-pointer hover:sb-opacity-30 !sb-text-black"
-                @click="updateShared('facebook')"
-              >
-                <v-icon size="16"> mdi-facebook </v-icon>
-                <p class="sb-text-sm sb-font-bold !sb-m-0">Facebook</p>
-                <p class="sb-text-sm sb-font-light !sb-m-0">
-                  {{ post.shared.facebook }}
-                </p>
-              </a>
-              <a
-                :href="`http://twitter.com/share?url=${currentUrl}`"
-                target="_blank"
-                class="sb-flex sb-items-center sb-gap-2 sb-my-2 sb-cursor-pointer hover:sb-opacity-30 !sb-text-black"
-                @click="updateShared('twitter')"
-              >
-                <v-icon size="16"> mdi-twitter </v-icon>
-                <p class="sb-text-sm sb-font-bold !sb-m-0">Twitter</p>
-                <p class="sb-text-sm sb-font-light !sb-m-0">
-                  {{ post.shared.twitter }}
-                </p>
-              </a>
-              <a
-                :href="`mailto:no-one@snai1mai1.com?body=${currentUrl}`"
-                class="sb-flex sb-items-center sb-gap-2 sb-my-2 sb-cursor-pointer hover:sb-opacity-30 !sb-text-black"
-                @click="updateShared('email')"
-              >
-                <v-icon size="16"> mdi-email-outline </v-icon>
-                <p class="sb-text-sm sb-font-bold !sb-m-0">Mail</p>
-                <p class="sb-text-sm sb-font-light !sb-m-0">
-                  {{ post.shared.email }}
-                </p>
-              </a>
-              <p class="sb-font-light sb-text-sm">
-                Este post fue compartido <br />
-                {{ totalShared }} veces
-              </p>
-            </div>
-          </v-col>
-        </v-row>
+
+        <!-- Imagen principal -->
+        <v-img
+          v-if="post.files?.length"
+          :src="post.files[0].url"
+          class="sb-w-full sb-h-80 sb-mb-5"
+          cover
+        />
+        <v-img
+          v-else
+          src="https://sybcapital-website.s3.sa-east-1.amazonaws.com/logo-color"
+          class="sb-w-full sb-h-80 sb-mb-5"
+          contain
+        />
+
+        <!-- Contenido -->
+        <div class="post-content" v-html="post.content"></div>
       </v-col>
-      <v-col v-if="$vuetify.breakpoint.mdAndUp" cols="4">
-        <div class="sb-py-3 sb-w-full sb-mt-16">
-          <subscribe-news-letter />
-          <v-divider class="sb-py-5" />
-          <markets-table />
-        </div>
+
+      <!-- Sidebar -->
+      <v-col cols="12" md="4">
+        <div class="sb-mb-6">
+ 	  <strong class="sb-text-sm">Compartido:</strong>
+
+  	  <!-- solo renderizamos estas líneas si `post.shared` NO es null -->
+          <template v-if="post.shared">
+            <div class="sb-flex sb-items-center sb-gap-4 sb-mt-2">
+              <v-icon size="16">mdi-facebook</v-icon>
+              <span>{{ post.shared.facebook || 0 }}</span>
+            </div>
+            <div class="sb-flex sb-items-center sb-gap-4 sb-mt-2">
+              <v-icon size="16">mdi-twitter</v-icon>
+              <span>{{ post.shared.twitter || 0 }}</span>
+            </div>
+            <div class="sb-flex sb-items-center sb-gap-4 sb-mt-2">
+              <v-icon size="16">mdi-email-outline</v-icon>
+              <span>{{ post.shared.email || 0 }}</span>
+            </div>
+            <p class="sb-font-light sb-text-sm sb-mt-4">
+              Total: {{ totalShared }} veces
+            </p>
+          </template>
+          <!-- si post.shared es null, mostramos un placeholder -->
+          <p v-else class="sb-text-sm sb-font-light sb-mt-2">
+            Aún no compartido
+         </p>
+       </div>
+
+        <subscribe-news-letter />
+        <v-divider class="sb-my-6" />
+        <markets-table />
       </v-col>
     </v-row>
   </v-container>
@@ -214,160 +103,84 @@
 <script lang="ts">
 import {
   defineComponent,
-  onMounted,
-  computed,
-  useRoute,
+  useFetch,
   useMeta,
-  useStore
+  computed,
+  useRoute
 } from '@nuxtjs/composition-api'
 import dayjs from 'dayjs'
+import { usePosts } from '~/composables'
 import SubscribeNewsLetter from '~/components/newsletter/SubscribeNewsLetter.vue'
-import { usePosts, useStockPrices } from '~/composables'
-import { Posts } from '~/models'
-import 'dayjs/locale/es'
 import MarketsTable from '~/components/stock/markets/MarketsTable.vue'
 
 export default defineComponent({
-  // eslint-disable-next-line vue/match-component-file-name
   name: 'PostSlug',
-
+  head: {}, 
+  components: { SubscribeNewsLetter, MarketsTable },
   auth: false,
-
-  components: {
-    MarketsTable,
-    SubscribeNewsLetter
-  },
 
   setup() {
     const route = useRoute()
-    const postComposable = usePosts()
+    const posts = usePosts()
+    const slug = computed(() => route.value.params.slug as string)
 
-    const slug = computed(() => route.value.params.slug)
-    const post = computed<Posts | undefined>(() => postComposable.post.value)
-
-    const currentUrl = `https://sybcapital.com/post/${slug.value}`
-
-    const getPost = async () => {
-      await postComposable.getOneBySlug(slug.value)
-    }
-
-    const getFormateDate = (date: Date) => {
-      return dayjs(date).locale('es').format('DD MMMM YYYY')
-    }
-
-    const readingTime = (text: string) => {
-      const wpm = 225
-      const words = text.trim().split(/\s+/).length
-      return Math.ceil(words / wpm)
-    }
-
-    const totalShared = computed(() => {
-      if (post.value) {
-        const { facebook, twitter, email } = post.value.shared
-        return facebook + twitter + email
-      }
-      return 0
+    // Carga el post (SSR + cliente)
+    useFetch(async () => {
+      await posts.getOneBySlug(slug.value)
     })
 
-    const updateShared = async (type: string) => {
-      try {
-        if (post.value && post.value.id) {
-          await postComposable.updateShared(post.value.id, type)
-          await getPost()
-        }
-      } catch (e) {
-        console.log(e)
-      }
-    }
+    const post = computed(() => posts.post.value)
 
-    onMounted(() => {
-      getPost()
-    })
-
-    return {
-      post,
-      getFormateDate,
-      readingTime,
-      totalShared,
-      currentUrl,
-      updateShared,
-      slug
-    }
-  },
-
-  data() {
-    return {
-      postMeta: {
-        files: [{ url: 'https://sybcapital-website.s3.sa-east-1.amazonaws.com/logo-color' }]
-      }
-    }
-  },
-
-  async fetch() {
-    this.postMeta = await this.$axios.$get(
-      `${process.env.apiBaseUrl}/posts/slug/${this.$route.params.slug}`
-    )
-  },
-
-  head() {
-    console.log(this.postMeta.files && this.postMeta.files[0].url ? this.postMeta.files[0].url : 'https://sybcapital-website.s3.sa-east-1.amazonaws.com/logo-color')
-    return {
-      // @ts-ignore
-      title: this.postMeta.title,
+    // Meta dinámicos (head tags)
+    useMeta({
+      title: post.value?.title || 'Cargando…',
       meta: [
         {
           hid: 'description',
           name: 'description',
-          // @ts-ignore
-          content: this.postMeta.excerpt
+          content: post.value?.excerpt || ''
         },
         {
           hid: 'og:title',
           property: 'og:title',
-          // @ts-ignore
-          content: this.postMeta.title
+          content: post.value?.title || ''
         },
         {
           hid: 'og:description',
           property: 'og:description',
-          // @ts-ignore
-          content: this.postMeta.excerpt
+          content: post.value?.excerpt || ''
         },
         {
           hid: 'og:image',
           property: 'og:image',
-          // @ts-ignore
-          content: this.postMeta.files && this.postMeta.files[0].url ? this.postMeta.files[0].url : 'https://sybcapital-website.s3.sa-east-1.amazonaws.com/logo-color'
+          content:
+            post.value?.files?.[0]?.url ||
+            'https://sybcapital-website.s3.sa-east-1.amazonaws.com/logo-color'
         },
         {
           hid: 'og:url',
           property: 'og:url',
-          content: `https://sybcapital.com/post/${this.$route.params.slug}`
+          content: `https://www.sybcapital.com/post/${slug.value}`
         },
-        {
-          hid: 'twitter:title',
-          name: 'twitter:title',
-          // @ts-ignore
-          content: this.postMeta.title
-        },
-        {
-          hid: 'twitter:description',
-          name: 'twitter:description',
-          // @ts-ignore
-          content: this.postMeta.excerpt
-        },
-        {
-          hid: 'twitter:image',
-          name: 'twitter:image',
-          // @ts-ignore
-          content: this.postMeta && this.postMeta.files && this.postMeta.files.length > 0 ? this.postMeta.files[0].url : 'https://sybcapital-website.s3.sa-east-1.amazonaws.com/logo-color'
-        },
-        {
-          hid: 'twitter:card',
-          name: 'twitter:card',
-          content: 'summary_large_image'
-        }
+        { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' }
       ]
+    })
+
+    // Helpers
+    const formatDate = (d: string) =>
+      dayjs(d).locale('es').format('DD MMMM YYYY')
+    const readingTime = (t: string) =>
+      Math.ceil(t.split(/\s+/).length / 225)
+    const totalShared = computed(() => {
+      const s = post.value?.shared || { facebook: 0, twitter: 0, email: 0 }
+      return (s.facebook || 0) + (s.twitter || 0) + (s.email || 0)
+    })
+
+    return {
+      post,
+      formatDate,
+      readingTime,
+      totalShared
     }
   }
 })
@@ -379,3 +192,4 @@ export default defineComponent({
   list-style: auto !important;
 }
 </style>
+

@@ -2,24 +2,23 @@
   <div>
     <v-card class="!sb-flex !sb-justify-between !sb-items-center !sb-my-5">
       <v-card-title class="!sb-font-extrabold !sb-text-xl">
-        Agregar nueva publicacion
+        Agregar nueva publicación
       </v-card-title>
     </v-card>
     <v-card class="!sb-px-5 !sb-py-5">
-      <validation-observer
-        v-slot="{ invalid }"
-        tag="form"
-        @submit.prevent="createPosts"
-      >
+      <!-- Registramos ValidationObserver y ValidationProvider -->
+      <validation-observer v-slot="{ invalid }" tag="form" @submit.prevent="createPosts">
+        <!-- FIELD: Título -->
         <validation-provider v-slot="{ errors }" name="title" rules="required">
           <v-text-field
             v-model="draft.title"
-            label="Titulo"
+            label="Título"
             outlined
             :error-messages="errors"
           />
         </validation-provider>
 
+        <!-- FIELD: Estado -->
         <validation-provider v-slot="{ errors }" name="status" rules="required">
           <v-select
             v-model="draft.status"
@@ -30,6 +29,7 @@
           />
         </validation-provider>
 
+        <!-- FIELD: Autor -->
         <validation-provider v-slot="{ errors }" name="author" rules="required">
           <v-select
             v-model="draft.author"
@@ -42,15 +42,12 @@
           />
         </validation-provider>
 
-        <validation-provider
-          v-slot="{ errors }"
-          name="categories"
-          rules="required"
-        >
+        <!-- FIELD: Categorías -->
+        <validation-provider v-slot="{ errors }" name="categories" rules="required">
           <v-select
             v-model="draft.categories"
             :items="categories"
-            label="Categorias"
+            label="Categorías"
             multiple
             chips
             outlined
@@ -60,6 +57,7 @@
           />
         </validation-provider>
 
+        <!-- FIELD: Tags -->
         <validation-provider v-slot="{ errors }" name="tags" rules="required">
           <v-select
             v-model="draft.tags"
@@ -74,36 +72,39 @@
           />
         </validation-provider>
 
-        <validation-provider
-          v-slot="{ errors }"
-          name="excerpt"
-          rules="required|max:500"
-        >
+        <!-- FIELD: Excerpt -->
+        <validation-provider v-slot="{ errors }" name="excerpt" rules="required|max:500">
           <sy-b-tiptap-fild
             v-model="draft.excerpt"
             :use-image-extensions="false"
             label="Excerpt"
           />
-          <p v-for="(item, index) in errors" :key="index" class="sb-text-red-500 sb-text-sm sb-font-light">
+          <p
+            v-for="(item, index) in errors"
+            :key="index"
+            class="sb-text-red-500 sb-text-sm sb-font-light"
+          >
             {{ item }}
           </p>
         </validation-provider>
 
-        <validation-provider
-          v-slot="{ errors }"
-          name="content"
-          rules="required|max:14700000"
-        >
+        <!-- FIELD: Contenido -->
+        <validation-provider v-slot="{ errors }" name="content" rules="required|max:14700000">
           <sy-b-tiptap-fild
             v-model="draft.content"
             :use-image-extensions="true"
             label="Contenido"
           />
-          <p v-for="(item, index) in errors" :key="index" class="sb-text-red-500 sb-text-sm sb-font-light">
+          <p
+            v-for="(item, index) in errors"
+            :key="index"
+            class="sb-text-red-500 sb-text-sm sb-font-light"
+          >
             {{ item }}
           </p>
         </validation-provider>
 
+        <!-- FIELD: Imagen destacada -->
         <validation-provider v-slot="{ errors }" name="image" rules="required">
           <v-file-input
             v-model="draft.files"
@@ -111,7 +112,7 @@
             filled
             :error-messages="errors"
             prepend-icon="mdi-camera"
-          ></v-file-input>
+          />
         </validation-provider>
 
         <v-btn
@@ -145,11 +146,24 @@ import {
   useFiles
 } from '@/composables'
 import SyBTiptapFild from '~/components/commons/SyBTiptapFild.vue'
+
+// → Importar explícitamente los componentes de validación de VeeValidate
+import {
+  ValidationObserver,
+  ValidationProvider
+} from 'vee-validate'
+
 export default defineComponent({
-  // eslint-disable-next-line
   name: 'New',
-  components: { SyBTiptapFild },
+
+  components: {
+    SyBTiptapFild,
+    ValidationObserver,
+    ValidationProvider
+  },
+
   layout: 'admin',
+
   setup() {
     const postComposable = usePosts()
     const categoryComposable = useCategories()
@@ -161,7 +175,16 @@ export default defineComponent({
     const categories = computed(() => categoryComposable.categories.value)
     const tags = computed(() => tagComposable.tags.value)
     const users = computed(() => userComposable.users.value)
-    const draft = ref({})
+    const draft = ref({
+      title: '',
+      status: '',
+      author: null,
+      categories: [],
+      tags: [],
+      excerpt: '',
+      content: '',
+      files: null
+    })
 
     const loading = ref(true)
     const submiting = ref(false)
@@ -181,16 +204,18 @@ export default defineComponent({
     const createPosts = async () => {
       submiting.value = true
 
-      const categories = draft.value.categories
-      const tags = draft.value.tags
+      const categoriesSelected = draft.value.categories
+      const tagsSelected = draft.value.tags
 
       try {
+        // Sube la imagen y obtiene el ID
         const image = await filesComposable.uploadFile(draft.value.files, true)
 
+        // Crea el post en backend
         await postComposable.create({
           authorId: draft.value.author,
-          categories,
-          tags,
+          categories: categoriesSelected,
+          tags: tagsSelected,
           content: draft.value.content,
           excerpt: draft.value.excerpt,
           files: image[0].id,
@@ -198,6 +223,7 @@ export default defineComponent({
           title: draft.value.title
         })
 
+        // Redirige de vuelta al listado de posts
         router.replace('/admin-panel/blog/posts')
       } catch (e) {
         console.log(e)
@@ -219,3 +245,4 @@ export default defineComponent({
 </script>
 
 <style></style>
+

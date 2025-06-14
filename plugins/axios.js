@@ -1,20 +1,20 @@
-import { setAxios } from '@/utils'
+// plugins/axios.js
+export default function ({ $axios, $config }) {
+  if (process.client) {
+    // 1) Intentamos leer el token que Nuxt Auth Next guarda automáticamente
+    let token = localStorage.getItem('auth._token.local')
 
-export default function ({ $axios, redirect, store, app, route }) {
-  $axios.setBaseURL(process.env.apiBaseUrl)
-
-  $axios.onRequest((config) => {
-    if (typeof window !== 'undefined') {
-      const token = JSON.parse(localStorage.getItem('token'))
-
-      if (token) {
-        config.headers.Authorization = `Bearer ${token}`
-        $axios.setToken(token, 'Bearer')
-      }
-    } else {
-      console.log('You are on the server')
+    // 2) Si no existe, caemos a tu clave “accessToken” (si la usas manualmente)
+    if (!token) {
+      token = localStorage.getItem('accessToken')
     }
-  })
 
-  setAxios($axios)
+    // 3) Si encontramos token, lo limpiamos de cualquier “Bearer ” duplicado y lo inyectamos
+    if (token) {
+      // Si la cadena ya contiene “Bearer <token>”, le quitamos el prefijo para no duplicarlo
+      const pure = token.replace(/^(Bearer\s+)/i, '')
+      $axios.setToken(pure, 'Bearer')
+    }
+  }
 }
+

@@ -8,12 +8,20 @@
         Editar - {{ post.title }}
       </v-card-title>
     </v-card>
-    <v-card class="!sb-px-5 !sb-py-5">
+
+    <!-- Muestra loader mientras carga datos -->
+    <v-card v-if="loading" class="!sb-pa-5 sb-text-center">
+      <v-progress-circular indeterminate color="primary" />
+    </v-card>
+
+    <!-- Formulario de edición, muestra cuando ya cargó -->
+    <v-card v-else class="!sb-px-5 !sb-py-5">
       <validation-observer
         v-slot="{ invalid }"
         tag="form"
         @submit.prevent="updatePosts"
       >
+        <!-- Título -->
         <validation-provider v-slot="{ errors }" name="title" rules="required">
           <v-text-field
             v-model="draft.title"
@@ -23,6 +31,7 @@
           />
         </validation-provider>
 
+        <!-- Estado -->
         <validation-provider v-slot="{ errors }" name="status" rules="required">
           <v-select
             v-model="draft.status"
@@ -32,6 +41,7 @@
           />
         </validation-provider>
 
+        <!-- Autor -->
         <validation-provider v-slot="{ errors }" name="author" rules="required">
           <v-select
             v-model="draft.author"
@@ -40,9 +50,11 @@
             :items="users"
             item-text="fullName"
             item-value="id"
+            :error-messages="errors"
           />
         </validation-provider>
 
+        <!-- Categorías -->
         <validation-provider
           v-slot="{ errors }"
           name="categories"
@@ -61,6 +73,7 @@
           />
         </validation-provider>
 
+        <!-- Tags -->
         <validation-provider v-slot="{ errors }" name="tags" rules="required">
           <v-select
             v-model="draft.tags"
@@ -75,6 +88,7 @@
           />
         </validation-provider>
 
+        <!-- Excerpt -->
         <validation-provider
           v-slot="{ errors }"
           name="excerpt"
@@ -85,11 +99,16 @@
             :use-image-extensions="false"
             label="Excerpt"
           />
-          <p v-for="(item, index) in errors" :key="index" class="sb-text-red-500 sb-text-sm sb-font-light">
+          <p
+            v-for="(item, index) in errors"
+            :key="index"
+            class="sb-text-red-500 sb-text-sm sb-font-light"
+          >
             {{ item }}
           </p>
         </validation-provider>
 
+        <!-- Contenido -->
         <validation-provider
           v-slot="{ errors }"
           name="content"
@@ -100,13 +119,18 @@
             :use-image-extensions="true"
             label="Contenido"
           />
-          <p v-for="(item, index) in errors" :key="index" class="sb-text-red-500 sb-text-sm sb-font-light">
+          <p
+            v-for="(item, index) in errors"
+            :key="index"
+            class="sb-text-red-500 sb-text-sm sb-font-light"
+          >
             {{ item }}
           </p>
         </validation-provider>
 
+        <!-- Imagen destacada -->
         <div
-          v-if="!showImageFileInput && draft.files && draft.files.length > 0"
+          v-if="!showImageFileInput && draft.files.length > 0"
           class="sb-relative sb-mb-5"
         >
           <p>Imagen destacada</p>
@@ -136,6 +160,7 @@
           ></v-file-input>
         </validation-provider>
 
+        <!-- Botón de envío -->
         <v-btn
           large
           color="secondary"
@@ -168,8 +193,8 @@ import {
   useFiles
 } from '@/composables'
 import SyBTiptapFild from '~/components/commons/SyBTiptapFild.vue'
+
 export default defineComponent({
-  // eslint-disable-next-line
   name: 'Edit',
   components: { SyBTiptapFild },
   layout: 'admin',
@@ -186,11 +211,23 @@ export default defineComponent({
     const categories = computed(() => categoryComposable.categories.value)
     const tags = computed(() => tagComposable.tags.value)
     const users = computed(() => userComposable.users.value)
-    const draft = ref({})
-    const { slug } = route.value.params
     const loading = ref(true)
     const showImageFileInput = ref(true)
     const submiting = ref(false)
+
+    // Inicializa draft con valores por defecto
+    const draft = ref({
+      title: '',
+      status: 'BORRADOR',
+      author: null,
+      categories: [],
+      tags: [],
+      excerpt: '',
+      content: '',
+      files: []
+    })
+
+    const { slug } = route.value.params
 
     const getPost = async () => {
       loading.value = true
@@ -203,8 +240,18 @@ export default defineComponent({
 
     onMounted(() => {
       getPost().finally(() => {
-        draft.value = post.value
-        if (post.value.files.length > 0) {
+        const p = post.value || {}
+        draft.value = {
+          title: p.title || '',
+          status: p.status || 'BORRADOR',
+          author: p.author?.id || null,
+          categories: p.categories || [],
+          tags: p.tags || [],
+          excerpt: p.excerpt || '',
+          content: p.content || '',
+          files: p.files && p.files.length > 0 ? p.files : []
+        }
+        if (draft.value.files.length > 0) {
           showImageFileInput.value = false
         }
       })
@@ -213,32 +260,30 @@ export default defineComponent({
     const updatePosts = async () => {
       submiting.value = true
 
-      const categories = draft.value.categories[0].hasOwnProperty('name')
-        ? draft.value.categories.map(category => category.name)
-        : draft.value.categories
-      const tags = draft.value.tags[0].hasOwnProperty('name')
-        ? draft.value.tags.map(tag => tag.name)
-        : draft.value.tags
+      // Normaliza categorías y tags a listas de nombres
+      const categoriesList = draft.value.categories.map(c => c.hasOwnProperty('name') ? c.name : c)
+      const tagsList = draft.value.tags.map(t => t.hasOwnProperty('name') ? t.name : t)
 
       try {
-        let image = post.value.files
+        let imageFiles = p.files
         if (showImageFileInput.value) {
-          image = await filesComposable.uploadFile(draft.value.files, true)
+          imageFiles = await filesComposable.uploadFile(draft.value.files, true)
         }
+
         await postComposable.update(post.value.id, {
-          author: draft.value.author.id,
-          categories,
-          tags,
+          author: draft.value.author,
+          categories: categoriesList,
+          tags: tagsList,
           content: draft.value.content,
           excerpt: draft.value.excerpt,
-          files: image[0].id,
+          files: imageFiles[0].id,
           status: draft.value.status,
           title: draft.value.title
         })
 
         router.replace('/admin-panel/blog/posts')
       } catch (e) {
-        console.log(e)
+        console.error(e)
         submiting.value = false
       }
     }
@@ -258,4 +303,5 @@ export default defineComponent({
 })
 </script>
 
-<style></style>
+<style scoped></style>
+

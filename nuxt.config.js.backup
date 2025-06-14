@@ -8,9 +8,9 @@ export default {
 
   target: 'server',
 
-  // 3. Meta etiquetas y <head>
   head: {
-    titleTemplate: '%s - SyB Capital Noticias de Mercado, Cotizaciones, Gráficos e Información Financiera',
+    titleTemplate:
+      '%s - SyB Capital Noticias de Mercado, Cotizaciones, Gráficos e Información Financiera',
     title: 'SyB Capital',
     htmlAttrs: {
       lang: 'es'
@@ -28,46 +28,47 @@ export default {
       {
         hid: 'og:title',
         property: 'og:title',
-        content: 'SyB Capital Noticias de Mercado, Cotizaciones, Gráficos e Información Financiera'
+        content:
+          'SyB Capital Noticias de Mercado, Cotizaciones, Gráficos e Información Financiera'
       },
       {
         hid: 'og:description',
         property: 'og:description',
         content:
-          'Sybcapital.com, es una plataforma global de mercados financieros que se esfuerza por educar, informar, involucrar y capacitar a las personas para que tomen el control de sus vidas financieras actuales y futuras, ¡para que puedan beneficiarse dentro de los diferentes mercados mundiales!'
+          'Sybcapital.com, es una plataforma global de mercados financieros que se esfuerza por educar, informar, involucrar y capacitar a las personas para que tomen el control de sus vidas financieras actuales y futuras, ¡para que puedan beneficiarse dentro de los diferentes mercados mundiales! Ofrecemos acceso a cotizaciones de acciones gratuitas, gráficos de  acciones, noticias bursátiles de última hora, historias principales del mercado, calificaciones gratuitas de acciones, presentaciones ante la SEC, IPO, historial de precios de acciones, futuros, ETFs, Commodities, eventos corporativos, finanzas de empresas públicas y mucho más. Strategy & Business Capital Market (sybcapital.com), es un verdadero disruptor, mejorando enormemente la forma en que las personas consumen los datos del mercado financiero.'
       },
       {
         hid: 'og:image',
         property: 'og:image',
-        content: 'https://sybcapital-website.s3.sa-east-1.amazonaws.com/logo-color'
+        content:
+          'https://sybcapital-website.s3.sa-east-1.amazonaws.com/logo-color'
       },
       {
         hid: 'twitter:title',
         property: 'twitter:title',
-        content: 'SyB Capital Noticias de Mercado, Cotizaciones, Gráficos e Información Financiera'
+        content:
+          'SyB Capital Noticias de Mercado, Cotizaciones, Gráficos e Información Financiera'
       },
       {
         hid: 'twitter:description',
         property: 'twitter:description',
         content:
-          'Sybcapital.com, es una plataforma global de mercados financieros que se esfuerza por educar, informar, involucrar y capacitar a las personas para que tomen el control de sus vidas financieras actuales y futuras, ¡para que puedan beneficiarse dentro de los diferentes mercados mundiales!'
+          'Sybcapital.com, es una plataforma global de mercados financieros que se esfuerza por educar, informar, involucrar y capacitar a las personas para que tomen el control de sus vidas financieras actuales y futuras, ¡para que puedan beneficiarse dentro de los diferentes mercados mundiales! Ofrecemos acceso a cotizaciones de acciones gratuitas, gráficos de  acciones, noticias bursátiles de última hora, historias principales del mercado, calificaciones gratuitas de acciones, presentaciones ante la SEC, IPO, historial de precios de acciones, futuros, ETFs, Commodities, eventos corporativos, finanzas de empresas públicas y mucho más. Strategy & Business Capital Market (sybcapital.com), es un verdadero disruptor, mejorando enormemente la forma en que las personas consumen los datos del mercado financiero.'
       },
       {
         hid: 'twitter:image',
         property: 'twitter:image',
-        content: 'https://sybcapital-website.s3.sa-east-1.amazonaws.com/logo-color'
+        content:
+          'https://sybcapital-website.s3.sa-east-1.amazonaws.com/logo-color'
       }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
 
-  // 4. CSS global
   css: ['~/assets/css/main.css'],
 
-  // 5. Auto-importación de componentes
   components: true,
 
-  // 6. Módulos de construcción
   buildModules: [
     '@nuxt/typescript-build',
     '@nuxtjs/vuetify',
@@ -75,16 +76,13 @@ export default {
     '@nuxt/postcss8'
   ],
 
-  // 7. Plugins
   plugins: [
-    '@/plugins/axios',
     '@/plugins/validate',
     '@/plugins/vueMathjax',
     { src: '@/plugins/tiptapVuetify', mode: 'client' },
-    //{ src: '~/plugins/apex-chart.js', mode: 'client' }
+    { src: '~/plugins/apex-chart.js', mode: 'client' }
   ],
 
-  // 8. Módulos Nuxt
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/auth-next',
@@ -94,24 +92,18 @@ export default {
       {
         hideBadge: false,
         language: 'es',
-        mode: 'enterprise',
-        siteKey: '6LdkeCskAAAAAOaBkg_4-MM07e7U5s_KPG3K7GdQ',
-        version: 'v3',
+        mode: 'enterprise', // Mode: 'base', 'enterprise'
+        siteKey: '6LdkeCskAAAAAOaBkg_4-MM07e7U5s_KPG3K7GdQ', // Site key for requests
+        version: 'v3', // Version
         size: 'normal'
       }
     ]
   ],
 
-  // 9. Axios (unificada)
   axios: {
-    aseURL: process.server
-    ? (process.env.API_BASE_URL || 'http://127.0.0.1:3000')
-    : '/',
-  browserBaseURL: '/'
-    
+    baseURL: process.env.API_BASE_URL || 'https://api.sybcapital.com'
   },
 
-  // 10. Autenticación
   auth: {
     strategies: {
       local: {
@@ -120,14 +112,18 @@ export default {
           global: true,
           type: 'Bearer'
         },
-        user: { property: 'data', autoFetch: true},
+        user: {
+          property: 'data'
+          // autoFetch: true
+        },
         endpoints: {
           login: { url: '/auth/login', method: 'post' },
           logout: false,
-          user: { url: '/auth/me', method: 'get' }
+          user: { url: '/users/me', method: 'get' }
         },
         redirect: {
           login: '/login',
+          //logout: '/login',
           home: '/admin-panel',
           logout: '/login'
         },
@@ -138,24 +134,22 @@ export default {
     }
   },
 
-  // 11. Middleware de ruta
   router: {
     middleware: ['auth']
   },
 
-  // 12. Vuetify
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
       dark: false,
       light: {
+        // vuetify shortcut colors
         primary: '#3E4095',
         secondary: '#ED3237'
       }
     }
   },
 
-  // 13. Build options
   build: {
     postcss: {
       plugins: {
@@ -163,15 +157,9 @@ export default {
         autoprefixer: {}
       }
     },
-    transpile: [
-      'vuetify/lib',
-      'tiptap-vuetify',
-      'vee-validate/dist/rules',
-      'vee-validate/dist/locale',
-      'export-from-json',
-      /^ufo($|\/)/,
-    ]
+    transpile: ['vuetify/lib', 'tiptap-vuetify', 'vee-validate/dist/rules', 'vee-validate/dist/locale', 'export-from-json', /^ufo($|\/)/]
   },
+
   env: {
     apiBaseUrl: process.env.API_BASE_URL || 'https://api.sybcapital.com'
   }

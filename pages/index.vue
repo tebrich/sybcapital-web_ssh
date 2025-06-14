@@ -1,6 +1,7 @@
 <template>
-  <div v-if="otherPosts.length > 0">
-    <section v-if="stockMarkets">
+  <div>
+    <!-- 1) Stock Markets (si existen) -->
+    <section v-if="Object.keys(stockMarkets).length">
       <v-row>
         <v-col cols="6" lg="3">
           <feature-stock-price :values="stockMarkets.GSPC" />
@@ -16,12 +17,12 @@
         </v-col>
       </v-row>
     </section>
-    <section class="sb-my-8">
+
+    <!-- 2) Artículo destacado -->
+    <section v-if="featuredPost" class="sb-my-8">
       <v-row align="stretch">
         <v-col cols="12" md="6">
-          <h2 class="sb-mb-3 sb-text-2xl sb-font-bold">
-            Ultimas Entradas
-          </h2>
+          <h2 class="sb-mb-3 sb-text-2xl sb-font-bold">Última Entrada</h2>
           <preview-news-container :post="featuredPost" />
         </v-col>
         <v-col cols="12" md="6">
@@ -36,32 +37,9 @@
         </v-col>
       </v-row>
     </section>
-    <section>
-      <h1
-        class="sb-text-center sb-text-xl md:sb-text-2xl sb-font-extrabold sb-mb-3"
-      >
-        SyB Capital (SyBCapital.com) | Noticias de Mercado, Cotizaciones,
-        Gráficos e Información Financiera
-      </h1>
-      <p class="sb-text-sm md:sb-text-xl">
-        <a href="/" class="sb-text-primary">Sybcapital.com</a>, es una
-        plataforma global de mercados financieros que se esfuerza por educar,
-        informar, involucrar y capacitar a las personas para que tomen el
-        control de sus vidas financieras actuales y futuras, ¡para que puedan
-        beneficiarse dentro de los diferentes mercados mundiales!
-      </p>
-      <p class="sb-text-sm md:sb-text-xl">
-        Ofrecemos acceso gratuito a cotizaciones de acciones, gráficos de
-        acciones, noticias bursátiles de última hora, historias principales del
-        mercado, calificaciones gratuitas de acciones, presentaciones ante la
-        SEC, IPO, historial de precios de acciones, futuros, ETFs, Commodities,
-        eventos corporativos, finanzas de empresas públicas y mucho más.
-        Strategy & Business Capital Market (<a href="/" class="sb-text-primary">
-          sybcapital.com </a>), es un verdadero disruptor, mejorando enormemente la forma en que las
-        personas consumen los datos del mercado financiero.
-      </p>
-    </section>
-    <section>
+
+    <!-- 3) Resto de artículos -->
+    <section v-if="otherPosts.length">
       <v-row>
         <v-col cols="12" md="8">
           <div class="sb-flex sb-flex-col">
@@ -80,7 +58,9 @@
             large
             color="primary"
             class="!sb-block sb-mx-auto sb-my-5"
-          ></v-btn>
+          >
+            Cargar más
+          </v-btn>
         </v-col>
         <v-col v-if="$vuetify.breakpoint.mdAndUp" cols="4">
           <div class="sb-py-3 sb-w-full">
@@ -91,14 +71,32 @@
         </v-col>
       </v-row>
     </section>
+
+    <!-- 4) Mensaje fallback -->
+    <section v-if="!threePosts.length && !otherPosts.length" class="sb-my-8">
+      <p class="sb-text-center sb-text-lg">
+        No hay más artículos por el momento.
+      </p>
+    </section>
+
+    <!-- 5) Descripción estática -->
+    <section class="sb-mb-8">
+      <h1 class="sb-text-center sb-text-xl md:sb-text-2xl sb-font-extrabold sb-mb-3">
+        SyB Capital (SyBCapital.com) | Noticias de Mercado, Cotizaciones, Gráficos e Información Financiera
+      </h1>
+      <p class="sb-text-sm md:sb-text-xl">
+        <a href="/" class="sb-text-primary">Sybcapital.com</a>, es una plataforma global de mercados financieros...
+      </p>
+      <!-- (continúa con tu texto) -->
+    </section>
   </div>
 </template>
 
 <script>
 import {
   ref,
-  defineComponent,
   onMounted,
+  defineComponent,
   computed,
   watch
 } from '@nuxtjs/composition-api'
@@ -106,79 +104,69 @@ import { useElementVisibility } from '@vueuse/core'
 import SubscribeNewsLetter from '~/components/newsletter/SubscribeNewsLetter.vue'
 import FeatureStockPrice from '~/components/stock/container/FeatureStockPrice.vue'
 import PreviewNewsContainer from '~/components/stock/news/PreviewNewsContainer.vue'
-
-import { usePosts, useStockPrices } from '@/composables'
 import MarketsTable from '~/components/stock/markets/MarketsTable.vue'
+import { usePosts, useStockPrices } from '@/composables'
+
 export default defineComponent({
-  name: 'Index',
-
-  auth: false,
-
+  name: 'IndexPage',
+  auth: false, // si quieres que la home sea pública
   components: {
-    MarketsTable,
+    SubscribeNewsLetter,
     FeatureStockPrice,
     PreviewNewsContainer,
-    SubscribeNewsLetter
+    MarketsTable
   },
-
   setup() {
     const page = ref(1)
-
     const postComposable = usePosts()
     const stockPriceComposable = useStockPrices()
 
-    const getPosts = async () => {
-      try {
-        await postComposable.getAll({ limit: 20, page: page.value })
-      } catch (e) {
-        console.log(e)
-      }
-    }
-
-    const getMarkets = async () => {
-      try {
-        await stockPriceComposable.getMartkets()
-      } catch (e) {
-        console.log(e)
-      }
-    }
-
-    const featuredPost = computed(() => postComposable.posts.value[0])
-    const threePosts = computed(() => postComposable.posts.value.slice(1, 4))
-    const otherPosts = computed(() => postComposable.posts.value.slice(4))
-
-    const stockMarkets = computed(() => stockPriceComposable.stockMarkets.value)
-
-    onMounted(() => {
-      getPosts()
-      getMarkets()
+    // Carga inicial de datos
+    onMounted(async () => {
+      await postComposable.getAll({ limit: 20, page: page.value }).catch(() => {
+        postComposable.posts.value = []
+      })
+      await stockPriceComposable.getMarkets().catch(() => {
+        stockPriceComposable.stockMarkets.value = {}
+      })
     })
 
-    const infiniteTarget = ref(null)
-    const infiniteVisible = useElementVisibility(infiniteTarget)
+    // Separación de posts
+    const posts        = computed(() => postComposable.posts.value || [])
+    const featuredPost = computed(() => posts.value[0] || null)
+    const threePosts   = computed(() => posts.value.slice(1, 4))
+    const otherPosts   = computed(() => posts.value.slice(4))
 
-    watch(
-      () => infiniteVisible.value,
-      async () => {
-        if (infiniteVisible.value) {
-          page.value++
-          await postComposable.getAll({ limit: 20, page: page.value })
-        }
-      }
+    // Stock markets
+    const stockMarkets = computed(
+      () => stockPriceComposable.stockMarkets.value || {}
     )
 
+    // Infinite scroll
+    const infiniteTarget  = ref(null)
+    const infiniteVisible = useElementVisibility(infiniteTarget)
+    watch(infiniteVisible, async (visible) => {
+      if (visible) {
+        page.value++
+        await postComposable.getAll({ limit: 20, page: page.value })
+      }
+    })
+
+    const showLoadMore = computed(() => postComposable.loadMorePosts.value)
+
     return {
+      stockMarkets,
       featuredPost,
       threePosts,
       otherPosts,
       infiniteTarget,
-      showLoadMore: computed(() => postComposable.loadMorePosts.value),
-      stockMarkets
+      showLoadMore
     }
-  },
-
-  head: {
-    title: 'Inicio'
   }
 })
 </script>
+
+<style scoped>
+/* Estilos específicos si los necesitas */
+</style>
+
