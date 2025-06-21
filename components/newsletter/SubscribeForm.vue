@@ -41,6 +41,14 @@
             class="!sb-mb-4"
           />
         </validation-provider>
+
+        <!-- Mensajes de estado -->
+        <div v-if="loading" class="sb-text-sm sb-text-gray-500 sb-mb-2">
+          Enviando...
+        </div>
+        <div v-if="successMessage" class="sb-text-sm sb-text-green-600 sb-mb-2">
+          {{ successMessage }}
+        </div>
         <v-btn
           block
           class="!sb-bg-secondary !sb-text-white"
@@ -87,23 +95,35 @@ export default defineComponent({
 
     const name = ref('')
     const email = ref('')
+    const loading = ref(false)
+    const successMessage = ref('')
 
     const createSubscribe = async () => {
+      loading.value = true
+      successMessage.value = ''
       try {
         await subscribeComposable.subscribeToNewsletter({
           name: name.value,
           email: email.value,
         })
-
-        router.push('/newsletter/thanks')
+        name.value = ''
+        email.value = ''
+        successMessage.value = '¡Suscripción exitosa! Redirigiendo...'
+        setTimeout(() => {
+          router.push('/newsletter/thanks')
+        }, 1500) // espera 1.5 segundos antes de redirigir
       } catch (e) {
         console.log(e)
+      } finally {
+        loading.value = false
       }
     }
 
     return {
       name,
       email,
+      loading,
+      successMessage,
       createSubscribe,
     }
   },

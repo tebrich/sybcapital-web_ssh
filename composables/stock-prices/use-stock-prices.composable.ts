@@ -9,18 +9,17 @@ import {
 
 export const useStockPrices = () => {
   const stockMarkets = ref<StockMarketsModel>()
-  const NASDAQ       = ref<StockMarketsMoversModel[]>([])
-  const NYSE         = ref<StockMarketsMoversModel[]>([])
-  const OTC          = ref<StockMarketsMoversModel[]>([])
-  const FOREX        = ref<StockPricesModel[]>([])    // siempre un array, aunque no lo usemos
+  const NASDAQ = ref<StockMarketsMoversModel[]>([])
+  const NYSE = ref<StockMarketsMoversModel[]>([])
+  const OTC = ref<StockMarketsMoversModel[]>([])
+  const FOREX = ref<StockPricesModel[]>([])
   const financialRatios = ref<StockFinancialRatios>()
-  const companyData     = ref<StockPricesModel>()
+  const companyData = ref<StockPricesModel>()
 
   const { $axios } = useContext()
 
-  // ──────────────────────────────────────────────────────────────────────────────
-  // Trae sólo mercados generales (sin Forex)
-  const getMartkets = async () => {
+  // Funciones por mercado
+  const getMarketIndexes = async () => {
     const { data } = await $axios.get<StockMarketsModel>('/stock-prices/markets')
     stockMarkets.value = data
   }
@@ -46,21 +45,18 @@ export const useStockPrices = () => {
     OTC.value = data
   }
 
-  // ──────────────────────────────────────────────────────────────────────────────
-  // Forex: DESHABILITADO. No hace ninguna petición, siempre queda array vacío.
   const getForex = async () => {
-    // Antes aquí hacíamos: await $axios.$get('/stock-prices/forex')
-    // Lo comentamos por completo para evitar el 400 Bad Request:
-    // try {
-    //   FOREX.value = await $axios.$get<StockPricesModel[]>('/stock-prices/forex')
-    // } catch (e) {
-    //   console.warn('⚠️ Forex API deshabilitado:', e)
-    //   FOREX.value = []
-    // }
     FOREX.value = []
   }
 
-  // ──────────────────────────────────────────────────────────────────────────────
+  // Carga todo de una vez
+  const getMarkets = async () => {
+    await getMarketIndexes()
+    await getNASDAQ()
+    await getNYSE()
+    await getForex()
+  }
+
   const getFinancialRatios = async (symbol: string) => {
     const { data } = await $axios.get<StockFinancialRatios>(`/stock-prices/financial-ratios/${symbol}`)
     financialRatios.value = data
@@ -88,14 +84,13 @@ export const useStockPrices = () => {
     NASDAQ,
     NYSE,
     OTC,
-    // ahora tu UI sólo llama a getMartkets (y a los movers). 
-    // getForex queda disponible pero no hace peticiones.
-    getMartkets,
+    FOREX,
+    getMarkets,
+    getMarketIndexes,
     getNASDAQ,
     getNYSE,
     getOTC,
     getForex,
-    FOREX,
     getFinancialRatios,
     financialRatios,
     getCompanyData,

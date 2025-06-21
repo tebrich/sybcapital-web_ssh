@@ -104,12 +104,12 @@ export default {
 
   // 9. Axios (unificada)
   axios: {
-    aseURL: process.server
-    ? (process.env.API_BASE_URL || 'http://127.0.0.1:3000')
-    : '/',
-  browserBaseURL: '/'
+    baseURL: process.server
+      ? (process.env.API_BASE_URL || 'http://127.0.0.1:3000')
+      : '/',
+    browserBaseURL: '/'
     
-  },
+    },
 
   // 10. Autenticación
   auth: {

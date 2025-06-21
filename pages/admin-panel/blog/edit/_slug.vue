@@ -265,7 +265,7 @@ export default defineComponent({
       const tagsList = draft.value.tags.map(t => t.hasOwnProperty('name') ? t.name : t)
 
       try {
-        let imageFiles = p.files
+        let imageFiles = draft.value.files
         if (showImageFileInput.value) {
           imageFiles = await filesComposable.uploadFile(draft.value.files, true)
         }

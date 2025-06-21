@@ -27,14 +27,14 @@
     />
     <div :class="{ 'sb-w-8/12': small }">
       <h2
-        class="sb-font-bold"
+        class="sb-font-bold sb-text-black"
         :class="[!small ? 'sb-text-xl md:sb-text-3xl sb-my-2' : 'sb-text-xl sb-mb-2']"
       >
         {{ post.title }}
       </h2>
       <p
         v-if="post.excerpt && $vuetify.breakpoint.mdAndUp"
-        class="sb-font-light !sb-mb-2"
+        class="sb-font-light sb-text-blue-600 !sb-mb-2"
         :class="[!small ? 'sb-text-xl' : 'sb-text-sm']"
         v-html="post.excerpt"
       ></p>
